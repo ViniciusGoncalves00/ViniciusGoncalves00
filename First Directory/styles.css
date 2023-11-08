@@ -1,4 +1,7 @@
-﻿h1 {
+﻿body{
+    background: #222222;
+}
+h1 {
     color: red;
     background-color: black;
 }
