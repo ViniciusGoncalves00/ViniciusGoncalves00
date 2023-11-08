@@ -10,9 +10,12 @@
     font-weight: bold;
 }
 h1{
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10px;
 }
 p{
     margin-bottom: -10px;
-    margin-left: 20px;
+    /*margin-left: 20px;*/
 }
