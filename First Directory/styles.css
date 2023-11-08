@@ -4,8 +4,6 @@
     align-content: center;
     font-weight: 12;
     font-family: Arial, sans-serif;
-
-
 }
 
 .special {
@@ -14,7 +12,7 @@
 }
 
 h1 {
-    font-weight: bolder;
+    font-weight: bold;
 }
 
 h1, h2, h3 {
@@ -27,7 +25,7 @@ h1, h2, h3 {
 }
 
 h2, h3 {
-    font-weight: lighter;
+    font-weight: normal;
 }
 
 p {
