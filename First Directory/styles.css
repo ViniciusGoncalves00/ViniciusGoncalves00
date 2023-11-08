@@ -3,7 +3,7 @@
     color: white;
     align-content: center;
     font-weight: normal;
-    font-family: Arial, sans-serif;
+    font-family: Impact, sans-serif;
 
 
 }
@@ -14,6 +14,8 @@
 }
 
 h1, h2, h3 {
+    font-family: Impact, sans-serif;
+    
     display: flex;
     justify-content: center;
     align-items: center;
