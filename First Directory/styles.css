@@ -4,16 +4,18 @@
     align-content: center;
     font-weight: normal;
     font-family: Arial, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
 }
 .special{
     color: gold;
     font-weight: bold;
 }
 h1{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50%;
+    
 }
 p{
     margin-bottom: -10px;
