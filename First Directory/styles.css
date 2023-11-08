@@ -2,7 +2,7 @@
     background: #222222;
     color: white;
     align-content: center;
-    font-weight: normal;
+    font-weight: 12;
     font-family: Arial, sans-serif;
 
 
@@ -14,7 +14,8 @@
 }
 
 h1, h2, h3 {
-    font-family: Impact, sans-serif;
+    font-weight: 36;
+    font-family: Arial, sans-serif;
     
     display: flex;
     justify-content: center;
