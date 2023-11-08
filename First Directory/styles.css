@@ -1,14 +1,12 @@
 ﻿body{
     background: #222222;
-}
-h1 {
-    color: red;
-    background-color: black;
-}
-p {
-    color: blueviolet;
+    color: white;
+    font-weight: normal;
 }
 .special{
     color: gold;
     font-weight: bold;
+}
+h1{
+    
 }
