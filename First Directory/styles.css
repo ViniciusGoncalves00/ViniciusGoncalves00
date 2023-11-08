@@ -4,3 +4,7 @@
 p {
     color: blueviolet;
 }
+.special{
+    color: gold;
+    font-weight: bold;
+}
