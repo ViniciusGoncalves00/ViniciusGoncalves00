@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/output.css"/>
     <title>Portfolio | Vinicius Gonçalves</title>
+    <style>
+        /* Estilo para o efeito de rolagem infinita */
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        /* Animação infinita para deslizar os itens */
+        .carousel-content {
+            display: flex;
+            animation: scroll 5s linear infinite;
+        }
+
+        /* Keyframes para o efeito de rolagem */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
 </head>
 <body>
     <header class="bg-transparent fixed w-full h-8 sm:h-10 md:h-12 lg:h-14 flex justify-between items-center z-50 box-border px-4 sm:px-8 md:px-16 lg:px-32">
@@ -17,11 +37,103 @@
             <button class="h-4 flex items-center justify-center rounded-md hover:text-custom-white hover:font-normal ease-in-out duration-200">about</button>
         </h1>
     </header>
-    <div class="w-full h-screen flex items-center justify-center bg-custom-dark-gray-2">
-        <h1 class="text-center text-2xl text-custom-white">portfolio</h1>
+    <div class="w-full h-screen flex items-center justify-center bg-custom-dark-gray-3">
+        <h1 class="text-center text-2xl text-custom-white">a cool text</h1>
+    </div>
+    <div class="carousel w-full h-[20vh] flex items-center bg-custom-dark-gray-3 rounded-box overflow-hidden p-4">
+        <div class="carousel-content space-x-4">
+            <div class="carousel-item">
+                <img src="./icons/html-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/css-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/javascript-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/c-sharp-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/cplusplus-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/java-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/python-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+
+            <div class="carousel-item">
+                <img src="./icons/html-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/css-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/javascript-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/c-sharp-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/cplusplus-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/java-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/python-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+
+            <div class="carousel-item">
+                <img src="./icons/html-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/css-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/javascript-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/c-sharp-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/cplusplus-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/java-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/python-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+
+            <div class="carousel-item">
+                <img src="./icons/html-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/css-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/javascript-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/c-sharp-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/cplusplus-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/java-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+            <div class="carousel-item">
+                <img src="./icons/python-white.png" class="rounded-box w-full h-auto max-w-[150px]" />
+            </div>
+        </div>
+    </div>
     </div>
     <div class="w-full h-screen flex items-center justify-center bg-custom-dark-gray-3">
-        <h1 class="text-center text- text-2xl  text-custom-white">portfolio</h1>
+        <h1 class="text-center text-2xl text-custom-white">a cool text</h1>
     </div>
 </body>
 </html>
