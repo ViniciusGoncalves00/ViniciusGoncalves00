@@ -570,6 +570,10 @@ video {
   z-index: 50;
 }
 
+.box-border {
+  box-sizing: border-box;
+}
+
 .flex {
   display: flex;
 }
@@ -580,10 +584,6 @@ video {
 
 .h-8 {
   height: 2rem;
-}
-
-.h-\[50vh\] {
-  height: 50vh;
 }
 
 .h-screen {
@@ -647,9 +647,18 @@ video {
   background-color: rgb(217 74 126 / var(--tw-bg-opacity));
 }
 
-.bg-custom-dark-gray {
+.bg-custom-dark-gray-2 {
   --tw-bg-opacity: 1;
-  background-color: rgb(38 38 38 / var(--tw-bg-opacity));
+  background-color: rgb(21 21 21 / var(--tw-bg-opacity));
+}
+
+.bg-custom-dark-gray-3 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(32 32 32 / var(--tw-bg-opacity));
+}
+
+.bg-transparent {
+  background-color: transparent;
 }
 
 .p-2 {
@@ -660,38 +669,18 @@ video {
   padding: 2rem;
 }
 
-.px-10 {
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
-}
-
-.px-16 {
-  padding-left: 4rem;
-  padding-right: 4rem;
-}
-
-.px-32 {
-  padding-left: 8rem;
-  padding-right: 8rem;
-}
-
-.px-64 {
-  padding-left: 16rem;
-  padding-right: 16rem;
-}
-
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .text-center {
   text-align: center;
 }
 
-.text-9xl {
-  font-size: 8rem;
-  line-height: 1;
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .text-xs {
@@ -707,14 +696,58 @@ video {
   font-weight: 400;
 }
 
-.text-custom-dark-gray {
+.text-custom-dark-gray-1 {
   --tw-text-opacity: 1;
-  color: rgb(38 38 38 / var(--tw-text-opacity));
+  color: rgb(16 16 16 / var(--tw-text-opacity));
 }
 
 .text-custom-white {
   --tw-text-opacity: 1;
   color: rgb(242 242 242 / var(--tw-text-opacity));
+}
+
+.text-custom-white\/50 {
+  color: rgb(242 242 242 / 0.5);
+}
+
+.text-custom-white\/25 {
+  color: rgb(242 242 242 / 0.25);
+}
+
+.text-custom-white\/80 {
+  color: rgb(242 242 242 / 0.8);
+}
+
+.text-custom-white\/75 {
+  color: rgb(242 242 242 / 0.75);
+}
+
+.text-custom-white\/65 {
+  color: rgb(242 242 242 / 0.65);
+}
+
+.underline {
+  text-decoration-line: underline;
+}
+
+.underline-offset-auto {
+  text-underline-offset: auto;
+}
+
+.underline-offset-8 {
+  text-underline-offset: 8px;
+}
+
+.underline-offset-1 {
+  text-underline-offset: 1px;
+}
+
+.underline-offset-0 {
+  text-underline-offset: 0px;
+}
+
+.underline-offset-2 {
+  text-underline-offset: 2px;
 }
 
 .duration-200 {
@@ -730,14 +763,50 @@ video {
   background-color: rgb(242 242 242 / var(--tw-bg-opacity));
 }
 
-.hover\:text-custom-bubblegum-pink:hover {
-  --tw-text-opacity: 1;
-  color: rgb(217 74 126 / var(--tw-text-opacity));
+.hover\:font-bold:hover {
+  font-weight: 700;
+}
+
+.hover\:font-light:hover {
+  font-weight: 300;
+}
+
+.hover\:font-normal:hover {
+  font-weight: 400;
 }
 
 .hover\:text-custom-green-pool:hover {
   --tw-text-opacity: 1;
   color: rgb(3 140 127 / var(--tw-text-opacity));
+}
+
+.hover\:text-custom-palette-amaranth-9:hover {
+  color: #fff0f3ff;
+}
+
+.hover\:text-custom-palette-amaranth-4:hover {
+  color: #ff4d6dff;
+}
+
+.hover\:text-custom-white:hover {
+  --tw-text-opacity: 1;
+  color: rgb(242 242 242 / var(--tw-text-opacity));
+}
+
+.hover\:underline:hover {
+  text-decoration-line: underline;
+}
+
+.hover\:underline-offset-4:hover {
+  text-underline-offset: 4px;
+}
+
+.hover\:underline-offset-auto:hover {
+  text-underline-offset: auto;
+}
+
+.hover\:underline-offset-8:hover {
+  text-underline-offset: 8px;
 }
 
 @media (min-width: 640px) {
@@ -751,9 +820,9 @@ video {
     margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
-  .sm\:px-16 {
-    padding-left: 4rem;
-    padding-right: 4rem;
+  .sm\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .sm\:text-sm {
@@ -773,9 +842,9 @@ video {
     margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
-  .md\:px-32 {
-    padding-left: 8rem;
-    padding-right: 8rem;
+  .md\:px-16 {
+    padding-left: 4rem;
+    padding-right: 4rem;
   }
 
   .md\:text-base {
@@ -795,9 +864,9 @@ video {
     margin-left: calc(4rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
-  .lg\:px-64 {
-    padding-left: 16rem;
-    padding-right: 16rem;
+  .lg\:px-32 {
+    padding-left: 8rem;
+    padding-right: 8rem;
   }
 
   .lg\:text-lg {
