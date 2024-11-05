@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.html", "./*.html"],
   theme: {
     extend: {
+      fontFamily: {
+          imperial: ['Imperial', 'sans-serif'],
+      },
       colors: {
         "custom-dark-gray-0": "#050505",
         "custom-dark-gray-1": "#101010",
@@ -23,6 +26,11 @@ module.exports = {
         "custom-wine-2":  "#6d0d58",
         "custom-wine-3":  "#5a0647",
         "custom-wine-4":  "#480037",
+        "custom-deep-wine-0":  "#000000",
+        "custom-deep-wine-1":  "#1a0a10",
+        "custom-deep-wine-2":  "#35141f",
+        "custom-deep-wine-3":  "#4f1e2f",
+        "custom-deep-wine-4":  "#6a293e",
         "custom-fucsia-0":  "#f534f4",
         "custom-fucsia-1":  "#f856f7",
         "custom-fucsia-2":  "#fa78f9",
