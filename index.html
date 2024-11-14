@@ -5,126 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/output.css"/>
     <title>Portfolio | Vinicius Gonçalves</title>
-    <style>
-        /* Estilo para o efeito de rolagem infinita */
-        .carousel {
-            display: flex;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        
-        /* Animação infinita para deslizar os itens */
-        .carousel-content {
-            display: flex;
-            animation: scroll 5s linear infinite;
-        }
-
-        /* Keyframes para o efeito de rolagem */
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-    </style>
 </head>
 <body>
-    <header class="bg-transparent fixed w-full h-16 sm:h-18 md:h-20 lg:h-22 flex justify-between items-center z-50 box-border px-4 sm:px-8 md:px-16 lg:px-32 font-imperial">
+    <header class="bg-transparent fixed w-full h-16 sm:h-18 md:h-20 lg:h-22 flex justify-between items-center z-50 box-border px-4 sm:px-8 md:px-32 lg:px-64">
         <h1 class="text-xs sm:text-sm md:text-base lg:text-lg space-x-2 sm:space-x-4 md:space-x-8 lg:space-x-16 text-custom-white/35 font-extralight flex justify-start">
-            <a href="./src/projects.html" class="hover:text-custom-white hover:font-normal ease-in-out duration-200">PROJECTS</a>
-            <button class="flex items-center justify-center rounded-md hover:text-custom-white hover:font-normal ease-in-out duration-200">CONTACT</button>
+            <a class="hover:text-custom-white hover:font-normal ease-in-out duration-200">PROJECTS</a>
         </h1>
         <h1 class="text-xs sm:text-sm md:text-base lg:text-lg text-custom-white">PORTFOLIO</h1>
         <h1 class="text-xs sm:text-sm md:text-base lg:text-lg space-x-2 sm:space-x-4 md:space-x-8 lg:space-x-16 text-custom-white/35 font-extralight flex justify-end">
-            <a href="./src/projects.html" class="hover:text-custom-white hover:font-normal ease-in-out duration-200">PROJECTS</a>
             <button class="flex items-center justify-center rounded-md hover:text-custom-white hover:font-normal ease-in-out duration-200">CONTACT</button>
         </h1>
     </header>
-    <div class="relative w-full h-screen overflow-hidden">
-        <iframe src="https://player.vimeo.com/video/929236705?autoplay=1&muted=1&loop=1&background=1&stream_id=Y2xpcHN8MjE3NDg5MjUxfGlkOmRlc2N8eyJyZW1vdmVfdm9kX3RpdGxlcyI6ZmFsc2V9"
-            width="1920" 
-            height="1080" 
-            frameborder="0" 
-            allow="autoplay; fullscreen; picture-in-picture" 
-            allowfullscreen>
-        </iframe>
-        <div class="w-full h-screen flex items-center justify-center z-20">
-            <h1 class="font-imperial text-center text-[10rem] text-custom-white">MY PORTFOLIO</h1>
+    <div class="relative w-full h-screen">
+        <div class="w-full h-screen flex items-center justify-center flex-col space-y-[-16px] z-20">
+            <h1 class="text-center text-[16px] text-custom-white">VINICIUS GONÇALVES</h1>
+            <h1 class="text-center text-[64px] text-custom-white">in construction...</h1>
         </div>
     </div>
-
-    <div class="carousel w-full h-[50vh] flex items-center bg-custom-dark-gray-3 rounded-box overflow-hidden p-4">
-        <div class="carousel-content space-x-4">
-            <div class="carousel-item">
-                <img src="./icons/html-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/css-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/javascript-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/c-sharp-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/cplusplus-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/java-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/python-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-
-            <div class="carousel-item">
-                <img src="./icons/html-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/css-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/javascript-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/c-sharp-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/cplusplus-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/java-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/python-white.png" class="w-full h-auto max-w-[150px]" />
-            </div>
-        </div>
-    </div>
-    <div class="w-full h-screen flex items-center justify-center bg-custom-dark-gray-3">
-        <h1 class="text-center text-2xl text-custom-white">a cool text</h1>
-    </div>
-    <div class="w-full h-screen flex items-center justify-center bg-custom-dark-gray-3">
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 size-8 sm:size-16 md:size-32 lg:size-64">
-            <div class="carousel-item">
-                <img src="./icons/html-white.png"/>
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/css-white.png"/>
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/javascript-white.png"/>
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/c-sharp-white.png"/>
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/cplusplus-white.png"/>
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/java-white.png"/>
-            </div>
-            <div class="carousel-item">
-                <img src="./icons/python-white.png"/>
-            </div>
-        </div>
-    </div>
-</body>
 </html>
