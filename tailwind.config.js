@@ -1,10 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.html", "./*.html"],
+  content: ['./src/**/*.{html,js}'],
+  darkMode: 'selector',
   theme: {
     extend: {
       fontFamily: {
-          imperial: ['Imperial', 'sans-serif'],
+        Imperial: ["Imperial", "sans-serif"],
+        RobotoCondensed: ["Roboto Condensed"],
       },
       colors: {
         "custom-dark-gray-0": "#050505",
@@ -59,8 +61,5 @@ module.exports = {
       }
     },
   },
-  plugins: [
-    require('daisyui'),
-  ],
+  plugins: [],
 }
-

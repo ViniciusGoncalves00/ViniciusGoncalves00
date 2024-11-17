@@ -1,15 +1,9 @@
-Copyright (c) October 1, 2013 by Jovanny Lemonad (lemonad@jovanny.ru), 
-with Reserved Font Name "Imperial" and "Imperial One". This Font Software 
-is licensed under the SIL Open Font License, Version 1.1. 
-This license is available with a FAQ at: http://scripts.sil.org/OFL
+Copyright 2011 The Roboto Project Authors (https://github.com/googlefonts/roboto-classic)
 
-This font is based on the corporate font for the game The Mandate. 
-The Mandate is a science fiction roleplaying game which sees the player 
-as a disgraced space captain who gets one chance at redemption and is the 
-last desperate hope for the newly crowned Empress to restore peace and 
-secure the future of humanity. 
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+https://openfontlicense.org
 
-Find out more at www.mandategame.com
 
 -----------------------------------------------------------
 SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
