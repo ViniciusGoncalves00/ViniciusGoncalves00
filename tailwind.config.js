@@ -3,6 +3,7 @@ module.exports = {
   content: ['./src/**/*.{html,js}'],
   plugins: [
     require("daisyui"),
+    require('tailwind-scrollbar'),
   ],
   // darkMode: ['selector', '[data-theme="custom_dark"]'],
   daisyui: {
