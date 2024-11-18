@@ -1,7 +1,36 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{html,js}'],
-  darkMode: 'selector',
+  plugins: [
+    require("daisyui"),
+  ],
+  // darkMode: ['selector', '[data-theme="custom_dark"]'],
+  daisyui: {
+    themes: [
+      {
+        custom_light:
+        {
+          "primary": "#141414",
+          "secondary": "#37cdbe",
+          "accent": "#37cdbe",
+          "neutral": "#3d4451",
+          "base-100": "#ffffff",
+          "base-200": "#FAFAFA",
+          "base-300": "#F5F5F5",
+        },
+        custom_dark:
+        {
+          "primary": "#ffffff",
+          "secondary": "#111111",
+          "accent": "#37cdbe",
+          "neutral": "#3d4451",
+          "base-100": "#141414",
+          "base-200": "#0F0F0F",
+          "base-300": "#0A0A0A",
+        },
+      },
+    ],
+  },
   theme: {
     extend: {
       fontFamily: {
@@ -61,5 +90,4 @@ module.exports = {
       }
     },
   },
-  plugins: [],
 }
