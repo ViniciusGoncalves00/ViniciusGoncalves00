@@ -34,6 +34,9 @@ module.exports = {
   // },
   theme: {
     extend: {
+      dropShadow: {
+        "custom-shadow": "4px 4px 8px rgb(0 0 0 / 0.05)"
+      },
       fontFamily: {
         Imperial: ["Imperial", "sans-serif"],
         RobotoCondensed: ["Roboto Condensed"],
