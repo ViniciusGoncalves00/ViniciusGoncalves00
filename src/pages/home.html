@@ -27,27 +27,33 @@
                 </svg>
             </div>
         </div>
-        <div class="bg-secondary w-[100%] h-screen flex items-end justify-center"></div>
+        <div class="bg-secondary w-[100%] h-screen flex items-center justify-center text-primary_text">
+            HI EVERYONE.
+        </div>
         <div class="bg-primary w-[100%] h-[512px]">
             <div class="w-[100%] h-[100%] text-primary_text flex justify-center">
-                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-primary_text text-[128px] font-RobotoCondensed">ABOUT</div>
-                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-primary_text text-[32px] font-RobotoCondensed">I'm a brazilian developer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
+                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-primary_text text-[24px] sm:text-[30px] md:text-[34px] lg:text-[38px] font-RobotoCondensed">ABOUT</div>
+                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-primary_text text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] font-RobotoCondensed">I'm a brazilian developer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
             </div>
         </div>
         <div class="bg-secondary w-[100%] h-screen flex items-center justify-center"></div>
         <div class="bg-primary w-[100%] h-[512px]">
             <div class="w-[100%] h-[100%] text-primary_text flex justify-center">
-                <div class="w-[40%] h-[100%] flex items-center justify-center text-primary_text text-[128px] font-RobotoCondensed">EXPERIENCIES</div>
-                <div class="w-[40%] h-[100%] flex items-center justify-center text-primary_text text-[32px] font-RobotoCondensed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
+                <div class="w-[40%] h-[100%] flex items-center justify-center text-primary_text text-[24px] sm:text-[30px] md:text-[34px] lg:text-[38px] font-RobotoCondensed">EXPERIENCIES</div>
+                <div class="w-[40%] h-[100%] flex items-center justify-center text-primary_text text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] font-RobotoCondensed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
             </div>
         </div>
         <div class="bg-secondary w-[100%] h-screen flex items-center justify-center"></div>
         <div class="bg-primary w-[100%] h-[512px]">
             <div class="w-[100%] h-[100%] text-primary_text flex justify-center">
-                <div class="w-[40%] h-[100%] flex items-center justify-center text-primary_text text-[128px] font-RobotoCondensed">KNOWLEDGE</div>
-                <div class="w-[40%] h-[100%] flex items-center justify-center text-primary_text text-[32px] font-RobotoCondensed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
+                <div class="w-[40%] h-[100%] flex items-center justify-center text-primary_text text-[24px] sm:text-[30px] md:text-[34px] lg:text-[38px] font-RobotoCondensed">KNOWLEDGE</div>
+                <div class="w-[40%] h-[100%] flex items-center justify-center text-primary_text text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] font-RobotoCondensed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
             </div>
         </div>
+        <div class="bg-secondary w-[100%] h-screen flex items-center justify-center"></div>
+
+        <footer x-init="fetch('../templates/footer.html').then(res => res.text()).then(html => $refs.footer.innerHTML = html)" x-ref="footer"></footer>
+
 
         <script>
             // Set initial theme based on localStorage
