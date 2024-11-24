@@ -1,5 +1,3 @@
-// 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
-
 // async function fetchGitHubData(username: string, token: string): Promise<void> {
 //     const headers = {
 //       Authorization: `token ${token}`,
