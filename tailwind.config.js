@@ -6,32 +6,32 @@ module.exports = {
     require('tailwind-scrollbar'),
   ],
   // darkMode: ['selector', '[data-theme="custom_dark"]'],
-  daisyui: {
-    themes: [
-      {
-        custom_light:
-        {
-          "primary": "#141414",
-          "secondary": "#37cdbe",
-          "accent": "#37cdbe",
-          "neutral": "#3d4451",
-          "base-100": "#ffffff",
-          "base-200": "#FAFAFA",
-          "base-300": "#F5F5F5",
-        },
-        custom_dark:
-        {
-          "primary": "#ffffff",
-          "secondary": "#111111",
-          "accent": "#37cdbe",
-          "neutral": "#3d4451",
-          "base-100": "#141414",
-          "base-200": "#0F0F0F",
-          "base-300": "#0A0A0A",
-        },
-      },
-    ],
-  },
+  // daisyui: {
+  //   themes: [
+  //     {
+  //       custom_light:
+  //       {
+  //         "primary": "#141414",
+  //         "secondary": "#37cdbe",
+  //         "accent": "#37cdbe",
+  //         "neutral": "#3d4451",
+  //         "base-100": "#ffffff",
+  //         "base-200": "#FAFAFA",
+  //         "base-300": "#F5F5F5",
+  //       },
+  //       custom_dark:
+  //       {
+  //         "primary": "#ffffff",
+  //         "secondary": "#111111",
+  //         "accent": "#37cdbe",
+  //         "neutral": "#3d4451",
+  //         "base-100": "#141414",
+  //         "base-200": "#0F0F0F",
+  //         "base-300": "#0A0A0A",
+  //       },
+  //     },
+  //   ],
+  // },
   theme: {
     extend: {
       fontFamily: {
@@ -39,6 +39,11 @@ module.exports = {
         RobotoCondensed: ["Roboto Condensed"],
       },
       colors: {
+        primary: "rgba(var(--primary))",
+        secondary: "rgba(var(--secondary))",
+    
+        primary_text: "rgba(var(--primary_text))",
+        secondary_text:"rgba(var(--secondary_text))",
         "custom-dark-gray-0": "#050505",
         "custom-dark-gray-1": "#101010",
         "custom-dark-gray-2": "#151515",
