@@ -11,11 +11,11 @@ function init_stores() {
             
             async GetRepos()
             {
-                this.reposNames = await this.handler.GetRepositoriesNames
-                (
-                    "viniciusgoncalves00",
-                    "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"
-                );
+                // this.reposNames = await this.handler.GetRepositoriesNames
+                // (
+                //     "viniciusgoncalves00",
+                //     "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"
+                // );
             }
         })
     );
