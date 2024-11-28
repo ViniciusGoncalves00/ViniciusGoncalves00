@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{html,js}'],
+  content: ['./src/**/*.{html,js,ts}'],
   plugins: [
     require("daisyui"),
     require('tailwind-scrollbar'),
@@ -35,7 +35,8 @@ module.exports = {
   theme: {
     extend: {
       dropShadow: {
-        "custom-shadow": "4px 4px 4px rgb(0 0 0 / 0.2)"
+        "custom-shadow-1": "4px 4px 4px rgb(0 0 0 / 0.2)",
+        "custom-shadow-2": "4px 4px 4px rgb(0 0 0 / 0.05)"
       },
       fontFamily: {
         Imperial: ["Imperial", "sans-serif"],
