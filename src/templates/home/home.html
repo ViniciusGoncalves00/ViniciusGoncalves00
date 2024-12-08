@@ -3,9 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Portfolio | Vinicius Gonçalves</title>
-        <script defer src="../../dist/bundle.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <script defer src="/dist/bundle.js"></script>
+        <title>Portfolio | Vinicius Gonçalves</title>
     </head>
     <body x-data="{ scrollY: 0, showUpperArrow: false, showDownwardArrow: false}"
             @scroll.window=
@@ -13,7 +13,7 @@
             showUpperArrow = scrollY > 120;
             showDownwardArrow = (window.innerHeight + window.scrollY) < document.documentElement.scrollHeight">
 
-        <header x-init="fetch('./common/header.html').then(res => res.text()).then(html => $refs.header.innerHTML = html)" x-ref="header"></header>
+        <header x-init="fetch('../common/header.html').then(res => res.text()).then(html => $refs.header.innerHTML = html)" x-ref="header"></header>
 
         <div class="fixed w-[100%] h-[100%] flex flex-col items-center justify-between pointer-events-none">
             <div>
@@ -52,5 +52,5 @@
         </div>
         <div class="bg-secondary w-[100%] h-screen flex items-center justify-center"></div>
 
-        <footer x-init="fetch('./common/footer.html').then(res => res.text()).then(html => $refs.footer.innerHTML = html)" x-ref="footer"></footer>
+        <footer x-init="fetch('../common/footer.html').then(res => res.text()).then(html => $refs.footer.innerHTML = html)" x-ref="footer"></footer>
 </html>
