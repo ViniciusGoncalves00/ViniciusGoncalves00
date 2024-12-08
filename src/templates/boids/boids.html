@@ -16,11 +16,10 @@
   </head>
   <body x-data="">
       <header x-init="fetch('../common/header.html').then(res => res.text()).then(html => $refs.header.innerHTML = html)" x-ref="header" class="z-10"></header>
-      <div class="fixed w-screen h-screen flex items-center justify-center pointer-events-none">in construction...</div>
       <div class="w-screen h-screen flex items-center justify-center">
           <iframe src="https://viniciusgoncalves00.github.io/boids-threejs/" class="z-10"></iframe>
       </div>
-      
+
       <footer x-init="fetch('../common/footer.html').then(res => res.text()).then(html => $refs.footer.innerHTML = html)" x-ref="footer"></footer>
   </body>
 </html>

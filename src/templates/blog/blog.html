@@ -15,7 +15,7 @@
                 <div class="">blog</div>
                 <div class="">This is my personal blog. The objective is to write articles to materialize knowledge in textual form. Feel free to read.</div>
                 <div class="w-[768px] h-[1px] bg-primary_text"></div>
-                <div x-init="fetch('./common/searchbar.html').then(res => res.text()).then(html => $refs.searchbar.innerHTML = html)" x-ref="searchbar"></div>
+                <div x-init="fetch('../common/searchbar.html').then(res => res.text()).then(html => $refs.searchbar.innerHTML = html)" x-ref="searchbar"></div>
             </div>
             <div class="bg-secondary w-full flex items-center justify-center">
                 <div class="bg-primary w-[512px] h-[512px] flex flex-col items-center justify-center space-y-[16px]"></div>
