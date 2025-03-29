@@ -1,17 +1,10 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss';
 
-@font-face {
-    font-family: "Imperial";
-    src: url("./fonts/Imperial.otf") format("truetype");
-    font-weight: 400;
-    font-style: normal;
-}
-@font-face {
-    font-family: "Roboto Condensed";
-    src: url("./fonts/roboto_condensed/RobotoCondensed-VariableFont_wght.ttf") format("truetype");
-}
+@layer utilities {
+    .text-custom {
+      color: #27b160;
+    }
+  }
 
 [data-theme='custom_light']
 {

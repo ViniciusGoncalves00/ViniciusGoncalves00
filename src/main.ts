@@ -1,7 +1,6 @@
 import 'alpinejs';
 import './styles.css';
 import Alpine from "alpinejs";
-// import "./src/models/ContentLoader.ts";
 
 declare global {
     interface Window {
