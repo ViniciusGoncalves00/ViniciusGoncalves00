@@ -1,0 +1,15 @@
+<div id="fixedMenu" class="z-50 w-64 h-16 fixed right-16 top-1/2 bot-1/2 gap-16 uppercase flex flex-col items-center justify-center">
+    <template x-for="index in 4" :key="index">
+        <div class="flex items-center justify-end group">
+            <p class="hidden group-hover:block">page name</p>
+            <button 
+                @click="window.scrollTo({
+                    top: window.innerHeight * index,
+                    behavior: 'smooth'
+                });"
+                class="w-full flex items-center justify-end">
+                <a href="#section + index" class="menu-link bg-black w-2 h-2 flex-none rounded-full"></a>
+            </button>
+        </div>
+    </template>
+</div>
