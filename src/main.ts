@@ -1,7 +1,15 @@
 import 'alpinejs';
 import './styles.css';
 import Alpine from "alpinejs";
-// import "./src/models/ContentLoader.ts";
+import { Navigation } from './script/navigation';
+
+class Program {
+    public static Main(): void {
+        new Navigation(window, document);
+    }
+}
+
+Program.Main()
 
 declare global {
     interface Window {
@@ -9,7 +17,7 @@ declare global {
     }
 }
 
-window.Alpine = Alpine;
+(window as Window).Alpine = Alpine;
 
 document.addEventListener("DOMContentLoaded", () => {
     Alpine.start();
