@@ -7,30 +7,31 @@
         <script defer src="../../../dist/bundle.js"></script>
         <title>Portfolio | Vinicius Gonçalves</title>
     </head>
-    <body x-data>
+    <body id="body" x-data>
         <header x-init="fetch('./header.html').then(res => res.text()).then(html => $refs.header.innerHTML = html)" x-ref="header"></header>
 
-        <nav x-init="fetch('./navigation-bar.html').then(res => res.text()).then(html => $refs.header.innerHTML = html)" x-ref="header"></nav>
+        <nav x-init="fetch('./navigation-bar.html').then(res => res.text()).then(html => $refs.navigationBar.innerHTML = html)" x-ref="navigationBar"></nav>
 
-        <section class="bg-red-500 w-[100%] h-screen flex items-center justify-center text-primary_text">
+        <section id="home" class="bg-primary w-[100%] h-screen flex items-center justify-center">
             hi
         </section>
-        <section class="bg-primary w-[100%] h-screen">
-            <div class="w-[100%] h-[100%] text-primary_text flex justify-center">
-                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-primary_text text-[24px] sm:text-[30px] md:text-[34px] lg:text-[38px] text-custom">ABOUT</div>
-                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-primary_text text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] text-custom">I'm a brazilian developer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
+        <section id="experiencies" class="bg-secondary w-[100%] h-[300vh]">
+            <div class="w-[100%] h-[100%] flex justify-center">
+                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-[24px] sm:text-[30px] md:text-[34px] lg:text-[38px] text-custom">ABOUT</div>
+                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] text-custom">I'm a brazilian developer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
+            </div>
+            
+        </section>
+        <section id="projects" class="bg-primary w-[100%] h-screen">
+            <div class="w-[100%] h-[100%] flex justify-center">
+                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-[24px] sm:text-[30px] md:text-[34px] lg:text-[38px] text-custom">EXPERIENCIES</div>
+                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] text-custom">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
             </div>
         </section>
-        <section class="bg-red-500 w-[100%] h-screen">
-            <div class="w-[100%] h-[100%] text-primary_text flex justify-center">
-                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-primary_text text-[24px] sm:text-[30px] md:text-[34px] lg:text-[38px] text-custom">EXPERIENCIES</div>
-                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-primary_text text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] text-custom">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
-            </div>
-        </section>
-        <section class="bg-primary w-[100%] h-screen">
-            <div class="w-[100%] h-[100%] text-primary_text flex justify-center">
-                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-primary_text text-[24px] sm:text-[30px] md:text-[34px] lg:text-[38px] text-custom">KNOWLEDGE</div>
-                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-primary_text text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] text-custom">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
+        <section id="about" class="bg-secondary w-[100%] h-screen">
+            <div class="w-[100%] h-[100%] flex justify-center">
+                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-[24px] sm:text-[30px] md:text-[34px] lg:text-[38px] text-custom">KNOWLEDGE</div>
+                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] text-custom">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
             </div>
         </section>
 

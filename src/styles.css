@@ -1,8 +1,11 @@
 @import 'tailwindcss';
 
 @layer utilities {
-    .text-custom {
-      color: #27b160;
+    .bg-primary {
+      background-color: rgb(255, 255, 255);
+    }
+    .bg-secondary {
+      background-color: rgb(250, 250, 250);
     }
   }
 
