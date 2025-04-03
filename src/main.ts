@@ -19,7 +19,7 @@ declare global {
 
 (window as Window).Alpine = Alpine;
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("bundleLoaded", () => {
     Alpine.start();
 
     if (localStorage.getItem('theme') === 'custom_light')
