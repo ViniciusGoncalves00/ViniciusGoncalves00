@@ -26,28 +26,9 @@
 
         <nav x-init="fetch('./navigation-bar.html').then(res => res.text()).then(html => $refs.navigationBar.innerHTML = html)" x-ref="navigationBar"></nav>
 
-        <section id="home" class="bg-primary w-[100%] h-screen flex flex-col items-start justify-center">
-            <div class="rotate-x-60 rotate-z--45 transform-3d text-9xl">
-                <p>olá</p>
-                <p>hi</p>
-                <p>привет</p>
-            </div>
-        </section>
-
+        <section id="home" x-init="fetch('./home.html').then(res => res.text()).then(html => $refs.home.innerHTML = html)" x-ref="home"></section>
         <section id="experiencies" x-init="fetch('./experiencies.html').then(res => res.text()).then(html => $refs.experiencies.innerHTML = html)" x-ref="experiencies"></section>
-
-        <section id="projects" class="bg-primary w-[100%] h-screen">
-            <div class="w-[100%] h-[100%] flex justify-center">
-                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-[24px] sm:text-[30px] md:text-[34px] lg:text-[38px] text-custom">ABOUT</div>
-                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] text-custom">I'm a brazilian developer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
-            </div>
-        </section>
-        <section id="about" class="bg-secondary w-[100%] h-screen">
-            <div class="w-[100%] h-[100%] flex justify-center">
-                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-[24px] sm:text-[30px] md:text-[34px] lg:text-[38px] text-custom">KNOWLEDGE</div>
-                <div class="w-[40%] h-[100%] p-1 flex items-center justify-center text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] text-custom">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
-            </div>
-        </section>
+        <section id="projects" x-init="fetch('./projects.html').then(res => res.text()).then(html => $refs.projects.innerHTML = html)" x-ref="projects"></section>
 
         <footer x-init="fetch('./footer.html').then(res => res.text()).then(html => $refs.footer.innerHTML = html)" x-ref="footer"></footer>
 </html>

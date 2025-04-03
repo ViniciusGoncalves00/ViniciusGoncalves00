@@ -1,14 +1,20 @@
 <div x-data="{ navigationOpen: false, darkMode: localStorage.getItem('theme') === 'custom_light' }">
-    <div class="fixed bg-primary w-[100%] h-16 flex justify-center z-50 drop-shadow-soft">
-        <div class="w-[80%] h-[100%] flex items-center justify-between font-RobotoCondensed">
+    <div class="fixed bg-primary w-[100%] h-16 z-50 drop-shadow-soft flex justify-center px-16">
+        <div class="w-[100%] h-[100%] flex items-center justify-between font-RobotoCondensed">
             <div>
                 PORTFOLIO | VINICIUS GONCALVES
             </div>
-            <button @click="navigationOpen = !navigationOpen">
-                <svg xmlns="http://www.w3.org/2000/svg" alt="Menu" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-                </svg>
-            </button>
+            <div class="flex items-center justify-between space-x-8">
+                <div class="flex items-center justify-between space-x-2">
+                    <p>English (United States)</p>
+                    <button class="flex items-center justify-center w-4 h-4">
+                        <i alt="SelectIdiom" class="bi bi-globe-americas"></i>
+                    </button>
+                </div>
+                <button @click="navigationOpen = !navigationOpen" class="flex items-center justify-center w-4 h-4">
+                    <i alt="menu" class="bi bi-list"></i>
+                </button>
+            </div>
         </div>
     </div>
     <div class="fixed w-full h-full flex items-center justify-center drop-shadow-soft font-RobotoCondensed pointer-events-none">
