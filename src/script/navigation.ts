@@ -4,6 +4,7 @@ export class Navigation {
 
     private _rollingWeight: number = 1;
     private _pixelsTolerance: number = 2;
+    private _headerVisible: boolean = true;
 
     public constructor(window: Window, document: Document) {
         this._window = window;
@@ -12,6 +13,7 @@ export class Navigation {
         this._document.addEventListener('alpine:init', () => {
             this.ListenWheel();
             this.ListenSections();
+            this.ListenHeader();
         });
     }
 
@@ -41,6 +43,26 @@ export class Navigation {
 
         this._window.addEventListener('load', this.highlightCurrentSection.bind(this));
         this._window.addEventListener('scroll', this.highlightCurrentSection.bind(this));
+    }
+
+    private ListenHeader() {
+        const header = this._document.querySelector("header");
+
+        if (!header) return;
+
+        const headerHeight = header.getBoundingClientRect().height;
+
+        this._window.addEventListener("scroll", () => {
+            const scrollY = this._window.scrollY;
+
+            if (scrollY > headerHeight * 2 && this._headerVisible) {
+                header.classList.add("hidden");
+                this._headerVisible = false;
+            } else if (scrollY <= headerHeight * 2 && !this._headerVisible) {
+                header.classList.remove("hidden");
+                this._headerVisible = true;
+            }
+        });
     }
 
     private highlightCurrentSection() {
