@@ -1,0 +1,11 @@
+{
+    "header": {
+        "portfolio": "portfolio | vinicius gonçalves"
+    },
+    "greeting": "hi",
+    "sections": [
+        { "title": "home" },
+        { "title": "career" },
+        { "title": "projects" }
+    ]
+}

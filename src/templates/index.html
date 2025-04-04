@@ -21,14 +21,14 @@
         
         <title>Portfolio | Vinicius Gonçalves</title>
     </head>
-    <body class="text-black" id="body" x-data>
+    <body id="body" x-data="{ language: 'pt-br', content: {} }" x-init="fetch(`../localization/${language}.json`).then(res => res.json()).then(data => content = data)" class="text-black">
         <header x-init="fetch('./header.html').then(res => res.text()).then(html => $refs.header.innerHTML = html)" x-ref="header"></header>
 
         <nav x-init="fetch('./navigation-bar.html').then(res => res.text()).then(html => $refs.navigationBar.innerHTML = html)" x-ref="navigationBar"></nav>
 
-        <section id="home" x-init="fetch('./home.html').then(res => res.text()).then(html => $refs.home.innerHTML = html)" x-ref="home"></section>
-        <section id="experiencies" x-init="fetch('./experiencies.html').then(res => res.text()).then(html => $refs.experiencies.innerHTML = html)" x-ref="experiencies"></section>
-        <section id="projects" x-init="fetch('./projects.html').then(res => res.text()).then(html => $refs.projects.innerHTML = html)" x-ref="projects"></section>
+        <section :id="content.sections[0].title" x-init="fetch('./home.html').then(res => res.text()).then(html => $refs.home.innerHTML = html)" x-ref="home"></section>
+        <section :id="content.sections[1].title" x-init="fetch('./career.html').then(res => res.text()).then(html => $refs.experiencies.innerHTML = html)" x-ref="experiencies"></section>
+        <section :id="content.sections[2].title" x-init="fetch('./projects.html').then(res => res.text()).then(html => $refs.projects.innerHTML = html)" x-ref="projects"></section>
 
         <footer x-init="fetch('./footer.html').then(res => res.text()).then(html => $refs.footer.innerHTML = html)" x-ref="footer"></footer>
 </html>
