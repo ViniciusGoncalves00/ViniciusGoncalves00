@@ -1,35 +1,29 @@
 <div x-data="{
     navigationOpen: false,
+    languageDropdown: false,
     darkMode: localStorage.getItem('theme') === 'custom_light'}">
     <div class="fixed bg-primary w-[100%] h-16 z-50 drop-shadow-soft flex justify-center px-64">
         <div class="w-[100%] h-[100%] flex items-center justify-between font-RobotoCondensed">
             <div x-text="content.header.portfolio" class="uppercase">
             </div>
-            <div class="flex items-center justify-between space-x-8">
-                <div class="flex items-center justify-between space-x-2">
-                    <p>English (United States)</p>
-                    <button class="flex items-center justify-center w-4 h-4">
-                        <i alt="SelectIdiom" class="bi bi-globe-americas"></i>
-                    </button>
-                </div>
-                <button @click="navigationOpen = !navigationOpen" class="flex items-center justify-center w-4 h-4">
-                    <i alt="menu" class="bi bi-list"></i>
+            <div class="min-w-32 flex items-center justify-between space-x-2 relative">
+                <p x-text="content.header.language"></p>
+                <button @click="languageDropdown = true" class="flex items-center justify-center w-4 h-4">
+                    <i alt="SelectLanguage" class="bi bi-globe-americas"></i>
                 </button>
-            </div>
+                <div
+                    x-show="languageDropdown"
+                    @click.outside="languageDropdown = false"
+                    class="w-full absolute top-full z-50">
+                    <div class="w-full mt-4 bg-primary rounded-[4px] flex flex-col items-center justify-center drop-shadow-custom-shadow-2">
+                        <button @click="language = 'pt-br'; fetch(`../localization/${language}.json`).then(res => res.json()).then(data => content = data); languageDropdown = false" class="w-full hover:bg-secondary">PT-BR</button>
+                        <button @click="language = 'en-us'; fetch(`../localization/${language}.json`).then(res => res.json()).then(data => content = data); languageDropdown = false" class="w-full hover:bg-secondary">EN-US</button>
+                        <button @click="language = 'ru-ru'; fetch(`../localization/${language}.json`).then(res => res.json()).then(data => content = data); languageDropdown = false" class="w-full hover:bg-secondary">RU-RU</button>
+                    </div>
+                </div>
+            </div>            
         </div>
     </div>
-
-    <!-- <div id="languageDropdown" class="fixed w-full h-full flex items-center justify-center drop-shadow-soft font-RobotoCondensed pointer-events-none">
-        <div class="z-50 pointer-events-auto">
-            <div @click.outside="if (navigationOpen) navigationOpen = false" x-show="navigationOpen" class="bg-primary w-[256px] rounded-[4px] p-16 flex flex-col items-center justify-between drop-shadow-custom-shadow-2">
-                <ul class="flex flex-col items-center justify-center space-y-4">
-                    <button @click="language = 'pt-br'; fetch(`../localization/${language}.json`).then(res => res.json()).then(data => content = data)">PT-BR</button>
-                    <button @click="language = 'en-us'; fetch(`../localization/${language}.json`).then(res => res.json()).then(data => content = data)">EN-US</button>
-                    <button @click="language = 'ru-ru'; fetch(`../localization/${language}.json`).then(res => res.json()).then(data => content = data)">RU-RU</button>
-                </ul>
-            </div>
-        </div>
-    </div> -->
 
     <div class="fixed w-full h-full flex items-center justify-center drop-shadow-soft font-RobotoCondensed pointer-events-none">
         <div class="z-50 pointer-events-auto">
