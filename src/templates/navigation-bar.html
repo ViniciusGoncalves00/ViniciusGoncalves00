@@ -1,16 +1,21 @@
 <div
-    x-data="{ sections: [] }" 
-    x-init="sections = Array.from(document.querySelectorAll('section'))"
+    x-data="{
+        get sections() {
+            return Object.entries(content.sections).map(([key, value]) => ({ key, value }));
+        }
+    }"
     class="z-50 fixed right-16 top-1/2 bot-1/2 gap-8 uppercase flex flex-col">
-    <template x-for="(section, index) in sections" :key="index">
+    
+    <template x-for="(section, index) in sections" :key="section.key">
         <div
             class="navigation-option h-6 flex items-center justify-end space-x-2 opacity-20 hover:opacity-100 hover:font-bold cursor-pointer transition-all duration-150"
             @click="window.scrollTo({
-                top: section.offsetTop,
+                top: document.getElementById(section.value)?.offsetTop || 0,
                 behavior: 'smooth'
             });">
+            
             <div class="h-full items-center justify-center whitespace-nowrap flex-none flex">
-                <p x-text="section.id"></p>
+                <p x-text="section.value"></p>
             </div>
             <div class="h-full aspect-square flex-none flex items-center justify-center">
                 <span class="bg-black w-2 h-2 flex-none rounded-full"></span>

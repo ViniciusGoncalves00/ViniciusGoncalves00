@@ -1,11 +1,12 @@
 {
     "header": {
-        "portfolio": "portfolio | vinicius gonçalves"
+        "portfolio": "portfolio | vinicius gonçalves",
+        "language": "english (United States)"
     },
-    "greeting": "hi",
-    "sections": [
-        { "title": "home" },
-        { "title": "career" },
-        { "title": "projects" }
-    ]
+    "greeting": "hello world!",
+    "sections": {
+        "home": "home",
+        "career": "career",
+        "projects": "projects"
+    }
 }

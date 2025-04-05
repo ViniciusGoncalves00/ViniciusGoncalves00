@@ -1,11 +1,12 @@
 {
     "header": {
-        "portfolio": "portfólio | vinicius gonçalves"
+        "portfolio": "portfólio | vinicius gonçalves",
+        "language": "português (Brasil)"
     },
-    "greeting": "olá",
-    "sections": [
-        { "title": "início" },
-        { "title": "carreira" },
-        { "title": "projetos" }
-    ]
+    "greeting": "olá, mundo!",
+    "sections": {
+        "home": "início",
+        "career": "carreira",
+        "projects": "projetos"
+    }
 }

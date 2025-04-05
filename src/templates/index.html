@@ -26,9 +26,9 @@
 
         <nav x-init="fetch('./navigation-bar.html').then(res => res.text()).then(html => $refs.navigationBar.innerHTML = html)" x-ref="navigationBar"></nav>
 
-        <section :id="content.sections[0].title" x-init="fetch('./home.html').then(res => res.text()).then(html => $refs.home.innerHTML = html)" x-ref="home"></section>
-        <section :id="content.sections[1].title" x-init="fetch('./career.html').then(res => res.text()).then(html => $refs.experiencies.innerHTML = html)" x-ref="experiencies"></section>
-        <section :id="content.sections[2].title" x-init="fetch('./projects.html').then(res => res.text()).then(html => $refs.projects.innerHTML = html)" x-ref="projects"></section>
+        <section id="home" x-init="fetch('./home.html').then(res => res.text()).then(html => $refs.home.innerHTML = html)" x-ref="home"></section>
+        <section id="career" x-init="fetch('./career.html').then(res => res.text()).then(html => $refs.career.innerHTML = html)" x-ref="career"></section>
+        <section id="projects" x-init="fetch('./projects.html').then(res => res.text()).then(html => $refs.projects.innerHTML = html)" x-ref="projects"></section>
 
         <footer x-init="fetch('./footer.html').then(res => res.text()).then(html => $refs.footer.innerHTML = html)" x-ref="footer"></footer>
 </html>
