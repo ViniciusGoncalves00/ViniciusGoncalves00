@@ -2,10 +2,9 @@
     navigationOpen: false,
     languageDropdown: false,
     darkMode: localStorage.getItem('theme') === 'custom_light'}">
-    <div class="fixed bg-primary w-[100%] h-16 z-50 drop-shadow-soft flex justify-center px-64">
+    <div class="fixed bg-primary w-[100%] h-16 z-50 border-b border-black/10 flex justify-center px-64">
         <div class="w-[100%] h-[100%] flex items-center justify-between font-RobotoCondensed">
-            <div x-text="content.header.portfolio" class="uppercase">
-            </div>
+            <div x-text="content.header.portfolio" class="uppercase"></div>
             <div class="min-w-32 flex items-center justify-between relative">
                 <p @click="languageDropdown = true" x-text="content.header.language" class="cursor-pointer"></p>
                 <button @click="languageDropdown = true" class="flex items-center justify-center w-8 h-8 cursor-pointer">
@@ -21,7 +20,10 @@
                         <button @click="language = 'ru-ru'; fetch(`../localization/${language}.json`).then(res => res.json()).then(data => content = data); languageDropdown = false" class="w-full hover:bg-secondary cursor-pointer">RU-RU</button>
                     </div>
                 </div>
-            </div>            
+                <button @click="navigationOpen = true" class="flex items-center justify-center w-8 h-8 cursor-pointer">
+                    <i alt="Menu" class="bi bi-list"></i>
+                </button>
+            </div>
         </div>
     </div>
 
