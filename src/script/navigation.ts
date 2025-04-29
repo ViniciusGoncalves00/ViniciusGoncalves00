@@ -13,7 +13,7 @@ export class Navigation {
         this._document.addEventListener('alpine:init', () => {
             this.ListenWheel();
             this.ListenSections();
-            this.ListenHeader();
+            // this.ListenHeader();
         });
     }
 
@@ -45,25 +45,39 @@ export class Navigation {
         this._window.addEventListener('scroll', this.highlightCurrentSection.bind(this));
     }
 
-    private ListenHeader() {
-        const header = this._document.querySelector("header");
-
-        if (!header) return;
-
-        const headerHeight = header.getBoundingClientRect().height;
-
-        this._window.addEventListener("scroll", () => {
-            const scrollY = this._window.scrollY;
-
-            if (scrollY > headerHeight * 2 && this._headerVisible) {
-                header.classList.add("hidden");
-                this._headerVisible = false;
-            } else if (scrollY <= headerHeight * 2 && !this._headerVisible) {
+    private ListenHeader() {    
+        const header = this._document.getElementById("header");
+    
+        if (!header) {
+            console.warn("Header not found!");
+            return;
+        }
+        
+        const headerHeight = 64;
+        let currentMousePosition = 0;
+        let lastScrollY = 0;
+    
+        const updateVisibility = () => {
+            console.log("Updating visibility", currentMousePosition, lastScrollY);
+    
+            if (currentMousePosition <= headerHeight || lastScrollY <= this._window.innerHeight) {
                 header.classList.remove("hidden");
-                this._headerVisible = true;
+            } else {
+                header.classList.add("hidden");
             }
+        };
+    
+        this._window.addEventListener("mousemove", (event) => {
+            currentMousePosition = event.clientY;
+            updateVisibility();
+        });
+    
+        this._window.addEventListener("scroll", () => {
+            lastScrollY = this._window.scrollY;
+            updateVisibility();
         });
     }
+    
 
     private highlightCurrentSection() {
         const navigationOptions = this._document.querySelectorAll('.navigation-option');
