@@ -1,13 +1,64 @@
 {
     "header": {
-        "portfolio": "портфолио | винисиус гонсалвэс",
-        "language": "Русский",
-        "language_international": "Russian"
+      "portfolio": "портфолио | винисиус гонсалвэс",
+      "language": "Русский",
+      "language_international": "Russian"
     },
-    "greeting": "привет мир!",
+    "greeting": "привет, мир!",
     "sections": {
-        "home": "начало",
-        "career": "карьера",
-        "projects": "проект"
+      "home": {
+        "name": "главная"
+      },
+      "career": {
+        "name": "карьера",
+        "experiencies": [
+          {
+            "company": "AeroSim",
+            "position": "Младший разработчик",
+            "localization": "Бразилия",
+            "period": "04/2025 - ",
+            "description": "Разработка <b>3D веб-приложений</b> с использованием <b>ThreeJS</b> в области динамики жидкостей, ориентированной на ветроэнергетику. В основном я отвечаю за <b>frontend</b>: исследование <b>опыта пользователя</b>, сбор требований, прототипирование в <b>Figma</b>, реализация и последующее сопровождение. В меньшей степени участвовал в <b>backend</b>-разработке на <b>Django</b>."
+          },
+          {
+            "company": "AeroSim",
+            "position": "Стажёр-разработчик программного обеспечения",
+            "localization": "Бразилия",
+            "period": "04/2024 - 03/2025",
+            "description": "Разработка автоматизаций для инженерных процессов и помощь в разработке интерфейсов."
+          },
+          {
+            "company": "Фрилансер",
+            "position": "Архитектор-градостроитель",
+            "localization": "Бразилия",
+            "period": "09/2023 - 03/2024",
+            "description": "Разработка проектов."
+          },
+          {
+            "company": "Trzaskos Arquitetura",
+            "position": "Архитектор-градостроитель",
+            "localization": "Бразилия",
+            "period": "06/2022 - 09/2023",
+            "description": "Разработка проектов."
+          },
+          {
+            "company": "Vinicius Trevisan Arquitetos Associados",
+            "position": "Стажёр по архитектуре",
+            "localization": "Бразилия",
+            "period": "12/2021 - 12/2022",
+            "description": "Разработка проектов."
+          },
+          {
+            "company": "Муниципалитет Араукарии",
+            "position": "Стажёр по архитектуре",
+            "localization": "Бразилия",
+            "period": "05/2019 - 05/2021",
+            "description": "Разработка проектов."
+          }
+        ]
+      },
+      "projects": {
+        "name": "проекты"
+      }
     }
-}
+  }
+  
