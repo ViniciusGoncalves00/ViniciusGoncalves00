@@ -1,121 +1,86 @@
-<div class="bg-primary w-full h-screen flex flex-col px-64">
+<div  x-data="{
+    get experiences() {
+        return content.sections.career.experiencies;
+    },
+    get indices() {
+        const result = [];
+        for (let i = 0; i < this.experiences.length; i += 2) {
+            result.push(i);
+        }
+        return result;
+    }
+}">
+    <template x-for="index in indices" :key="index">
+        <div class="bg-primary w-full h-screen flex flex-col px-64">
+            <!-- Empty -->
+            <template x-if="index === 0">
+                <div class="w-full h-64 flex"></div>
+            </template>            
 
-    <div class="w-full h-64 flex">
-        <div class="w-full flex flex-col items-end justify-start"></div>
-    </div>
+            <!-- Superior Line -->
+            <template x-if="index !== 0">
+                <div class="w-full h-64 flex">
+                    <div class="w-full h-full"></div>
+                    <div class="w-16 h-full flex flex-col items-center justify-center">
+                        <div class="bg-black w-[1px] h-full"></div>
+                    </div>
+                    <div class="w-full h-full"></div>
+                </div>
+            </template>
+        
+            <!-- Left Side -->
+            <div class="w-full h-full flex">
+                <div class="w-full flex flex-col items-end justify-start">
+                    <div x-text="experiences[index].period" class="text-end mb-2"></div>
+                    <div x-text="experiences[index].position" class="font-medium text-2xl text-end"></div>
+                    <div x-text="experiences[index].localization" class="font-medium text-lg text-end"></div>
+                    <div x-text="experiences[index].company" class="font-medium text-lg text-end"></div>
+                    <div x-html="experiences[index].description" class="w-1/2 text-end"></div>
+                </div>
+                <div class="w-16 h-full flex flex-col items-center justify-center">
+                    <i class="bi bi-circle"></i> 
+                    <div class="bg-black w-[1px] h-full"></div>
+                </div>
+                <div class="w-full h-full"></div>
+            </div>
 
-    <div class="w-full h-full flex">
-        <div class="w-full flex flex-col items-end justify-start">
-            <div class="text-end mb-2">04 - 2025</div>
-            <div class="font-medium text-lg text-end">AeroSim</div>
-            <div class="font-medium text-2xl text-end">Desenvolvedor Junior</div>
-            <div class="w-1/2 text-end">Desenvolvimento do aplicativo <b>WEB</b> para engenharia de vento: AeroSim. Neste projeto, atuo no planejamento de <b>UX</b> através do <b>Figma</b> e posterior execução na <b>UI</b> do software. Além disto, desenvolvo atividades no âmbito do Frontend, e funcionalidades envolvendo a <b>API WebGL</b>.</div>
-        </div>
-        <div class="w-16 h-full flex flex-col items-center justify-center">
-            <i class="bi bi-circle"></i> 
-            <div class="bg-black w-[1px] h-full"></div>
-        </div>
-        <div class="w-full h-full"></div>
-    </div>
+            <!-- Right Side -->
+            <div class="w-full h-full flex">
+                <div class="w-full h-full"></div>
+                <div class="w-16 h-full flex flex-col items-center justify-center">
+                    <i class="bi bi-circle"></i> 
+                    <div class="bg-black w-[1px] h-full"></div>
+                </div>
+                <div class="w-full flex flex-col items-start justify-start">
+                    <div x-text="experiences[index + 1].period" class="text-start mb-2"></div>
+                    <div x-text="experiences[index + 1].position" class="font-medium text-2xl text-start"></div>
+                    <div x-text="experiences[index + 1].localization" class="font-medium text-lg text-start"></div>
+                    <div x-text="experiences[index + 1].company" class="font-medium text-lg text-start"></div>
+                    <div x-html="experiences[index + 1].description" class="w-1/2 text-start"></div>
+                </div>
+            </div>
 
-    <div class="w-full h-full flex">
-        <div class="w-full h-full"></div>
-        <div class="w-16 h-full flex flex-col items-center justify-center">
-            <i class="bi bi-circle"></i> 
-            <div class="bg-black w-[1px] h-full"></div>
+            <!-- Inferior Line -->
+            <template x-if="index + 1 !== experiences.length - 1">
+                <div class="w-full h-64 flex">
+                    <div class="w-full h-full"></div>
+                    <div class="w-16 h-full flex flex-col items-center justify-center">
+                        <div class="bg-black w-[1px] h-full"></div>
+                    </div>
+                    <div class="w-full h-full"></div>
+                </div>
+            </template>            
+        
+            <!-- Empty -->
+            <template x-if="index + 1 === experiences.length - 1">
+                <div class="w-full h-64 flex">
+                    <div class="w-full h-full"></div>
+                    <div class="w-16 h-full flex flex-col items-center justify-start">
+                        <i class="bi bi-circle"></i> 
+                    </div>
+                    <div class="w-full h-full"></div>
+                </div>
+            </template>
         </div>
-        <div class="w-full flex flex-col items-start justify-start">
-            <div class="text-start mb-2">04 - 2024</div>
-            <div class="font-medium text-lg text-start">AeroSim</div>
-            <div class="font-medium text-2xl text-start">Estagiário em desenvolvimento de software</div>
-            <div class="w-1/2 text-start">Desenvolvimento de automações para processos de engenharia.</div>
-        </div>
-    </div>
-</div>
-
-<div class="bg-primary w-full h-screen flex flex-col px-64">
-    <div class="w-full h-64 flex">
-        <div class="w-full flex flex-col items-end justify-start"></div>
-        <div class="w-16 h-full flex flex-col items-center justify-center"><div class="bg-black w-[1px] h-full"></div></div>
-        <div class="w-full h-full"></div>
-    </div>
-
-    <div class="w-full h-full flex">
-        <div class="w-full flex flex-col items-end justify-start">
-            <div class="text-end mb-2">06 - 2023</div>
-            <div class="font-medium text-lg text-end">Autônomo</div>
-            <div class="font-medium text-2xl text-end">Arquiteto Urbanista</div>
-            <div class="w-1/2 text-end">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
-        </div>
-        <div class="w-16 h-full flex flex-col items-center justify-center">
-            <i class="bi bi-circle"></i> 
-            <div class="bg-black w-[1px] h-full"></div>
-        </div>
-        <div class="w-full h-full"></div>
-    </div>
-
-    <div class="w-full h-full flex">
-        <div class="w-full h-full"></div>
-        <div class="w-16 h-full flex flex-col items-center justify-center">
-            <i class="bi bi-circle"></i> 
-            <div class="bg-black w-[1px] h-full"></div>
-        </div>
-        <div class="w-full flex flex-col items-start justify-start">
-            <div class="text-start mb-2">06 - 2022</div>
-            <div class="font-medium text-lg text-start">Trzakos Arquitetura</div>
-            <div class="font-medium text-2xl text-start">Arquiteto Urbanista</div>
-            <div class="w-1/2 text-start">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
-        </div>
-    </div>
-
-    <div class="w-full h-64 flex">
-        <div class="w-full flex flex-col items-end justify-start"></div>
-        <div class="w-16 h-full flex flex-col items-center justify-center"><div class="bg-black w-[1px] h-full"></div></div>
-        <div class="w-full h-full"></div>
-    </div>
-</div>
-
-<div class="bg-primary w-full h-screen flex flex-col px-64">
-
-    <div class="w-full h-64 flex">
-        <div class="w-full flex flex-col items-end justify-start"></div>
-        <div class="w-16 h-full flex flex-col items-center justify-center"><div class="bg-black w-[1px] h-full"></div></div>
-        <div class="w-full h-full"></div>
-    </div>
-
-    <div class="w-full h-full flex">
-        <div class="w-full flex flex-col items-end justify-start">
-            <div class="text-end mb-2">12 - 2021</div>
-            <div class="font-medium text-lg text-end">Vinicius Trevisan Arquitetos</div>
-            <div class="font-medium text-2xl text-end">Estagiário de Arquitetura</div>
-            <div class="w-1/2 text-end">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
-        </div>
-        <div class="w-16 h-full flex flex-col items-center justify-center">
-            <i class="bi bi-circle"></i> 
-            <div class="bg-black w-[1px] h-full"></div>
-        </div>
-        <div class="w-full h-full"></div>
-    </div>
-
-    <div class="w-full h-full flex">
-        <div class="w-full h-full"></div>
-        <div class="w-16 h-full flex flex-col items-center justify-center">
-            <i class="bi bi-circle"></i> 
-            <div class="bg-black w-[1px] h-full"></div>
-        </div>
-        <div class="w-full flex flex-col items-start justify-start">
-            <div class="text-start mb-2">05 - 2019</div>
-            <div class="font-medium text-lg text-start">Prefeitura Municipal de Araucária</div>
-            <div class="font-medium text-2xl text-start">Estagiário de Arquitetura</div>
-            <div class="w-1/2 text-start">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</div>
-        </div>
-    </div>
-
-    <div class="w-full h-64 flex">
-        <div class="w-full flex flex-col items-end justify-start"></div>
-        <div class="w-16 h-full flex flex-col items-center justify-start">
-            <i class="bi bi-circle"></i> 
-        </div>
-        <div class="w-full h-full"></div>
-    </div>
+    </template>
 </div>
