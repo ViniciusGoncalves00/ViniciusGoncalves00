@@ -26,7 +26,7 @@
                         x-show="languageDropdown"
                         @click.outside="languageDropdown = false"
                         class="absolute left-0 top-full w-full bg-primary rounded-b-[4px] border-x border-b border-black/10 flex flex-col items-center justify-center z-[100]">
-                        <template x-for="lang in ['pt-br', 'en-us', 'ru-ru']" :key="lang">
+                        <template x-for="lang in ['pt-br', 'en-us', 'ru-ru', 'zh-cn']" :key="lang">
                             <button
                                 x-data="{ hover: false }"
                                 @mouseenter="hover = true"
@@ -44,10 +44,11 @@
                                     <img x-show="lang === 'pt-br' && (language === lang || hover)" src="/common/icons/brazil.png" class="w-4 h-4"/>
                                     <img x-show="lang === 'en-us' && (language === lang || hover)" src="/common/icons/united-states.png" class="w-4 h-4"/>
                                     <img x-show="lang === 'ru-ru' && (language === lang || hover)" src="/common/icons/russia.png" class="w-4 h-4"/>
+                                    <img x-show="lang === 'zh-cn' && (language === lang || hover)" src="/common/icons/china.png" class="w-4 h-4"/>
                                     <i class="fa-regular fa-circle" x-show="language !== lang && !hover"></i>
                                 </div>
                         
-                                <p class="pl-2" x-text="lang === 'pt-br' ? 'Português' : lang === 'en-us' ? 'English' : 'Русский'"></p>
+                                <p class="pl-2" x-text="lang === 'pt-br' ? 'Português' : lang === 'en-us' ? 'English' : lang === 'ru-ru' ? 'Русский' : lang === 'zh-cn' ? '简体中文' : ''"></p>
                             </button>
                         </template>
                         
