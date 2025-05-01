@@ -1,7 +1,8 @@
 <div x-data="{
     navigationOpen: false,
     languageDropdown: false,
-    darkMode: localStorage.getItem('theme') === 'custom_light'}">
+    darkMode: localStorage.getItem('theme') === 'custom_light'}
+    basePath: window.location.hostname.includes('github.io') ? '/ViniciusGoncalves00/dist' : '/dist' }">
     <div class="fixed bg-primary w-full h-16 z-50 border-b border-black/10 flex justify-center px-64">
         <div class="w-full h-full flex items-center justify-between font-RobotoCondensed">
             <!-- Logo / Título -->
