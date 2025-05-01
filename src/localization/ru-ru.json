@@ -1,7 +1,8 @@
 {
     "header": {
         "portfolio": "портфолио | винисиус гонсалвэс",
-        "language": "Русский"
+        "language": "Русский",
+        "language_international": "Russian"
     },
     "greeting": "привет мир!",
     "sections": {

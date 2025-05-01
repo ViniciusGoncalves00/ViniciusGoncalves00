@@ -1,7 +1,8 @@
 {
     "header": {
         "portfolio": "portfólio | vinicius gonçalves",
-        "language": "Português"
+        "language": "Português",
+        "language_international": "Portuguese"
     },
     "greeting": "olá, mundo!",
     "sections": {
