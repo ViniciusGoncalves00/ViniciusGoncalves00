@@ -10,7 +10,7 @@
             <div class="w-full flex items-center justify-end space-x-2">
                 <!-- Language Choice -->
                 <div class="relative w-40 flex items-center space-x-2">
-                    <button @click="languageDropdown = !languageDropdown" class="w-full flex-none flex items-center justify-between cursor-pointer hover:border hover:border-black/20" :class="languageDropdown ? 'border-x border-t border-black/20' : ''">
+                    <button @click="languageDropdown = !languageDropdown" class="w-full flex-none flex items-center justify-between cursor-pointer hover:border hover:border-black/10" :class="languageDropdown ? 'border-x border-t border-black/20' : ''">
                         <i class="flex-none flex items-center justify-center w-8 h-8">
                             <i alt="SelectLanguage" class="bi bi-globe-americas"></i>
                         </i>
@@ -25,7 +25,7 @@
                     <div
                         x-show="languageDropdown"
                         @click.outside="languageDropdown = false"
-                        class="absolute left-0 top-full w-full bg-primary rounded-b-[4px] border-x border-b border-black/20 flex flex-col items-center justify-center z-[100]">
+                        class="absolute left-0 top-full w-full bg-primary rounded-b-[4px] border-x border-b border-black/10 flex flex-col items-center justify-center z-[100]">
                         <template x-for="lang in ['pt-br', 'en-us', 'ru-ru']" :key="lang">
                             <button
                                 x-data="{ hover: false }"
