@@ -21,7 +21,7 @@
         </script>
         <title>Portfolio | Vinicius Gonçalves</title>
     </head>
-    <body id="body" x-data="{ language: 'pt-br', content: {} }" x-init="fetch(`../localization/${language}.json`).then(res => res.json()).then(data => content = data)" class="text-black">
+    <body id="body" x-data="{ language: 'pt-br', content: {}, basePath: window.location.hostname.includes('github.io') ? '/ViniciusGoncalves00' : '' }" x-init="fetch(`../localization/${language}.json`).then(res => res.json()).then(data => content = data)" class="text-black">
         <header id="header" x-init="fetch('./header.html').then(res => res.text()).then(html => $refs.header.innerHTML = html)" x-ref="header"></header>
 
         <nav x-init="fetch('./navigation-bar.html').then(res => res.text()).then(html => $refs.navigationBar.innerHTML = html)" x-ref="navigationBar"></nav>
