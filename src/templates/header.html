@@ -9,12 +9,12 @@
 
             <div class="w-full flex items-center justify-end space-x-2">
                 <!-- Language Choice -->
-                <div class="relative w-40 flex items-center space-x-2">
-                    <button @click="languageDropdown = !languageDropdown" class="w-full flex-none flex items-center justify-between cursor-pointer hover:border hover:border-black/10" :class="languageDropdown ? 'border-x border-t border-black/20' : ''">
+                <div class="relative w-60 flex items-center space-x-2">
+                    <button @click="languageDropdown = !languageDropdown" class="w-full flex-none flex items-center justify-between cursor-pointer hover:border hover:border-black/10 space-x-2" :class="languageDropdown ? 'border-x border-t border-black/20' : ''">
                         <i class="flex-none flex items-center justify-center w-8 h-8">
                             <i alt="SelectLanguage" class="bi bi-globe-americas"></i>
                         </i>
-                        <p x-text="content.header.language" class="w-full text-center"></p>
+                        <p x-text="content.header.language" class="w-full text-start"></p>
                         <i class="flex-none flex items-center justify-center w-8 h-8">
                             <i x-show="languageDropdown" class="fa-solid fa-chevron-up"></i>
                             <i x-show="!languageDropdown" class="fa-solid fa-chevron-down"></i>
@@ -38,7 +38,7 @@
                                         .then(data => content = data);
                                     languageDropdown = false
                                 "
-                                class="w-full h-8 flex items-center justify-start hover:bg-secondary cursor-pointer"
+                                class="w-full h-8 flex items-center justify-start border-t border-black/5 hover:bg-secondary cursor-pointer space-x-2"
                             >
                                 <div class="flex items-center justify-center w-8 h-8">
                                     <img x-show="lang === 'pt-br' && (language === lang || hover)" src="/common/icons/brazil.png" class="w-4 h-4"/>
@@ -47,11 +47,12 @@
                                     <img x-show="lang === 'zh-cn' && (language === lang || hover)" src="/common/icons/china.png" class="w-4 h-4"/>
                                     <i class="fa-regular fa-circle" x-show="language !== lang && !hover"></i>
                                 </div>
-                        
-                                <p class="pl-2" x-text="lang === 'pt-br' ? 'Português' : lang === 'en-us' ? 'English' : lang === 'ru-ru' ? 'Русский' : lang === 'zh-cn' ? '简体中文' : ''"></p>
+                                <div class="flex space-x-2">
+                                    <p x-text="lang === 'pt-br' ? 'Português' : lang === 'en-us' ? 'English' : lang === 'ru-ru' ? 'Русский' : lang === 'zh-cn' ? '简体中文' : ''"></p>
+                                    <p class=" opacity-40" x-text="lang === 'pt-br' ? 'Portuguese' : lang === 'en-us' ? 'English' : lang === 'ru-ru' ? 'Russian' : lang === 'zh-cn' ? 'Chinese' : ''"></p>
+                                </div>
                             </button>
                         </template>
-                        
                     </div>
                 </div>
             
