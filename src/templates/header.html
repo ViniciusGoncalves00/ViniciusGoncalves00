@@ -68,11 +68,11 @@
         <div class="z-50 pointer-events-auto">
             <div @click.outside="if (navigationOpen) navigationOpen = false" x-show="navigationOpen" class="bg-primary w-[256px] rounded-[4px] p-16 flex flex-col items-center justify-between drop-shadow-custom-shadow-2">
                 <ul class="flex flex-col items-center justify-center space-y-4">
-                    <a href="./home.html">home</a>
-                    <a href="./projects.html">projects</a>
-                    <a href="./blog.html">blog</a>
-                    <a href="./boids.html">boids</a>
-                    <a href="./open-3D.html">open 3D</a>
+                    <!-- <a href="./home.html">home</a> -->
+                    <!-- <a href="./projects.html">projects</a> -->
+                    <!-- <a href="./blog.html">blog</a> -->
+                    <a href="https://viniciusgoncalves00.github.io/open-3D/">open 3D</a>
+                    <a href="https://viniciusgoncalves00.github.io/boids-threejs/project/templates/index.html">boids</a>
                 </ul>
                 <button class="pt-24" @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'custom_light' : 'custom_dark'); document.documentElement.setAttribute('data-theme', darkMode ? 'custom_light' : 'custom_dark')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill" viewBox="0 0 16 16">
