@@ -1,6 +1,48 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="Home Page">
-  <p>My page content, wrapped in a layout!</p>
+<BaseLayout pageName="Portfolio">
+    <img slot="background" src="/background.png" alt="" class="absolute inset-0 w-full h-full -z-10"/>
+    <div slot="main" class="relative z-10 p-8">
+      <button id="light" class="cursor-pointer">Turn on the lights</button>
+      <button id="dark" class="cursor-pointer">Turn off the lights</button>   
+
+      <script>
+        const root = document.documentElement;  
+        const darkButton = document.getElementById("dark");
+        const lightButton = document.getElementById("light");
+
+        document.documentElement.classList.toggle(
+            "dark",
+            localStorage.theme === "dark" ||
+            (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+        );
+
+        if (localStorage.theme === "dark") {
+            darkButton?.classList.toggle("hidden");
+        } else if (localStorage.theme === "light") {
+            lightButton?.classList.toggle("hidden");
+        }
+
+        darkButton?.addEventListener("click", () => {
+            root.dataset.theme = "dark";
+            root.setAttribute("data-theme", "dark");
+
+            darkButton?.classList.toggle("hidden");
+            lightButton?.classList.toggle("hidden");
+
+            localStorage.setItem("theme", "dark");
+        }); 
+
+        lightButton?.addEventListener("click", () => {
+            root.dataset.theme = "light";
+            root.setAttribute("data-theme", "light");
+
+            darkButton?.classList.toggle("hidden");
+            lightButton?.classList.toggle("hidden");
+
+            localStorage.setItem("theme", "light");
+        });
+      </script>
+    </div>
 </BaseLayout>

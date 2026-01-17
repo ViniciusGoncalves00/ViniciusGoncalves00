@@ -1,1 +1,47 @@
 @import "tailwindcss";
+
+@layer components {
+    .base-text {
+        @apply font-light text-zinc-900;
+    }
+
+    html[data-theme="dark"] .base-text {
+        @apply text-white;
+    }
+
+    .base-background {
+        @apply bg-white;
+    }
+
+    html[data-theme="dark"] .base-background {
+        @apply bg-zinc-900;
+    }
+
+    .base-hover {
+        @apply hover:bg-zinc-100;
+    }
+
+    .base-gradient-hover {
+        @apply hover:bg-zinc-900;
+    }
+
+    .base-border {
+        @apply border border-zinc-800;
+    }
+
+    .base-padding {
+        @apply p-2
+    }
+
+    .base-margin {
+        @apply m-2
+    }
+
+    .base-round {
+        @apply rounded-lg;
+    }
+
+    .base-shadow {
+        @apply drop-shadow-sm;
+    }
+}

@@ -1,0 +1,28 @@
+---
+import HorizontalContainer from './horizontalContainer.astro';
+---
+
+<HorizontalContainer>
+    <header class="opacity-50 hover:transition-opacity hover:opacity-100 duration-200 w-full h-16 flex items-center justify-between">
+        <nav aria-label="site navigation" class="w-1/4 flex items-center justify-center">
+            <ul class="flex">
+                <li class="w-20 p-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href="/">Home</a></li>
+                <li class="w-20 p-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href="/blog">Blog</a></li>
+                <li class="w-20 p-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href="/contact">Contact</a></li>
+                <li class="w-20 p-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href="/404">404</a></li>
+                <li class="w-20 p-2 flex items-center justify-center cursor-pointer hover:font-medium">design</li>
+            </ul>
+        </nav>
+
+        <div class="w-2/4 flex items-center justify-center">
+            <a href="/" rel="author" class="text-2xl font-normal"><strong>portfolio</strong> vinicius gonçalves</a>
+        </div>
+      
+        <nav aria-label="social networks" class="w-1/4 flex items-center justify-center">
+            <ul class="flex">
+                <li class="w-20 p-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href="https://github.com/..." rel="me">GitHub</a></li>
+                <li class="w-20 p-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href="https://linkedin.com/in/..." rel="me">LinkedIn</a></li>
+            </ul>
+        </nav>
+    </header>
+</HorizontalContainer>

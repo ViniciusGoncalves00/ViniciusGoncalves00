@@ -1,0 +1,14 @@
+---
+import HorizontalContainer from './horizontalContainer.astro';
+
+const year = new Date().getUTCFullYear();
+---
+
+<HorizontalContainer>
+    <footer class="hover:bg-linear-to-t hover:from-zinc-800 hover:to-transparent hover:transition-opacity hover:opacity-100 duration-300
+        w-full h-16 flex items-center justify-between">
+        <div class="base-margin w-full flex items-center justify-between">
+            <p>Copyright © {year} Vinicius Gonçalves</p>
+        </div>
+    </footer>
+</HorizontalContainer>
