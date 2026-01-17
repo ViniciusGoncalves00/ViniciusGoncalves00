@@ -1,14 +1,27 @@
 ---
 import HorizontalContainer from './horizontalContainer.astro';
+import { Icon } from 'astro-icon/components'
 
 const year = new Date().getUTCFullYear();
 ---
 
 <HorizontalContainer>
-    <footer class="hover:bg-linear-to-t hover:from-zinc-800 hover:to-transparent hover:transition-opacity hover:opacity-100 duration-300
-        w-full h-16 flex items-center justify-between">
-        <div class="base-margin w-full flex items-center justify-between">
+    <footer class="opacity-50 hover:transition-opacity hover:opacity-100 duration-200 w-full h-16 flex items-center justify-between">
+        <div class="w-1/4 flex items-center justify-center">
             <p>Copyright © {year} Vinicius Gonçalves</p>
         </div>
+        <div class="w-2/4 flex items-center justify-center"></div>
+        <nav aria-label="social networks" class="w-1/4 flex items-center justify-center">
+            <ul class="flex">
+                <li class="px-4 my-4 flex items-center justify-center space-x-2 cursor-pointer hover:font-medium">
+                    <Icon name="github" />
+                    <a target="_blank" href="https://github.com/ViniciusGoncalves00" rel="me">GitHub</a>
+                </li>
+                <li class="px-4 my-4 flex items-center justify-center space-x-2 cursor-pointer hover:font-medium">
+                    <Icon name="linkedin" />
+                    <a target="_blank" href="https://www.linkedin.com/in/viniciusgonçalves00/" rel="me">LinkedIn</a>
+                </li>
+            </ul>
+        </nav>
     </footer>
 </HorizontalContainer>
