@@ -37,11 +37,19 @@
         @apply m-2
     }
 
-    .base-round {
+    .base-rounded {
         @apply rounded-lg;
     }
 
     .base-shadow {
         @apply drop-shadow-sm;
+    }
+
+    .base-horizontal-centralized {
+        @apply flex items-center justify-center;
+    }
+
+    .base-vertical-centralized {
+        @apply flex flex-col items-center justify-center;
     }
 }

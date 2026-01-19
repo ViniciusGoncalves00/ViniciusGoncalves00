@@ -2,14 +2,41 @@
 import { languages, defaultLanguage } from '../i18n/ui';
 import { getPartFromUrl } from '../i18n/utils';
 
-const first = getPartFromUrl(Astro.url, 1)
-const index = (first != languages['pt-br'] && first != languages.en) ? 1 : 2;
-const page = getPartFromUrl(Astro.url, index);
+const language = getPartFromUrl(Astro.url, 1);
+const page = getPartFromUrl(Astro.url, 2);
+
 ---
-<ul class="flex">
-    {Object.entries(languages).map(([language, label]) => (
-        <li class="px-4 my-4 flex items-center justify-center cursor-pointer hover:font-medium">
-            <a href={language == defaultLanguage ? `/${page}` : `/${language}/${page}`}>{label}</a>
+<details class="relative">
+  <summary class="base-horizontal-centralized base-rounded base-hover base-border base-padding w-24 cursor-pointer list-none">
+    {Object.entries(languages).find(([lang, label]) => lang == language)?.[1]}
+  </summary>
+
+  <ul class="absolute right-0 -mt-2 w-24 rounded-b border-b border-x bg-white shadow-md">
+    {Object.entries(languages).map(([language, label]) => {
+      const href = `/${language}/${page}`;
+
+      return (
+        <li>
+          <a href={href} class="block px-4 py-2 text-sm hover:bg-gray-100">
+            {label}
+            </a>
         </li>
-    ))}
-</ul>
+      );
+    })}
+  </ul>
+</details>
+<!-- 
+<script>
+    document.addEventListener('click', (e) => {
+        document.querySelectorAll('[data-dropdown]').forEach(dropdown => {
+            const button = dropdown.querySelector('[data-toggle]');
+            const menu = dropdown.querySelector('[data-menu]');
+
+            if (button?.contains(e.target)) {
+                menu?.classList.toggle('hidden');
+            } else if (!dropdown.contains(e.target)) {
+                menu?.classList.add('hidden');
+            }
+        });
+    });
+</script> -->
