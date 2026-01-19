@@ -1,0 +1,15 @@
+---
+import { languages, defaultLanguage } from '../i18n/ui';
+import { getPartFromUrl } from '../i18n/utils';
+
+const first = getPartFromUrl(Astro.url, 1)
+const index = (first != languages['pt-br'] && first != languages.en) ? 1 : 2;
+const page = getPartFromUrl(Astro.url, index);
+---
+<ul class="flex">
+    {Object.entries(languages).map(([language, label]) => (
+        <li class="px-4 my-4 flex items-center justify-center cursor-pointer hover:font-medium">
+            <a href={language == defaultLanguage ? `/${page}` : `/${language}/${page}`}>{label}</a>
+        </li>
+    ))}
+</ul>
