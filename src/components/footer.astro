@@ -1,6 +1,7 @@
 ---
 import HorizontalContainer from './horizontalContainer.astro';
 import { Icon } from 'astro-icon/components'
+import LanguagePicker from './LanguagePicker.astro';
 
 const year = new Date().getUTCFullYear();
 ---
@@ -13,14 +14,9 @@ const year = new Date().getUTCFullYear();
         <div class="w-2/4 flex items-center justify-center"></div>
         <nav aria-label="social networks" class="w-1/4 flex items-center justify-center">
             <ul class="flex">
-                <li class="px-4 my-4 flex items-center justify-center space-x-2 cursor-pointer hover:font-medium">
-                    <Icon name="github" />
-                    <a target="_blank" href="https://github.com/ViniciusGoncalves00" rel="me">GitHub</a>
-                </li>
-                <li class="px-4 my-4 flex items-center justify-center space-x-2 cursor-pointer hover:font-medium">
-                    <Icon name="linkedin" />
-                    <a target="_blank" href="https://www.linkedin.com/in/viniciusgonçalves00/" rel="me">LinkedIn</a>
-                </li>
+                <button id="light" class="px-4 flex items-center justify-center cursor-pointer hover:font-medium">Turn on the lights</button>
+                <button id="dark" class="px-4 flex items-center justify-center cursor-pointer hover:font-medium">Turn off the lights</button>
+                <LanguagePicker />
             </ul>
         </nav>
     </footer>

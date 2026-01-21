@@ -1,7 +1,13 @@
-export const languages = {
-    "pt-br": 'Brazilian',
-    en: 'English',
-};
+export type LanguageInfo = {
+    abbreviation: string;
+    nativeName: string;
+    internationalName: string;
+}
+
+export const languages: LanguageInfo[] = [
+    {abbreviation: "pt-br", nativeName:'Português', internationalName:"Portuguese"},
+    {abbreviation: "en-us", nativeName:'English', internationalName:"English"},
+];
 
 export const defaultLanguage = 'pt-br';
 
@@ -12,7 +18,7 @@ export const ui = {
         'navigation.contact': 'Contato',
         'navigation.404': '404',
     },
-    en: {
+    "en-us": {
         'navigation.home': 'Home',
         'navigation.blog': 'Blog',
         'navigation.contact': 'Contact',

@@ -1,11 +1,19 @@
 @import "tailwindcss";
 
 @layer components {
-    .base-text {
+    .base-main-text {
         @apply font-light text-zinc-900;
     }
 
-    html[data-theme="dark"] .base-text {
+    html[data-theme="dark"] .base-main-text {
+        @apply text-white;
+    }
+
+    .base-secondary-text {
+        @apply font-light text-zinc-700;
+    }
+
+    html[data-theme="dark"] .base-secondary-text {
         @apply text-white;
     }
 
@@ -26,11 +34,11 @@
     }
 
     .base-border {
-        @apply border border-zinc-800;
+        @apply border border-zinc-500;
     }
 
     .base-padding {
-        @apply p-2
+        @apply px-2 py-1
     }
 
     .base-margin {
@@ -38,7 +46,7 @@
     }
 
     .base-rounded {
-        @apply rounded-lg;
+        @apply rounded-sm;
     }
 
     .base-shadow {
@@ -47,6 +55,10 @@
 
     .base-horizontal-centralized {
         @apply flex items-center justify-center;
+    }
+
+    .base-horizontal-start {
+        @apply flex items-center justify-start;
     }
 
     .base-vertical-centralized {

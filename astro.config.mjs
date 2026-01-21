@@ -11,13 +11,13 @@ export default defineConfig({
     },
     integrations: [icon()],
     i18n: {
-        locales: ["pt-br", "en"],
+        locales: ["pt-br", "en-us"],
         defaultLocale: "pt-br",
         routing: {
             prefixDefaultLocale: true
         },
         fallback: {
-            en: "pt-br",
+            "en-us": "pt-br",
         },
     }
 });

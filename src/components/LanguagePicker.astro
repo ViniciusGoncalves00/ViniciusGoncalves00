@@ -2,28 +2,41 @@
 import { languages, defaultLanguage } from '../i18n/ui';
 import { getPartFromUrl } from '../i18n/utils';
 
-const language = getPartFromUrl(Astro.url, 1);
+const urlLanguage = getPartFromUrl(Astro.url, 1);
 const page = getPartFromUrl(Astro.url, 2);
+const info = languages.find(info => info.abbreviation === urlLanguage);
 
 ---
 <details class="relative">
-  <summary class="base-horizontal-centralized base-rounded base-hover base-border base-padding w-24 cursor-pointer list-none">
-    {Object.entries(languages).find(([lang, label]) => lang == language)?.[1]}
-  </summary>
+    <summary class=" base-border base-rounded base-padding w-48 flex items-center justify-between text-sm space-x-2 cursor-pointer list-none">
+        <div class="w-full flex space-x-2">
+            <strong>{info?.nativeName}</strong>
+            <p>{info?.internationalName}</p>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+        </svg>
+    </summary>
 
-  <ul class="absolute right-0 -mt-2 w-24 rounded-b border-b border-x bg-white shadow-md">
-    {Object.entries(languages).map(([language, label]) => {
-      const href = `/${language}/${page}`;
-
-      return (
-        <li>
-          <a href={href} class="block px-4 py-2 text-sm hover:bg-gray-100">
-            {label}
-            </a>
-        </li>
-      );
-    })}
-  </ul>
+    <ul class="base-border base-rounded absolute right-0 -top-[calc(100%+32px)] w-48">
+        {languages.map((language) => {
+            const href = `/${language.abbreviation}/${page}`;
+            
+            return (
+                <a href={href} class="base-padding flex items-center justify-between space-x-2 hover:font-medium">
+                    <div class="flex items-center space-x-2">
+                        <strong class="base-main-text text-sm">{language.nativeName}</strong>
+                        <p class="base-secondary-text text-xs">{language.internationalName}</p>
+                    </div>
+                    {language?.abbreviation === urlLanguage ?
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    : ""}
+                </a>
+            );
+        })} 
+    </ul>
 </details>
 <!-- 
 <script>
