@@ -70,7 +70,7 @@
     }
 
     .ds-rounded {
-        @apply rounded-sm;
+        @apply rounded-full;
     }
 
     .ds-shadow {
