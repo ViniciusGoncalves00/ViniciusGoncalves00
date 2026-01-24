@@ -8,7 +8,10 @@ const info = languages.find(info => info.abbreviation === urlLanguage);
 
 ---
 <details class="relative">
-    <summary class=" base-border base-rounded base-padding w-48 flex items-center justify-between text-sm space-x-2 cursor-pointer list-none">
+    <summary class=" ds-border ds-rounded ds-padding w-48 flex items-center justify-between text-sm space-x-2 cursor-pointer list-none">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8">
+            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM6.262 6.072a8.25 8.25 0 1 0 10.562-.766 4.5 4.5 0 0 1-1.318 1.357L14.25 7.5l.165.33a.809.809 0 0 1-1.086 1.085l-.604-.302a1.125 1.125 0 0 0-1.298.21l-.132.131c-.439.44-.439 1.152 0 1.591l.296.296c.256.257.622.374.98.314l1.17-.195c.323-.054.654.036.905.245l1.33 1.108c.32.267.46.694.358 1.1a8.7 8.7 0 0 1-2.288 4.04l-.723.724a1.125 1.125 0 0 1-1.298.21l-.153-.076a1.125 1.125 0 0 1-.622-1.006v-1.089c0-.298-.119-.585-.33-.796l-1.347-1.347a1.125 1.125 0 0 1-.21-1.298L9.75 12l-1.64-1.64a6 6 0 0 1-1.676-3.257l-.172-1.03Z" clip-rule="evenodd" />
+        </svg>
         <div class="w-full flex space-x-2">
             <strong>{info?.nativeName}</strong>
             <p>{info?.internationalName}</p>
@@ -18,15 +21,15 @@ const info = languages.find(info => info.abbreviation === urlLanguage);
         </svg>
     </summary>
 
-    <ul class="base-border base-rounded absolute right-0 -top-[calc(100%+32px)] w-48">
+    <ul class="ds-border ds-rounded absolute right-0 -top-[calc(100%+32px)] w-48">
         {languages.map((language) => {
             const href = `/${language.abbreviation}/${page}`;
             
             return (
-                <a href={href} class="base-padding flex items-center justify-between space-x-2 hover:font-medium">
+                <a href={href} class="ds-padding flex items-center justify-between space-x-2 hover:font-medium">
                     <div class="flex items-center space-x-2">
-                        <strong class="base-main-text text-sm">{language.nativeName}</strong>
-                        <p class="base-secondary-text text-xs">{language.internationalName}</p>
+                        <strong class="ds-main-text text-sm">{language.nativeName}</strong>
+                        <p class="ds-secondary-text text-xs">{language.internationalName}</p>
                     </div>
                     {language?.abbreviation === urlLanguage ?
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">

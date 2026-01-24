@@ -11,13 +11,51 @@ const year = new Date().getUTCFullYear();
         <div class="w-1/4 flex items-center justify-center">
             <p>Copyright © {year} Vinicius Gonçalves</p>
         </div>
-        <div class="w-2/4 flex items-center justify-center"></div>
+        <div class="w-2/4 h-full flex items-center justify-center gap-4">
+            <button id="toggle-theme-button" aria-label="Toggle dark mode" class="ds-background ds-lower-depth h-12 w-24 p-1 rounded-full cursor-pointer flex items-center">
+                <div id="toggle-theme-knob" class="ds-background ds-high-depth ds-hover h-full aspect-square rounded-full p-1.5">
+                    <svg id="light-theme-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path transform="translate(0 -0.5)" stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                    </svg>
+                    <svg id="dark-theme-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path transform="translate(0 -0.5)" stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                    </svg>
+                </div>
+            </button>
+        </div>
         <nav aria-label="social networks" class="w-1/4 flex items-center justify-center">
-            <ul class="flex">
-                <button id="light" class="px-4 flex items-center justify-center cursor-pointer hover:font-medium">Turn on the lights</button>
-                <button id="dark" class="px-4 flex items-center justify-center cursor-pointer hover:font-medium">Turn off the lights</button>
-                <LanguagePicker />
-            </ul>
+            <LanguagePicker />
         </nav>
     </footer>
 </HorizontalContainer>
+
+<script>
+    const root = document.documentElement;  
+    const toggleThemeButton = document.getElementById("toggle-theme-button");
+    const toggleThemeKnob = document.getElementById("toggle-theme-knob");
+    const darkThemeIcon = document.getElementById("dark-theme-icon");
+    const lightThemeIcon = document.getElementById("light-theme-icon");
+
+    let isDark = localStorage.theme === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    
+    isDark ? root.classList.add("dark") : root.classList.remove("dark");
+    root.dataset.theme = isDark ? "dark" : "";
+    localStorage.theme = isDark ? "dark" : "";
+
+    isDark ? toggleThemeButton?.classList.add("justify-end") : toggleThemeButton?.classList.remove("justify-end");
+    isDark ? lightThemeIcon?.classList.add("hidden") : lightThemeIcon?.classList.remove("hidden");
+    isDark ? darkThemeIcon?.classList.remove("hidden") : darkThemeIcon?.classList.add("hidden");
+
+    toggleThemeButton?.addEventListener("click", () => {
+        isDark = !isDark;
+
+
+        isDark ? root.classList.add("dark") : root.classList.remove("dark");
+        root.dataset.theme = isDark ? "dark" : "";
+        localStorage.theme = isDark ? "dark" : "";
+
+        isDark ? toggleThemeButton?.classList.add("justify-end") : toggleThemeButton?.classList.remove("justify-end");
+        isDark ? lightThemeIcon?.classList.add("hidden") : lightThemeIcon?.classList.remove("hidden");
+        isDark ? darkThemeIcon?.classList.remove("hidden") : darkThemeIcon?.classList.add("hidden");
+    });
+</script>

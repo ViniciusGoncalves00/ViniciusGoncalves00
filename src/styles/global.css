@@ -1,67 +1,91 @@
 @import "tailwindcss";
 
 @layer components {
-    .base-main-text {
+    .ds-main-text {
         @apply font-light text-zinc-900;
     }
 
-    html[data-theme="dark"] .base-main-text {
+    html[data-theme="dark"] .ds-main-text {
         @apply text-white;
     }
 
-    .base-secondary-text {
+    .ds-secondary-text {
         @apply font-light text-zinc-700;
     }
 
-    html[data-theme="dark"] .base-secondary-text {
+    html[data-theme="dark"] .ds-secondary-text {
         @apply text-white;
     }
 
-    .base-background {
-        @apply bg-white;
+    .ds-background {
+        @apply bg-zinc-200;
     }
 
-    html[data-theme="dark"] .base-background {
-        @apply bg-zinc-900;
+    html[data-theme="dark"] .ds-background {
+        @apply bg-zinc-800;
     }
 
-    .base-hover {
-        @apply hover:bg-zinc-100;
+    .ds-hover {
+        @apply hover:bg-zinc-50;
     }
 
-    .base-gradient-hover {
+    html[data-theme="dark"] .ds-hover {
+        @apply hover:bg-zinc-700;
+    }
+
+    .ds-lower-depth {
+        @apply border-b-2 border-white inset-shadow-[0px_2px_8px_rgba(0,0,0,0.5)] shadow-[0px_-2px_4px_rgba(0,0,0,0.25)];
+    }
+
+    html[data-theme="dark"] .ds-lower-depth {
+        @apply border-b-2 border-zinc-500 inset-shadow-[0px_2px_8px_rgba(0,0,0,0.5)] shadow-[0px_-2px_4px_rgba(0,0,0,0.25)];
+    }
+
+    .ds-high-depth {
+        @apply border-t-2 border-zinc-50 shadow-[0px_2px_8px_rgba(0,0,0,1.0)];
+    }
+
+    html[data-theme="dark"] .ds-high-depth {
+        @apply border-t-2 border-zinc-500 shadow-[0px_2px_8px_rgba(0,0,0,1.0)];
+    }
+
+    .ds-gradient-hover {
         @apply hover:bg-zinc-900;
     }
 
-    .base-border {
-        @apply border border-zinc-500;
+    .ds-border {
+        @apply border border-zinc-700;
     }
 
-    .base-padding {
+    html[data-theme="dark"] .ds-border {
+        @apply border border-zinc-200;
+    }
+
+    .ds-padding {
         @apply px-2 py-1
     }
 
-    .base-margin {
+    .ds-margin {
         @apply m-2
     }
 
-    .base-rounded {
+    .ds-rounded {
         @apply rounded-sm;
     }
 
-    .base-shadow {
+    .ds-shadow {
         @apply drop-shadow-sm;
     }
 
-    .base-horizontal-centralized {
+    .ds-horizontal-centralized {
         @apply flex items-center justify-center;
     }
 
-    .base-horizontal-start {
+    .ds-horizontal-start {
         @apply flex items-center justify-start;
     }
 
-    .base-vertical-centralized {
+    .ds-vertical-centralized {
         @apply flex flex-col items-center justify-center;
     }
 }
