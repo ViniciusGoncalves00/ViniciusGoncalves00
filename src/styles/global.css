@@ -34,19 +34,19 @@
     }
 
     .ds-lower-depth {
-        @apply border-b-2 border-white inset-shadow-[0px_2px_8px_rgba(0,0,0,0.5)] shadow-[0px_-2px_4px_rgba(0,0,0,0.25)];
+        @apply border-b-2 border-white inset-shadow-[0px_2px_8px_rgba(0,0,0,0.75)] shadow-[0px_-2px_4px_rgba(0,0,0,0.25)];
     }
 
     html[data-theme="dark"] .ds-lower-depth {
-        @apply border-b-2 border-zinc-500 inset-shadow-[0px_2px_8px_rgba(0,0,0,0.5)] shadow-[0px_-2px_4px_rgba(0,0,0,0.25)];
+        @apply border-b-2 border-zinc-500 inset-shadow-[0px_2px_8px_rgba(0,0,0,0.75)] shadow-[0px_-2px_4px_rgba(0,0,0,0.25)];
     }
 
     .ds-high-depth {
-        @apply border-t-2 border-zinc-50 shadow-[0px_2px_8px_rgba(0,0,0,1.0)];
+        @apply border-t-2 border-zinc-50 shadow-[0px_2px_4px_rgba(0,0,0,1.0)];
     }
 
     html[data-theme="dark"] .ds-high-depth {
-        @apply border-t-2 border-zinc-500 shadow-[0px_2px_8px_rgba(0,0,0,1.0)];
+        @apply border-t-2 border-zinc-500 shadow-[0px_2px_4px_rgba(0,0,0,1.0)];
     }
 
     .ds-gradient-hover {
