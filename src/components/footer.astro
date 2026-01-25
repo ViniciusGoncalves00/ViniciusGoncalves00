@@ -11,7 +11,7 @@ const page = getPartFromUrl(Astro.url, 2);
 const info = languages.find(info => info.abbreviation === urlLanguage);
 
 const nextLanguage = info?.abbreviation === "en-us" ? "pt-br" : "en-us";
-const toggleLanguageKnobTranslation = info?.abbreviation === "en-us" ? "" : "translate-x-[calc(120%)]";
+const toggleLanguageKnobTranslation = info?.abbreviation === "pt-br" ? "" : "translate-x-[calc(120%)]";
 
 const languageHref = `/${nextLanguage}/${page}`;
 
@@ -46,11 +46,13 @@ const year = new Date().getUTCFullYear();
                 </svg>
             </div>
             <div class="h-full flex items-center justify-between space-x-1">
-                <img src="/public/flags/en-us.png" class="h-full aspect-square p-1.5">
+                <!-- <img src="/public/flags/en-us.png" class="h-full aspect-square p-1.5"> -->
+                <div class="h-full aspect-square p-1">BR</div>
                 <a id="toggle-language-button" href={languageHref} aria-label="Toggle Language" class="ds-background ds-lower-depth ds-rounded h-full w-14 p-1 cursor-pointer flex items-center">
                     <div id="toggle-language-knob" class=`ds-background ds-high-depth ds-rounded ds-hover ${toggleLanguageKnobTranslation} h-full aspect-square transition-all transition-discrete duration-500`></div>
                 </a>
-                <img src="/public/flags/pt-br.png" class="h-full aspect-square p-1.5">
+                <div class="h-full aspect-square p-1">EN</div>
+                <!-- <img src="/public/flags/pt-br.png" class="h-full aspect-square p-1.5"> -->
             </div>
         </div>
         <nav aria-label="social networks" class="w-1/4 h-8 flex items-center justify-center space-x-2">
@@ -67,59 +69,57 @@ const year = new Date().getUTCFullYear();
     const toggleAudioButton = document.getElementById("toggle-audio-button");
     const toggleAudioKnob = document.getElementById("toggle-audio-knob");
 
-    let isDark = localStorage.theme === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const toggleLanguageButton = document.getElementById("toggle-language-button");
+
+    let darkThemeEnabled = localStorage.darkTheme === "true" || (!("darkTheme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
     let audioEnabled = localStorage.audio === "true" || (!("audio" in localStorage) && !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
-    isDark ? root.classList.add("dark") : root.classList.remove("dark");
-    root.dataset.theme = isDark ? "dark" : "";
-    localStorage.theme = isDark ? "dark" : "";
-
-    isDark ? toggleThemeKnob?.classList.add("translate-x-[calc(120%)]") : toggleThemeKnob?.classList.remove("translate-x-[calc(120%)]");
-    audioEnabled ? toggleAudioKnob?.classList.add("translate-x-[calc(120%)]") : toggleAudioKnob?.classList.remove("translate-x-[calc(120%)]");
+    moveKnob(darkThemeEnabled, toggleThemeKnob!);
+    moveKnob(audioEnabled, toggleAudioKnob!);
+    assignTheme(darkThemeEnabled);
 
     const enableSFX = new Audio("/sfx/Minimalist1.mp3");
-    enableSFX.volume = 1.0;
-
-    const disableSFX = new Audio("/sfx/Minimalist3.mp3");
-    disableSFX.volume = 1.0;
+    const disableSFX = new Audio("/sfx/Minimalist7.mp3");
 
     toggleThemeButton?.addEventListener("click", () => {
-        isDark = !isDark;
+        darkThemeEnabled = !darkThemeEnabled;
 
-        if (audioEnabled) {
-            console.log(audioEnabled)
-            isDark ? disableSFX.currentTime = 0 : enableSFX.currentTime = 0;
-            isDark ? disableSFX.play() : enableSFX.play();
-        }
-
-        isDark ? root.classList.add("dark") : root.classList.remove("dark");
-        root.dataset.theme = isDark ? "dark" : "";
-        localStorage.theme = isDark ? "dark" : "";
-
-        isDark ? toggleThemeKnob?.classList.add("translate-x-[calc(120%)]") : toggleThemeKnob?.classList.remove("translate-x-[calc(120%)]");
+        if (audioEnabled) playAudio(darkThemeEnabled);
+        moveKnob(darkThemeEnabled, toggleThemeKnob!);
+        saveState(audioEnabled, "darkTheme");
+        assignTheme(darkThemeEnabled);
     });
 
     toggleAudioButton?.addEventListener("click", () => {
         audioEnabled = !audioEnabled;
 
-        audioEnabled ? disableSFX.currentTime = 0 : enableSFX.currentTime = 0;
-        audioEnabled ? disableSFX.play() : enableSFX.play();
-
-        localStorage.audio = String(audioEnabled);
-
-        !audioEnabled ? toggleAudioKnob?.classList.add("translate-x-[calc(120%)]") : toggleAudioKnob?.classList.remove("translate-x-[calc(120%)]");
+        playAudio(audioEnabled);
+        moveKnob(audioEnabled, toggleAudioKnob!);
+        saveState(audioEnabled, "audio");
     });
 
-    // function unlockAudio(...audios: HTMLAudioElement[]) {
-    //     audios.forEach(audio => {
-    //         audio.play().then(() => {
-    //             audio.pause();
-    //             audio.currentTime = 0;
-    //         }).catch(() => {});
-    //     });
-    // }
-    
-    // window.addEventListener("pointerdown", () => {
-    //     unlockAudio(enableSFX, disableSFX);
-    // }, { once: true });
+    toggleLanguageButton?.addEventListener("pointerdown", () => {
+        const language = window.location.pathname.split("/").at(1);
+        const isPortuguese = language === "pt-br";
+
+        if (audioEnabled) playAudio(isPortuguese);
+    });
+
+    function saveState(state: boolean, store: string) {
+        localStorage[store] = String(state);
+    }
+
+    function assignTheme(state: boolean) {
+        state ? root.classList.add("dark") : root.classList.remove("dark");
+        root.dataset.theme = state ? "dark" : "";
+    }
+
+    function moveKnob(state: boolean, element: HTMLElement) {
+        state ? element.classList.add("translate-x-[calc(120%)]") : element.classList.remove("translate-x-[calc(120%)]");
+    }
+
+    function playAudio(state: boolean) {
+        !state ? enableSFX.currentTime = 0 : disableSFX.currentTime = 0;
+        !state ? enableSFX.play() : disableSFX.play();
+    }
 </script>
