@@ -5,6 +5,11 @@ import Footer from "../components/footer.astro";
 
 const { pageName } = Astro.props;
 const locale = Astro.currentLocale ?? "pt-br"
+
+import { getLanguageFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLanguageFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <html lang={locale}>

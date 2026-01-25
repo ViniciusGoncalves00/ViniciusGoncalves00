@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  return [
+    { params: { locale: 'pt-br' } },
+    { params: { locale: 'en-us' } },
+  ];
+}
+---
+<BaseLayout pageName="Portfolio">
+    <!-- <img slot="background" src="/background.png" alt="" class="absolute inset-0 w-full h-full -z-10"/> -->
+    <canvas slot="background" id="canvas" class="absolute inset-0 w-full h-full -z-10"></canvas>
+    <div slot="main" class="relative z-10 p-8">
+    </div>
+</BaseLayout>
+
+<script>
+    import * as THREE from 'three';
+    import
+
+const width = window.innerWidth, height = window.innerHeight;
+
+// init
+
+const camera = new THREE.PerspectiveCamera( 70, width / height, 0.01, 10 );
+camera.position.set(2, 2, 2);
+camera.lookAt(0, 0, 0);
+
+const scene = new THREE.Scene();
+
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshPhongMaterial();
+
+const mesh = new THREE.Mesh( geometry, material );
+scene.add( mesh );
+
+const light = new THREE.SpotLight();
+light.position.set(-1, 1, 1);
+
+scene.add(light);
+
+const orbitControls = new THREE.OrbitC
+
+const canvas = document.getElementById("canvas")!;
+const renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true, canvas: canvas } );
+renderer.setSize( width, height );
+renderer.setAnimationLoop( animate );
+document.body.appendChild( renderer.domElement );
+
+// animation
+
+function animate(time: any ) {
+	mesh.rotation.y = time / 1000;
+
+	renderer.render( scene, camera );
+}
+</script>

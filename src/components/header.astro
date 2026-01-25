@@ -3,7 +3,6 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getLanguageFromUrl, useTranslations } from '../i18n/utils';
 
 import HorizontalContainer from './horizontalContainer.astro';
-import LanguagePicker from '../components/LanguagePicker.astro';
 import { Icon } from 'astro-icon/components'
 
 const language = getLanguageFromUrl(Astro.url);
@@ -15,7 +14,7 @@ const locale = Astro.currentLocale ?? "pt-br"
     <header class="opacity-50 hover:transition-opacity hover:opacity-100 duration-200 w-full flex items-center justify-between py-2">
         <nav aria-label="site navigation" class="w-1/4 flex items-center justify-center">
             <ul class="flex">
-                <li class="px-4 my-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href={getRelativeLocaleUrl(locale, `home`)}>{translation('navigation.home')}</a></li>
+                <li class="px-4 my-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href={getRelativeLocaleUrl(locale, ``)}>{translation('navigation.home')}</a></li>
                 <li class="px-4 my-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href={getRelativeLocaleUrl(locale, `blog`)}>{translation('navigation.blog')}</a></li>
                 <li class="px-4 my-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href={getRelativeLocaleUrl(locale, `contact`)}>{translation('navigation.contact')}</a></li>
                 <li class="px-4 my-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href={getRelativeLocaleUrl(locale, `404`)}>{translation('navigation.404')}</a></li>
