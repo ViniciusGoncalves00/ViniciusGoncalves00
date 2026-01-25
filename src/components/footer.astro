@@ -1,10 +1,8 @@
 ---
 import HorizontalContainer from './horizontalContainer.astro';
-import { Icon } from 'astro-icon/components'
-import LanguagePicker from './LanguagePicker.astro';
 import ToggleIcon from './toggle-icon.astro';
 
-import { languages, defaultLanguage } from '../i18n/ui';
+import { languages } from '../i18n/ui';
 import { getPartFromUrl } from '../i18n/utils';
 
 const urlLanguage = getPartFromUrl(Astro.url, 1);
@@ -15,8 +13,6 @@ const nextLanguage = info?.abbreviation === "en-us" ? "pt-br" : "en-us";
 const toggleLanguageKnobTranslation = info?.abbreviation === "pt-br" ? "" : "translate-x-[calc(120%)]";
 
 const languageHref = `/${nextLanguage}/${page}`;
-
-const year = new Date().getUTCFullYear();
 ---
 
 <HorizontalContainer>
@@ -70,18 +66,20 @@ const year = new Date().getUTCFullYear();
     let audioEnabled = localStorage.audio === "true" || (!("audio" in localStorage) && !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
     moveKnob(darkThemeEnabled, toggleThemeKnob!);
-    moveKnob(audioEnabled, toggleAudioKnob!);
+    moveKnob(!audioEnabled, toggleAudioKnob!);
     assignTheme(darkThemeEnabled);
 
     const enableSFX = new Audio("/sfx/Minimalist1.mp3");
     const disableSFX = new Audio("/sfx/Minimalist2.mp3");
+    enableSFX.preload = "auto";
+    disableSFX.preload = "auto";
 
     toggleThemeButton?.addEventListener("click", () => {
         darkThemeEnabled = !darkThemeEnabled;
 
         if (audioEnabled) playAudio(darkThemeEnabled);
         moveKnob(darkThemeEnabled, toggleThemeKnob!);
-        saveState(audioEnabled, "darkTheme");
+        saveState(darkThemeEnabled, "darkTheme");
         assignTheme(darkThemeEnabled);
     });
 
@@ -89,7 +87,7 @@ const year = new Date().getUTCFullYear();
         audioEnabled = !audioEnabled;
 
         playAudio(audioEnabled);
-        moveKnob(audioEnabled, toggleAudioKnob!);
+        moveKnob(!audioEnabled, toggleAudioKnob!);
         saveState(audioEnabled, "audio");
     });
 
