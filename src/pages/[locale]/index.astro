@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from "../../components/header.astro";
+import Footer from "../../components/footer.astro";
 
 export async function getStaticPaths() {
   return [
@@ -9,21 +11,19 @@ export async function getStaticPaths() {
 }
 ---
 <BaseLayout pageName="Portfolio">
-    <!-- <img slot="background" src="/background.png" alt="" class="absolute inset-0 w-full h-full -z-10"/> -->
-    <canvas slot="background" id="canvas" class="absolute inset-0 w-full h-full -z-10"></canvas>
-    <div slot="main" class="relative z-10 p-8">
-    </div>
+    <Header slot="header" />
+    <canvas slot="main" id="canvas" class="w-full h-full"></canvas>
+    <Footer slot="footer" />
 </BaseLayout>
 
 <script>
     import * as THREE from 'three';
-    import
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-const width = window.innerWidth, height = window.innerHeight;
+const canvas = document.getElementById("canvas")!;
+const width = canvas.clientWidth, height = canvas.clientHeight;
 
-// init
-
-const camera = new THREE.PerspectiveCamera( 70, width / height, 0.01, 10 );
+const camera = new THREE.PerspectiveCamera( 45, width / height, 0.01, 10 );
 camera.position.set(2, 2, 2);
 camera.lookAt(0, 0, 0);
 
@@ -40,19 +40,23 @@ light.position.set(-1, 1, 1);
 
 scene.add(light);
 
-const orbitControls = new THREE.OrbitC
-
-const canvas = document.getElementById("canvas")!;
 const renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true, canvas: canvas } );
 renderer.setSize( width, height );
 renderer.setAnimationLoop( animate );
-document.body.appendChild( renderer.domElement );
 
-// animation
+const controls = new OrbitControls( camera, canvas );
+controls.update();
 
 function animate(time: any ) {
-	mesh.rotation.y = time / 1000;
-
 	renderer.render( scene, camera );
 }
+
+window.addEventListener("resize", () => {
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+});
+
 </script>

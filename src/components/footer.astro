@@ -1,5 +1,4 @@
 ---
-import HorizontalContainer from './horizontalContainer.astro';
 import ToggleIcon from './toggle-icon.astro';
 
 import { languages } from '../i18n/ui';
@@ -15,42 +14,40 @@ const toggleLanguageKnobTranslation = info?.abbreviation === "pt-br" ? "" : "tra
 const languageHref = `/${nextLanguage}/${page}`;
 ---
 
-<HorizontalContainer>
-    <footer class="opacity-50 hover:transition-opacity hover:opacity-100 duration-200 w-full h-16 flex items-center justify-between">
-        <div class="w-1/4 h-full flex items-center justify-center">
+<div class="opacity-50 hover:transition-opacity hover:opacity-100 duration-200 w-full h-full flex-none flex items-center justify-between">
+    <div class="w-1/4 h-full flex items-center justify-center">
+    </div>
+    <div class="w-2/4 h-8 flex items-center justify-center space-x-8">
+        <ToggleIcon
+            buttonId="toggle-audio-button"
+            knobId="toggle-audio-knob"
+            ariaLabel="Toggle audio"
+            leftIcon="bi bi-volume-up"
+            leftIconSize="text-2xl"
+            rightIcon="bi bi-volume-mute"
+            rightIconSize="text-2xl">
+        </ToggleIcon>
+        <ToggleIcon
+            buttonId="toggle-theme-button"
+            knobId="toggle-theme-knob"
+            ariaLabel="Toggle theme"
+            leftIcon="bi bi-brightness-low"
+            leftIconSize="text-2xl"
+            rightIcon="bi bi-moon-stars"
+            rightIconSize="font-lg">
+        </ToggleIcon>
+        <div class="h-full flex items-center justify-between space-x-1">
+            <div class="h-full aspect-square p-1">BR</div>
+            <a id="toggle-language-button" href={languageHref} aria-label="Toggle Language" class="ds-background ds-lower-depth ds-rounded h-full w-14 p-1 cursor-pointer flex items-center">
+                <div id="toggle-language-knob" class=`ds-background ds-high-depth ds-rounded ds-hover ${toggleLanguageKnobTranslation} h-full aspect-square transition-all transition-discrete duration-500`></div>
+            </a>
+            <div class="h-full aspect-square p-1">EN</div>
         </div>
-        <div class="w-2/4 h-8 flex items-center justify-center space-x-8">
-            <ToggleIcon
-                buttonId="toggle-audio-button"
-                knobId="toggle-audio-knob"
-                ariaLabel="Toggle audio"
-                leftIcon="bi bi-volume-up"
-                leftIconSize="text-2xl"
-                rightIcon="bi bi-volume-mute"
-                rightIconSize="text-2xl">
-            </ToggleIcon>
-            <ToggleIcon
-                buttonId="toggle-theme-button"
-                knobId="toggle-theme-knob"
-                ariaLabel="Toggle theme"
-                leftIcon="bi bi-brightness-low"
-                leftIconSize="text-2xl"
-                rightIcon="bi bi-moon-stars"
-                rightIconSize="font-lg">
-            </ToggleIcon>
-            <div class="h-full flex items-center justify-between space-x-1">
-                <div class="h-full aspect-square p-1">BR</div>
-                <a id="toggle-language-button" href={languageHref} aria-label="Toggle Language" class="ds-background ds-lower-depth ds-rounded h-full w-14 p-1 cursor-pointer flex items-center">
-                    <div id="toggle-language-knob" class=`ds-background ds-high-depth ds-rounded ds-hover ${toggleLanguageKnobTranslation} h-full aspect-square transition-all transition-discrete duration-500`></div>
-                </a>
-                <div class="h-full aspect-square p-1">EN</div>
-            </div>
-        </div>
-        <nav aria-label="social networks" class="w-1/4 h-8 flex items-center justify-center space-x-2">
-            <!-- <LanguagePicker /> -->
-        </nav>
-    </footer>
-</HorizontalContainer>
+    </div>
+    <nav aria-label="social networks" class="w-1/4 h-8 flex items-center justify-center space-x-2">
+        <!-- <LanguagePicker /> -->
+    </nav>
+</div>
 
 <script>
     const root = document.documentElement;  
