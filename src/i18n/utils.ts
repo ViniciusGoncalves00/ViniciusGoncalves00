@@ -11,6 +11,13 @@ export function getPartFromUrl(url: URL, index: number) {
     return parts[index] ?? "";
 }
 
+export function getPage(url: URL) {
+    const parts = url.pathname.split('/');
+    parts.shift();
+    parts.shift();
+    return parts.join("/");
+}
+
 export function useTranslations(lang: keyof typeof ui) {
     return function t(key: keyof typeof ui[typeof defaultLanguage]) {
         return ui[lang][key] || ui[defaultLanguage][key];

@@ -2,10 +2,10 @@
 import ToggleIcon from './toggle-icon.astro';
 
 import { languages } from '../i18n/ui';
-import { getPartFromUrl } from '../i18n/utils';
+import { getPartFromUrl, getPage } from '../i18n/utils';
 
 const urlLanguage = getPartFromUrl(Astro.url, 1);
-const page = getPartFromUrl(Astro.url, 2);
+const page = getPage(Astro.url);
 const info = languages.find(info => info.abbreviation === urlLanguage);
 
 const nextLanguage = info?.abbreviation === "en-us" ? "pt-br" : "en-us";

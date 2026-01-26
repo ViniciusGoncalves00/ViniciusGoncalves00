@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  return posts.map(post => {
+    const [locale, slug] = post.id.split('/');
+
+    return {
+      params: { locale, slug },
+    };
+  });
+}
+
+const { locale, slug } = Astro.params;
+
+// monta o ID correto do conteúdo
+const post = await getEntry('blog', `${locale}/${slug}`)!;
+---
+<BaseLayout pageName={post.data.title}>
+  <article slot="main" class="prose">
+    <h1>{post.data.title}</h1>
+    <!-- <post.Content /> -->
+  </article>
+</BaseLayout>
