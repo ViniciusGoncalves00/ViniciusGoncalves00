@@ -2,7 +2,7 @@
 
 @layer components {
     .ds-main-text {
-        @apply font-light text-zinc-900;
+        @apply font-light text-zinc-500;
     }
 
     html[data-theme="dark"] .ds-main-text {
@@ -31,6 +31,14 @@
 
     html[data-theme="dark"] .ds-hover {
         @apply hover:bg-zinc-700;
+    }
+
+    .ds-text-hover {
+        @apply hover:text-zinc-900;
+    }
+
+    html[data-theme="dark"] .ds-text-hover {
+        @apply hover:text-zinc-100;
     }
 
     .ds-lower-depth {

@@ -8,14 +8,14 @@ const translation = useTranslations(language);
 const locale = Astro.currentLocale ?? "pt-br"
 ---
 
-<div class="opacity-50 hover:transition-opacity hover:opacity-100 w-full h-16 flex-none flex items-center justify-between py-2">
+<div class="ds-main-text opacity-50 hover:transition-opacity hover:opacity-100 w-full h-16 flex-none flex items-center justify-between py-2">
     <nav aria-label="site navigation" class="w-1/4 flex items-center justify-center">
         <ul class="flex">
-            <li class="px-4 my-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href={getRelativeLocaleUrl(locale, ``)}>{translation('navigation.home')}</a></li>
-            <li class="px-4 my-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href={getRelativeLocaleUrl(locale, `blog`)}>{translation('navigation.blog')}</a></li>
-            <li class="px-4 my-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href={getRelativeLocaleUrl(locale, `contact`)}>{translation('navigation.contact')}</a></li>
-            <li class="px-4 my-2 flex items-center justify-center cursor-pointer hover:font-medium"><a href={getRelativeLocaleUrl(locale, `404`)}>{translation('navigation.404')}</a></li>
-            <li class="px-4 my-2 flex items-center justify-center cursor-pointer hover:font-medium">design</li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={getRelativeLocaleUrl(locale, ``)}>{translation('navigation.home')}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={getRelativeLocaleUrl(locale, `blog`)}>{translation('navigation.blog')}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={getRelativeLocaleUrl(locale, `contact`)}>{translation('navigation.contact')}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={getRelativeLocaleUrl(locale, `404`)}>{translation('navigation.404')}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer">design</li>
         </ul>
     </nav>
     <div class="w-2/4 flex items-center justify-center">
@@ -23,13 +23,15 @@ const locale = Astro.currentLocale ?? "pt-br"
     </div>
     <nav aria-label="social networks" class="w-1/4 flex items-center justify-center">
         <ul class="flex">
-            <li class="px-4 my-4 flex items-center justify-center space-x-2 cursor-pointer hover:font-medium">
+            <li class="ds-text-hover px-4 my-4 flex items-center justify-center space-x-2 cursor-pointer">
                 <Icon name="github" />
                 <a target="_blank" href="https://github.com/ViniciusGoncalves00" rel="me">GitHub</a>
+                <i class="bi bi-box-arrow-up-right text-xs flex items-center justify-center"></i>
             </li>
-            <li class="px-4 my-4 flex items-center justify-center space-x-2 cursor-pointer hover:font-medium">
+            <li class="ds-text-hover px-4 my-4 flex items-center justify-center space-x-2 cursor-pointer">
                 <Icon name="linkedin" />
                 <a target="_blank" href="https://www.linkedin.com/in/viniciusgonçalves00/" rel="me">LinkedIn</a>
+                <i class="bi bi-box-arrow-up-right text-xs flex items-center justify-center"></i>
             </li>
         </ul>
     </nav>
