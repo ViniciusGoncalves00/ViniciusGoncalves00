@@ -6,7 +6,7 @@
     }
 
     html[data-theme="dark"] .ds-main-text {
-        @apply text-white;
+        @apply text-zinc-300;
     }
 
     .ds-secondary-text {
@@ -14,7 +14,7 @@
     }
 
     html[data-theme="dark"] .ds-secondary-text {
-        @apply text-white;
+        @apply text-zinc-200;
     }
 
     .ds-background {
@@ -22,7 +22,7 @@
     }
 
     html[data-theme="dark"] .ds-background {
-        @apply bg-zinc-800;
+        @apply bg-zinc-900;
     }
 
     .ds-hover {
