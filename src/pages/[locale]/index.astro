@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from "../../components/header.astro";
-import Footer from "../../components/footer.astro";
 
 export async function getStaticPaths() {
   return [
@@ -11,9 +9,7 @@ export async function getStaticPaths() {
 }
 ---
 <BaseLayout pageName="Portfolio">
-    <Header slot="header" />
     <canvas slot="main" id="canvas" class="w-full h-full"></canvas>
-    <Footer slot="footer" />
 </BaseLayout>
 
 <script>
@@ -32,24 +28,63 @@ const scene = new THREE.Scene();
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshPhongMaterial();
 
-const mesh = new THREE.Mesh( geometry, material );
-scene.add( mesh );
+const floor = new THREE.Mesh( geometry, material );
+floor.position.set(0.0, -0.5, .0);
+floor.scale.set(1, 0.05, 1);
+scene.add( floor );
+
+const wall1 = new THREE.Mesh( geometry, material );
+wall1.position.set(0.0, 0.0, -0.5);
+wall1.scale.set(1, 0.05, 1);
+wall1.rotateX(THREE.MathUtils.degToRad(90));
+scene.add( wall1 );
+
+const wall2 = new THREE.Mesh( geometry, material );
+wall2.position.set(-0.5, 0.0, 0.0);
+wall2.scale.set(1, 0.05, 1);
+wall2.rotateZ(THREE.MathUtils.degToRad(90));
+scene.add( wall2 );
 
 const light = new THREE.SpotLight();
-light.position.set(-1, 1, 1);
+light.position.set(1, 1, 1);
+const ambientLight = new THREE.AmbientLight();
 
 scene.add(light);
+scene.add(ambientLight);
 
 const renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true, canvas: canvas } );
 renderer.setSize( width, height );
 renderer.setAnimationLoop( animate );
 
 const controls = new OrbitControls( camera, canvas );
+controls.enablePan = false;
 controls.update();
+controls.minDistance = 1;
+controls.maxDistance = 5;
 
 function animate(time: any ) {
 	renderer.render( scene, camera );
 }
+
+let darkThemeEnabled = localStorage.darkTheme === "true" || (!("darkTheme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
+const ambientDay = new THREE.Color(0.9, 0.9, 1.0);
+const spotDay = new THREE.Color(0.9, 0.5, 0.2);
+
+const ambientNight = new THREE.Color(0.1, 0.1, 0.8);
+const spotNight = new THREE.Color(0.8, 0.8, 1.0);
+
+light.color = darkThemeEnabled ? spotNight : spotDay;
+light.intensity = darkThemeEnabled ? 0.1 : 1.0;
+ambientLight.color = darkThemeEnabled ? ambientNight : ambientDay;
+ambientLight.intensity = darkThemeEnabled ? 0.05 : 0.2;
+
+window.addEventListener("toggleLight", (event) => {
+    darkThemeEnabled = !darkThemeEnabled;
+    light.color = darkThemeEnabled ? spotNight : spotDay;
+    light.intensity = darkThemeEnabled ? 0.1 : 1.0;
+    ambientLight.color = darkThemeEnabled ? ambientNight : ambientDay;
+    ambientLight.intensity = darkThemeEnabled ? 0.05 : 0.2;
+})
 
 window.addEventListener("resize", () => {
   const w = canvas.clientWidth;
