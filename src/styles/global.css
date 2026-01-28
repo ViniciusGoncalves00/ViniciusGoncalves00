@@ -1,4 +1,13 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@utility ds-main-text {
+    @apply font-light text-zinc-500;
+}
+
+@utility ds-text-hover {
+    @apply hover:text-zinc-900;
+}
 
 @layer components {
     .ds-main-text {
