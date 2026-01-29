@@ -13,19 +13,121 @@ export async function getStaticPaths() {
 }
 ---
 <BaseLayout  pageName="Portfolio | Blog">
-    <div slot="main">
-        <ul>
-            {posts.map(post => {
-                const slug = post.id.split('/')[1];   
-                
-                return (
-                    <li>
-                        <a href={`/${locale}/blog/${slug}`}>
-                            {post.data.title}
-                        </a>
-                    </li>
-                );
-            })}
-        </ul>
+    <div
+  slot="main"
+  class="w-full flex flex-col items-center justify-start space-y-4"
+  x-data={`{
+    search: '',
+    tagFilter: '',
+    locale: "${locale}",
+    posts: ${JSON.stringify(posts)},
+
+    allTags() {
+      return [...new Set(
+        this.posts.flatMap(p => p.data.tags || [])
+      )];
+    },
+
+    filteredPosts() {
+      return this.posts.filter(post => {
+        const title = post.data.title?.toLowerCase() || '';
+        const searchMatch = title.includes(this.search.toLowerCase());
+
+        const tagMatch = this.tagFilter
+          ? post.data.tags?.includes(this.tagFilter)
+          : true;
+
+        return searchMatch && tagMatch;
+      });
+    }
+  }`}
+>
+
+  <!-- FILTROS -->
+  <div class="w-3xl flex gap-2 items-center">
+
+    <!-- Busca por título -->
+    <input
+      type="text"
+      placeholder="Buscar por título..."
+      x-model="search"
+      class="flex-1 px-3 py-1 rounded border
+             bg-white dark:bg-zinc-900
+             border-zinc-300 dark:border-zinc-700"
+    />
+
+    <!-- Filtro por tags -->
+    <select
+      x-model="tagFilter"
+      class="px-3 py-1 rounded border
+             bg-white dark:bg-zinc-900
+             border-zinc-300 dark:border-zinc-700"
+    >
+      <option value="">Todas as tags</option>
+      <template x-for="tag in allTags()" :key="tag">
+        <option x-text="tag"></option>
+      </template>
+    </select>
+  </div>
+
+  <!-- HEADER -->
+  <div class="w-3xl px-2 py-1 text-sm font-semibold uppercase opacity-70">
+    <div class="w-full flex items-center space-x-4">
+      <span class="w-full">Título</span>
+      <span class="w-32 flex-none">Tags</span>
+      <span class="w-20 flex-none">Criado em</span>
+      <span class="w-20 flex-none">Atualizado</span>
     </div>
+  </div>
+
+  <!-- LISTA -->
+  <ol class="w-3xl flex flex-col space-y-1">
+
+    <template x-for="post in filteredPosts()" :key="post.id">
+      <li class="ds-hover px-2 py-1 rounded">
+
+        <a
+          :href="`/${locale}/blog/${post.id.split('/')[1]}`"
+          class="w-full flex items-center space-x-4"
+        >
+          <!-- Título -->
+          <span class="w-full truncate" x-text="post.data.title"></span>
+
+          <!-- Tags -->
+          <ul class="w-32 flex-none flex flex-wrap gap-1 truncate">
+            <template x-for="tag in post.data.tags || []" :key="tag">
+              <li
+                class="px-1 text-xs rounded
+                       bg-zinc-300 dark:bg-zinc-700"
+                x-text="tag"
+              ></li>
+            </template>
+          </ul>
+
+          <!-- Criado em -->
+          <span
+            class="w-20 flex-none truncate"
+            x-text="post.data.createdAt || '...'"
+          ></span>
+
+          <!-- Atualizado -->
+          <span
+            class="w-20 flex-none truncate"
+            x-text="post.data.lastUpdate || '...'"
+          ></span>
+        </a>
+      </li>
+    </template>
+
+    <!-- Estado vazio -->
+    <li
+      x-show="filteredPosts().length === 0"
+      class="text-center opacity-60 py-4"
+    >
+      Nenhum resultado encontrado
+    </li>
+
+  </ol>
+</div>
+
 </BaseLayout>

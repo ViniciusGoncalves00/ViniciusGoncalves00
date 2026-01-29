@@ -3,6 +3,10 @@ title: Como a internet funciona
 author: Vinicius Gonçalves
 createdAt: 30/01/2026
 lastUpdate: 30/01/2026
+tags: 
+    - internet
+    - web
+    - sockets
 relatedPosts:
 - test
 ---
