@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 <BaseLayout  pageName="Portfolio | Blog">
     <div
   slot="main"
-  class="w-full flex flex-col items-center justify-start space-y-4"
+  class="w-full h-full flex flex-col items-center justify-center space-y-4"
   x-data={`{
     search: '',
     tagFilter: '',
@@ -43,26 +43,11 @@ export async function getStaticPaths() {
   }`}
 >
 
-  <!-- FILTROS -->
-  <div class="w-3xl flex gap-2 items-center">
+    <!-- Filters -->
+  <div class="w-3xl flex space-x-2 items-center">
+    <input type="text" placeholder="Buscar por título..." x-model="search" class="ds-border ds-rounded ds-hover ds-focus h-8 flex-1 px-4 py-1"/>
 
-    <!-- Busca por título -->
-    <input
-      type="text"
-      placeholder="Buscar por título..."
-      x-model="search"
-      class="flex-1 px-3 py-1 rounded border
-             bg-white dark:bg-zinc-900
-             border-zinc-300 dark:border-zinc-700"
-    />
-
-    <!-- Filtro por tags -->
-    <select
-      x-model="tagFilter"
-      class="px-3 py-1 rounded border
-             bg-white dark:bg-zinc-900
-             border-zinc-300 dark:border-zinc-700"
-    >
+    <select x-model="tagFilter" class="ds-border ds-rounded ds-hover ds-focus h-8 px-4 py-1">
       <option value="">Todas as tags</option>
       <template x-for="tag in allTags()" :key="tag">
         <option x-text="tag"></option>
@@ -70,17 +55,17 @@ export async function getStaticPaths() {
     </select>
   </div>
 
-  <!-- HEADER -->
+  <!-- Header -->
   <div class="w-3xl px-2 py-1 text-sm font-semibold uppercase opacity-70">
     <div class="w-full flex items-center space-x-4">
       <span class="w-full">Título</span>
-      <span class="w-32 flex-none">Tags</span>
-      <span class="w-20 flex-none">Criado em</span>
-      <span class="w-20 flex-none">Atualizado</span>
+      <span class="w-48 text-center flex-none">Tags</span>
+      <span class="w-20 text-center flex-none">Criado em</span>
+      <span class="w-20 text-center flex-none">Atualizado</span>
     </div>
   </div>
 
-  <!-- LISTA -->
+  <!-- List -->
   <ol class="w-3xl flex flex-col space-y-1">
 
     <template x-for="post in filteredPosts()" :key="post.id">
@@ -88,38 +73,34 @@ export async function getStaticPaths() {
 
         <a
           :href="`/${locale}/blog/${post.id.split('/')[1]}`"
-          class="w-full flex items-center space-x-4"
+          class="w-full h-8 flex items-center space-x-4"
         >
-          <!-- Título -->
+          <!-- Title -->
           <span class="w-full truncate" x-text="post.data.title"></span>
 
           <!-- Tags -->
-          <ul class="w-32 flex-none flex flex-wrap gap-1 truncate">
+          <ul class="w-48 flex-none flex items-center justify-center space-x-1 truncate">
             <template x-for="tag in post.data.tags || []" :key="tag">
-              <li
-                class="px-1 text-xs rounded
-                       bg-zinc-300 dark:bg-zinc-700"
-                x-text="tag"
-              ></li>
+              <li x-text="tag" class="ds-border ds-rounded ds-hover ds-focus px-2 text-xs font-medium"></li>
             </template>
           </ul>
 
-          <!-- Criado em -->
+          <!-- Created At -->
           <span
-            class="w-20 flex-none truncate"
-            x-text="post.data.createdAt || '...'"
+            class="w-20 flex-none text-center truncate"
+            x-text="post.data.createdAt || '01/01/1970'"
           ></span>
 
-          <!-- Atualizado -->
+          <!-- Last Updated -->
           <span
-            class="w-20 flex-none truncate"
-            x-text="post.data.lastUpdate || '...'"
+            class="w-20 flex-none text-center truncate"
+            x-text="post.data.lastUpdate || '01/01/1970'"
           ></span>
         </a>
       </li>
     </template>
 
-    <!-- Estado vazio -->
+    <!-- Not found -->
     <li
       x-show="filteredPosts().length === 0"
       class="text-center opacity-60 py-4"

@@ -71,11 +71,19 @@
     }
 
     .ds-border {
-        @apply border border-zinc-700;
+        @apply border border-zinc-400;
     }
 
     html[data-theme="dark"] .ds-border {
-        @apply border border-zinc-200;
+        @apply border border-zinc-700;
+    }
+
+    .ds-focus {
+        @apply focus:border-zinc-600;
+    }
+
+    html[data-theme="dark"] .ds-focus {
+        @apply focus:border-zinc-500;
     }
 
     .ds-padding {
