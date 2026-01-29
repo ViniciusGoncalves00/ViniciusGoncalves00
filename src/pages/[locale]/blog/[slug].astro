@@ -44,23 +44,23 @@ const toc = buildNumbering(headings);
   <article slot="main" class="w-full h-full flex flex-col items-center justify-start py-4 px-16">
     <h1 class="w-full flex items-center justify-center text-6xl font-bold">{post.data.title}</h1>
 
-    <aside class="w-full flex flex-col items-center justify-start">
-        <nav>
-            <h2>Sumário</h2>
-            <ol class="list-none">
-                {toc.map(header => (
-                    <li style={`margin-left: ${header.indent}rem`} class="ds-text-hover">
-                      <a href={`#${header.slug}`}>
-                        <span class="mr-1">{header.numbering}</span>
-                        {header.text}
-                      </a>
-                    </li>
-                ))}
-            </ol>
-        </nav>
-    </aside>
-  
     <Prose>
+        <aside class="w-full flex flex-col items-center justify-start">
+            <nav>
+                <h2>Sumário</h2>
+                <ol class="list-none">
+                    {toc.map(header => (
+                        <li style={`margin-left: ${header.indent}rem`} class="ds-text-hover">
+                          <a href={`#${header.slug}`}>
+                            <span class="mr-1">{header.numbering}</span>
+                            {header.text}
+                          </a>
+                        </li>
+                    ))}
+                </ol>
+            </nav>
+        </aside>
+
         <Content />
     </Prose>
   </article>
