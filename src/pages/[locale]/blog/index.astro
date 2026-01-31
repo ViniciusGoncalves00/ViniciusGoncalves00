@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 <BaseLayout  pageName="Portfolio | Blog">
     <div
   slot="main"
-  class="w-full h-full flex flex-col items-center justify-center space-y-4"
+  class="w-full h-full flex flex-col items-center justify-start space-y-16"
   x-data={`{
     search: '',
     tagFilter: '',
@@ -43,72 +43,78 @@ export async function getStaticPaths() {
   }`}
 >
 
-    <!-- Filters -->
-  <div class="w-3xl flex space-x-2 items-center">
-    <input type="text" placeholder="Buscar por título..." x-model="search" class="ds-border ds-rounded ds-hover ds-focus h-8 flex-1 px-4 py-1"/>
-
-    <select x-model="tagFilter" class="ds-border ds-rounded ds-hover ds-focus h-8 px-4 py-1">
-      <option value="">Todas as tags</option>
-      <template x-for="tag in allTags()" :key="tag">
-        <option x-text="tag"></option>
-      </template>
-    </select>
+  <div class="w-3xl flex flex-col items-center justify-start text-center space-y-4">
+    <p>
+        Os textos a seguir são apenas uma exposição pública de meus estudos, reflexões e ideias. <br>
+        Considere-os ensaios.
+    </p>
+    <p>
+        <i>Ensaio é um gênero literário (ou não) caracterizado pela exposição reflexiva, opinativa e subjetiva do autor sobre determinado tema</i>
+    </p>
   </div>
+
+  
+  <div class="w-full flex flex-col items-center space-y-2">
+    <!-- Filters -->
+    <div class="w-3xl flex space-x-2 items-center">
+        <input type="text" placeholder="Buscar por título..." x-model="search" class="ds-border ds-rounded ds-hover ds-focus h-8 flex-1 px-4 py-1"/>
+
+        <select x-model="tagFilter" class="ds-border ds-rounded ds-hover ds-focus h-8 px-4 py-1">
+            <option value="">Todas as tags</option>
+            <template x-for="tag in allTags()" :key="tag">
+                <option x-text="tag"></option>
+            </template>
+        </select>
+    </div>
 
   <!-- Header -->
-  <div class="w-3xl px-2 py-1 text-sm font-semibold uppercase opacity-70">
-    <div class="w-full flex items-center space-x-4">
-      <span class="w-full">Título</span>
-      <span class="w-48 text-center flex-none">Tags</span>
-      <span class="w-20 text-center flex-none">Criado em</span>
-      <span class="w-20 text-center flex-none">Atualizado</span>
+    <div class="w-3xl px-2 py-1 text-sm font-semibold uppercase opacity-70">
+        <div class="w-full flex items-center space-x-4">
+            <span class="w-full">Título</span>
+            <span class="w-48 text-center flex-none">Tags</span>
+            <span class="w-20 text-center flex-none">Criado em</span>
+            <span class="w-20 text-center flex-none">Atualizado</span>
+        </div>
     </div>
-  </div>
 
   <!-- List -->
-  <ol class="w-3xl flex flex-col space-y-1">
+    <ol class="w-3xl flex flex-col">
+        <template x-for="post in filteredPosts()" :key="post.id">
+            <li class="ds-hover px-2 py-1 cursor-pointer">
+                <a :href="`/${locale}/blog/${post.id.split('/')[1]}`" class="w-full h-8 flex items-center space-x-4">
+                    <!-- Title -->
+                    <span class="w-full truncate" x-text="post.data.title"></span>
 
-    <template x-for="post in filteredPosts()" :key="post.id">
-      <li class="ds-hover px-2 py-1 rounded">
+                    <!-- Tags -->
+                    <ul class="w-48 flex-none flex items-center justify-center space-x-1 truncate">
+                      <template x-for="tag in post.data.tags || []" :key="tag">
+                        <li x-text="tag" class="ds-border ds-rounded ds-hover ds-focus px-2 text-xs font-medium"></li>
+                      </template>
+                    </ul>
 
-        <a
-          :href="`/${locale}/blog/${post.id.split('/')[1]}`"
-          class="w-full h-8 flex items-center space-x-4"
+                    <!-- Created At -->
+                    <span
+                      class="w-20 flex-none text-center truncate"
+                      x-text="post.data.createdAt || '01/01/1970'"
+                    ></span>
+
+                    <!-- Last Updated -->
+                    <span
+                      class="w-20 flex-none text-center truncate"
+                      x-text="post.data.lastUpdate || '01/01/1970'"
+                    ></span>
+                </a>
+            </li>
+        </template>
+        <!-- Not found -->
+        <li
+          x-show="filteredPosts().length === 0"
+          class="text-center opacity-60 py-4"
         >
-          <!-- Title -->
-          <span class="w-full truncate" x-text="post.data.title"></span>
-
-          <!-- Tags -->
-          <ul class="w-48 flex-none flex items-center justify-center space-x-1 truncate">
-            <template x-for="tag in post.data.tags || []" :key="tag">
-              <li x-text="tag" class="ds-border ds-rounded ds-hover ds-focus px-2 text-xs font-medium"></li>
-            </template>
-          </ul>
-
-          <!-- Created At -->
-          <span
-            class="w-20 flex-none text-center truncate"
-            x-text="post.data.createdAt || '01/01/1970'"
-          ></span>
-
-          <!-- Last Updated -->
-          <span
-            class="w-20 flex-none text-center truncate"
-            x-text="post.data.lastUpdate || '01/01/1970'"
-          ></span>
-        </a>
-      </li>
-    </template>
-
-    <!-- Not found -->
-    <li
-      x-show="filteredPosts().length === 0"
-      class="text-center opacity-60 py-4"
-    >
-      Nenhum resultado encontrado
-    </li>
-
-  </ol>
+          Nenhum resultado encontrado
+        </li>
+    </ol>
+  </div>
 </div>
 
 </BaseLayout>

@@ -27,7 +27,7 @@
     }
 
     .ds-background {
-        @apply bg-zinc-200;
+        @apply bg-zinc-100;
     }
 
     html[data-theme="dark"] .ds-background {
