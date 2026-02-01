@@ -1,20 +1,20 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { getLanguageFromUrl, useTranslations } from '../i18n/utils';
 import { Icon } from 'astro-icon/components'
+import { URLHelper } from '../utils/URLhelper';
+import { Translations } from '../i18n/translations.';
 
-const language = getLanguageFromUrl(Astro.url);
-const translation = useTranslations(language);
-const locale = Astro.currentLocale ?? "pt-br"
+const locale = URLHelper.getLocaleFromURL(Astro.url);
+const translation = Translations.getTranslation(locale);
 ---
 
 <div class="ds-main-text opacity-50 hover:transition-opacity hover:opacity-100 w-full h-16 flex-none flex items-center justify-between py-2">
     <nav aria-label="site navigation" class="w-1/4 flex items-center justify-center">
         <ul class="flex">
-            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={getRelativeLocaleUrl(locale, ``)}>{translation('navigation.home')}</a></li>
-            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={getRelativeLocaleUrl(locale, `blog`)}>{translation('navigation.blog')}</a></li>
-            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={getRelativeLocaleUrl(locale, `contact`)}>{translation('navigation.contact')}</a></li>
-            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={getRelativeLocaleUrl(locale, `404`)}>{translation('navigation.404')}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.home)}>{translation.header.home}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.blog)}>{translation.header.blog}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.contact)}>{translation.header.contact}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.notFound)}>{translation.header.notFound}</a></li>
             <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer">design</li>
         </ul>
     </nav>

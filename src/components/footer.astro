@@ -1,17 +1,16 @@
 ---
+import { LocaleOption } from '../i18n/translations.';
+import { Translations } from '../i18n/translations.';
+import { URLHelper } from '../utils/URLhelper';
 import ToggleIcon from './toggle-icon.astro';
 
-import { languages } from '../i18n/ui';
-import { getPartFromUrl, getPage } from '../i18n/utils';
+const locale = URLHelper.getLocaleFromURL(Astro.url);
+const info = Translations.getLocaleInfo(locale);
 
-const urlLanguage = getPartFromUrl(Astro.url, 1);
-const page = getPage(Astro.url);
-const info = languages.find(info => info.abbreviation === urlLanguage);
+const nextLanguage = info.englishAbbreviation === LocaleOption.EN_US ? LocaleOption.PT_BR : LocaleOption.EN_US;
 
-const nextLanguage = info?.abbreviation === "en-us" ? "pt-br" : "en-us";
-const toggleLanguageKnobTranslation = info?.abbreviation === "pt-br" ? "" : "translate-x-[calc(120%)]";
-
-const languageHref = `/${nextLanguage}/${page}`;
+const toggleLanguageKnobTranslation = info.englishAbbreviation === LocaleOption.PT_BR ? "" : "translate-x-[calc(120%)]";
+const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage);
 ---
 
 <div class="opacity-50 hover:transition-opacity hover:opacity-100 duration-200 w-full h-16 flex-none flex items-center justify-between">
@@ -38,7 +37,7 @@ const languageHref = `/${nextLanguage}/${page}`;
         </ToggleIcon>
         <div class="h-full flex items-center justify-between space-x-1">
             <div class="h-full aspect-square p-1">BR</div>
-            <a id="toggle-language-button" href={languageHref} aria-label="Toggle Language" class="ds-background ds-lower-depth ds-rounded h-full w-14 p-1 cursor-pointer flex items-center">
+            <a id="toggle-language-button" href={nextLocaleHref} aria-label="Toggle Language" class="ds-background ds-lower-depth ds-rounded h-full w-14 p-1 cursor-pointer flex items-center">
                 <div id="toggle-language-knob" class=`ds-background ds-high-depth ds-rounded ds-hover ${toggleLanguageKnobTranslation} h-full aspect-square transition-all transition-discrete duration-500`></div>
             </a>
             <div class="h-full aspect-square p-1">EN</div>

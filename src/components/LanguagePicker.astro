@@ -1,10 +1,10 @@
 ---
-import { languages, defaultLanguage } from '../i18n/ui';
-import { getPartFromUrl } from '../i18n/utils';
+import { LocaleOption, Translations } from "../i18n/translations.";
+import { URLHelper } from "../utils/URLhelper";
 
-const urlLanguage = getPartFromUrl(Astro.url, 1);
-const page = getPartFromUrl(Astro.url, 2);
-const info = languages.find(info => info.abbreviation === urlLanguage);
+const currentLocale = URLHelper.getLocaleFromURL(Astro.url);
+const locales = Object.values(LocaleOption);
+const info = Translations.getLocaleInfo(currentLocale);
 
 ---
 <details class="relative">
@@ -13,8 +13,8 @@ const info = languages.find(info => info.abbreviation === urlLanguage);
             <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM6.262 6.072a8.25 8.25 0 1 0 10.562-.766 4.5 4.5 0 0 1-1.318 1.357L14.25 7.5l.165.33a.809.809 0 0 1-1.086 1.085l-.604-.302a1.125 1.125 0 0 0-1.298.21l-.132.131c-.439.44-.439 1.152 0 1.591l.296.296c.256.257.622.374.98.314l1.17-.195c.323-.054.654.036.905.245l1.33 1.108c.32.267.46.694.358 1.1a8.7 8.7 0 0 1-2.288 4.04l-.723.724a1.125 1.125 0 0 1-1.298.21l-.153-.076a1.125 1.125 0 0 1-.622-1.006v-1.089c0-.298-.119-.585-.33-.796l-1.347-1.347a1.125 1.125 0 0 1-.21-1.298L9.75 12l-1.64-1.64a6 6 0 0 1-1.676-3.257l-.172-1.03Z" clip-rule="evenodd" />
         </svg>
         <div class="w-full flex space-x-2">
-            <strong>{info?.nativeName}</strong>
-            <p>{info?.internationalName}</p>
+            <strong>{info.localName}</strong>
+            <p>{info.englishName}</p>
         </div>
         <svg class="size-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
@@ -22,16 +22,17 @@ const info = languages.find(info => info.abbreviation === urlLanguage);
     </summary>
 
     <ul class="ds-high-depth rounded-3xl absolute right-0 -top-[calc(100%+32px)] w-48">
-        {languages.map((language) => {
-            const href = `/${language.abbreviation}/${page}`;
+        {locales.map((locale) => {
+            const href = URLHelper.buildFullPathFromLocale(Astro.url, locale);
+            const info = Translations.getLocaleInfo(locale);
             
             return (
                 <a href={href} class="ds-padding ds-hover flex items-center justify-between space-x-2 hover:font-medium">
                     <div class="flex items-center space-x-2">
-                        <strong class="ds-main-text text-sm">{language.nativeName}</strong>
-                        <p class="ds-secondary-text text-xs">{language.internationalName}</p>
+                        <strong class="ds-main-text text-sm">{info.localName}</strong>
+                        <p class="ds-secondary-text text-xs">{info.englishName}</p>
                     </div>
-                    {language?.abbreviation === urlLanguage ?
+                    {info.englishAbbreviation === currentLocale ?
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>

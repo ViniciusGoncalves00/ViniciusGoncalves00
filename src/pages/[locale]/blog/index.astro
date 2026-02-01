@@ -1,16 +1,21 @@
 ---
+import { LocaleOption, Translations } from '../../../i18n/translations.';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection, getEntry } from 'astro:content';
+import { URLHelper } from '../../../utils/URLhelper';
 
-const { locale } = Astro.params;
-const posts = (await getCollection('blog')).filter(post => post.id.startsWith(`${locale}/`));
+const locale = URLHelper.getLocaleFromURL(Astro.url);
+const t = Translations.getTranslation(locale);
 
 export async function getStaticPaths() {
-  return [
-    { params: { locale: 'pt-br' } },
-    { params: { locale: 'en-us' } },
-  ];
+    return [
+        { params: { locale: 'pt-br' } },
+        { params: { locale: 'en-us' } },
+    ];
 }
+
+const posts = (await getCollection('blog')).filter(post => post.id.startsWith(`${locale}/`));
+
 ---
 <BaseLayout  pageName="Portfolio | Blog">
     <div
@@ -45,11 +50,10 @@ export async function getStaticPaths() {
 
   <div class="w-3xl flex flex-col items-center justify-start text-center space-y-4">
     <p>
-        Os textos a seguir são apenas uma exposição pública de meus estudos, reflexões e ideias. <br>
-        Considere-os ensaios.
+        {t.blog.disclaimer}
     </p>
     <p>
-        <i>Ensaio é um gênero literário (ou não) caracterizado pela exposição reflexiva, opinativa e subjetiva do autor sobre determinado tema</i>
+        <i>{t.blog.essay}</i>
     </p>
   </div>
 
@@ -57,10 +61,10 @@ export async function getStaticPaths() {
   <div class="w-full flex flex-col items-center space-y-2">
     <!-- Filters -->
     <div class="w-3xl flex space-x-2 items-center">
-        <input type="text" placeholder="Buscar por título..." x-model="search" class="ds-border ds-rounded ds-hover ds-focus h-8 flex-1 px-4 py-1"/>
+        <input type="text" placeholder={t.blog.filter.search} x-model="search" class="ds-border ds-rounded ds-hover ds-focus h-8 flex-1 px-4 py-1"/>
 
         <select x-model="tagFilter" class="ds-border ds-rounded ds-hover ds-focus h-8 px-4 py-1">
-            <option value="">Todas as tags</option>
+            <option value="">{t.blog.filter.tags}</option>
             <template x-for="tag in allTags()" :key="tag">
                 <option x-text="tag"></option>
             </template>
@@ -70,10 +74,10 @@ export async function getStaticPaths() {
   <!-- Header -->
     <div class="w-3xl px-2 py-1 text-sm font-semibold uppercase opacity-70">
         <div class="w-full flex items-center space-x-4">
-            <span class="w-full">Título</span>
-            <span class="w-48 text-center flex-none">Tags</span>
-            <span class="w-20 text-center flex-none">Criado em</span>
-            <span class="w-20 text-center flex-none">Atualizado</span>
+            <span class="w-full">{t.blog.list.title}</span>
+            <span class="w-48 text-center flex-none">{t.blog.list.tags}</span>
+            <span class="w-20 text-center flex-none">{t.blog.list.createdAt}</span>
+            <span class="w-20 text-center flex-none">{t.blog.list.lastUpdate}</span>
         </div>
     </div>
 
