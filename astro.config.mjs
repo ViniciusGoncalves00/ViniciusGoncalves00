@@ -9,7 +9,28 @@ export default defineConfig({
     vite: {
         plugins: [tailwindcss()]
     },
-    integrations: [icon(), alpinejs()],
+    integrations: [icon({
+      include: {
+        mdi: ['github', 'linkedin'],
+        uis: ['*']
+      },
+      svgoOptions: {
+        multipass: true,
+        plugins: [
+          {
+            name: "preset-default",
+            params: {
+              overrides: {
+                inlineStyles: {
+                  onlyMatchedOnce: false,
+                },
+                removeDoctype: false,
+              }
+            }
+          }
+        ]
+      }
+    }), alpinejs()],
     i18n: {
         locales: ["pt-br", "en-us"],
         defaultLocale: "pt-br",
@@ -20,4 +41,5 @@ export default defineConfig({
             "en-us": "pt-br",
         },
     }
+    
 });
