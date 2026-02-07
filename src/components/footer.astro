@@ -1,8 +1,8 @@
 ---
 import { LocaleOption } from '../i18n/translations.';
 import { Translations } from '../i18n/translations.';
-import { URLHelper } from '../utils/URLhelper';
-import ToggleIcon from './toggle-icon.astro';
+import { URLHelper } from '../common/URLhelper';
+import Toggle from './toggle.astro';
 
 const locale = URLHelper.getLocaleFromURL(Astro.url);
 const info = Translations.getLocaleInfo(locale);
@@ -17,7 +17,7 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
     <div class="w-1/4 h-full flex items-center justify-center">
     </div>
     <div class="w-2/4 h-8 flex items-center justify-center space-x-8">
-        <ToggleIcon
+        <Toggle
             buttonId="toggle-audio-button"
             knobId="toggle-audio-knob"
             ariaLabel="Toggle audio"
@@ -25,8 +25,8 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
             leftIconSize="text-2xl"
             rightIcon="bi bi-volume-mute"
             rightIconSize="text-2xl">
-        </ToggleIcon>
-        <ToggleIcon
+        </Toggle>
+        <Toggle
             buttonId="toggle-theme-button"
             knobId="toggle-theme-knob"
             ariaLabel="Toggle theme"
@@ -34,7 +34,7 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
             leftIconSize="text-2xl"
             rightIcon="bi bi-moon-stars"
             rightIconSize="font-lg">
-        </ToggleIcon>
+        </Toggle>
         <div class="h-full flex items-center justify-between space-x-1">
             <div class="h-full aspect-square p-1">BR</div>
             <a id="toggle-language-button" href={nextLocaleHref} aria-label="Toggle Language" class="ds-background ds-lower-depth ds-rounded h-full w-14 p-1 cursor-pointer flex items-center">
@@ -73,7 +73,6 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
     toggleThemeButton?.addEventListener("click", () => {
         darkThemeEnabled = !darkThemeEnabled;
 
-        if (audioEnabled) playAudio(darkThemeEnabled);
         moveKnob(darkThemeEnabled, toggleThemeKnob!);
         saveState(darkThemeEnabled, "darkTheme");
         assignTheme(darkThemeEnabled);
@@ -85,7 +84,6 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
     toggleAudioButton?.addEventListener("click", () => {
         audioEnabled = !audioEnabled;
 
-        playAudio(audioEnabled);
         moveKnob(!audioEnabled, toggleAudioKnob!);
         saveState(audioEnabled, "audio");
     });
@@ -94,7 +92,7 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
         const language = window.location.pathname.split("/").at(1);
         const isPortuguese = language === "pt-br";
 
-        if (audioEnabled) playAudio(isPortuguese);
+        // if (audioEnabled) playAudio(isPortuguese);
     });
 
     function saveState(state: boolean, store: string) {
@@ -108,10 +106,5 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
 
     function moveKnob(state: boolean, element: HTMLElement) {
         state ? element.classList.add("translate-x-[calc(120%)]") : element.classList.remove("translate-x-[calc(120%)]");
-    }
-
-    function playAudio(state: boolean) {
-        !state ? enableSFX.currentTime = 0 : disableSFX.currentTime = 0;
-        !state ? enableSFX.play() : disableSFX.play();
     }
 </script>

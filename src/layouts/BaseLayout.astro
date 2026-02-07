@@ -2,8 +2,9 @@
 import "../styles/global.css";
 import Header from "../components/header.astro";
 import Footer from "../components/footer.astro";
+
 import { Translations } from "../i18n/translations.";
-import { URLHelper } from "../utils/URLhelper";
+import { URLHelper } from "../common/URLhelper";
 
 const { pageName } = Astro.props;
 
@@ -29,3 +30,11 @@ const t = Translations.getTranslation(locale);
         <Footer />
 	</body>
 </html>
+
+<script>
+    import { Entry } from "../common/entry";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        Entry.initialize();
+    });
+</script>

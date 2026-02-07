@@ -1,6 +1,6 @@
 ---
 import { LocaleOption, Translations } from "../i18n/translations.";
-import { URLHelper } from "../utils/URLhelper";
+import { URLHelper } from "../common/URLhelper";
 
 const currentLocale = URLHelper.getLocaleFromURL(Astro.url);
 const locales = Object.values(LocaleOption);

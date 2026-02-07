@@ -2,7 +2,7 @@
 import { LocaleOption, Translations } from '../../../i18n/translations.';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection, getEntry } from 'astro:content';
-import { URLHelper } from '../../../utils/URLhelper';
+import { URLHelper } from '../../../common/URLhelper';
 
 const locale = URLHelper.getLocaleFromURL(Astro.url);
 const t = Translations.getTranslation(locale);

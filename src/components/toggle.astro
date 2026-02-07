@@ -1,0 +1,37 @@
+---
+import { AudioAPI } from "../common/audio/audio-API";
+
+const { buttonId } = Astro.props;
+const { knobId } = Astro.props;
+const { ariaLabel } = Astro.props;
+const { leftIcon } = Astro.props;
+const { leftIconSize } = Astro.props;
+const { rightIcon } = Astro.props;
+const { rightIconSize } = Astro.props;
+
+const { initialState } = Astro.props;
+
+const enable = AudioAPI.TOGGLE_ENABLE_01;
+const disable = AudioAPI.TOGGLE_DISABLE_01;
+const enter = AudioAPI.HOVER_ENTER_01;
+const leave = AudioAPI.HOVER_LEAVE_01;
+---
+
+<div class="h-full flex items-center justify-between space-x-2">
+    <i class=`${ leftIcon } h-full aspect-square flex items-center justify-center ${ leftIconSize }`></i>
+    <button
+        x-data={`{
+            state: ${initialState},
+            enable: '${enable}',
+            disable: '${disable}',
+            enter: '${enter}',
+            leave: '${leave}',
+        }`}
+        @mouseenter={`$dispatch('audio:play', { audio: enter });`}
+        @mouseleave={`$dispatch('audio:play', { audio: leave });`}
+        @click="state = !state; $dispatch('audio:play', { audio: state ? enable : disable });"
+        id={ buttonId } aria-label={ ariaLabel } class="ds-background ds-lower-depth ds-rounded h-full w-14 p-1 cursor-pointer flex items-center">
+        <div id={ knobId } class="ds-background ds-high-depth ds-rounded ds-hover h-full aspect-square transition-all transition-discrete duration-500"></div>
+    </button>
+    <i class=`${ rightIcon } h-full aspect-square flex items-center justify-center ${ rightIconSize }`></i>
+</div>
