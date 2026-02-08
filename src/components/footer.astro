@@ -135,12 +135,12 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
 
         const parts = current.split(" ").filter(Boolean);
 
-        parts[1] = state ? "skeuomorphic" : "flat";
+        parts[1] = state ? "neumorphic" : "flat";
 
         root.dataset.theme = parts.join(" ");
     }
 
     function moveKnob(state: boolean, element: HTMLElement) {
-        state ? element.classList.add("translate-x-[calc(120%)]") : element.classList.remove("translate-x-[calc(120%)]");
+        state ? element.classList.add("translate-x-[calc(100%)]") : element.classList.remove("translate-x-[calc(100%)]");
     }
 </script>

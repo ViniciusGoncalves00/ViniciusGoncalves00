@@ -6,6 +6,7 @@ export class URLHelper {
         blog: "blog",
         contact: "contact",
         notFound: "404",
+        design: "design",
     }
     private static readonly locales = Object.values(LocaleOption);
 

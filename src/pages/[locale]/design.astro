@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Dropdown from '../../components/dropdown.astro';
+import Button from '../../components/button.astro';
+import Toggle from '../../components/toggle.astro';
 
 export async function getStaticPaths() {
   return [
@@ -14,25 +16,82 @@ const themes = [
     { label: "Dark", value: "dark" },
     { label: "Cyberpunk", value: "cyberpunk" },
     { label: "Cute", value: "cute" },
-    { label: "Skeuomorphic", value: "skeuomorphic" },
+    { label: "neumorphic", value: "neumorphic" },
 ]
+
+const colors = [
+    { label: "light", value: "light" },
+    { label: "dark", value: "dark" },
+];
+const styles = [
+    { label: "flat", value: "flat" },
+    { label: "neumorphic", value: "neumorphic" },
+];
+const palettes = [
+    { label: "default", value: "" },
+    { label: "cyberpunk", value: "cyberpunk" },
+    { label: "cute", value: "cute" },
+];
 
 ---
 <BaseLayout pageName="Portfolio | Contact">
-    <div slot="main" class="w-full h-full grid grid-cols-2 grid-rows-2">
-        <div class="w-full h-full flex items-center justify-center"><Dropdown id="theme-select" options={ themes }></div>
-        <div class="w-full h-full flex items-center justify-center"><Dropdown id="theme-select" options={ themes }></Dropdown></div>
-        <div class="w-full h-full flex items-center justify-center"><Dropdown id="theme-select" options={ themes }></Dropdown></div>
+    <div slot="main" class="w-full h-full grid grid-cols-3 grid-rows-3">
+        <div class="w-full h-full flex items-center justify-center"><Dropdown id="select-color" options={ colors } /></div>
+        <div class="w-full h-full flex items-center justify-center"><Dropdown id="select-style" options={ styles } /></div>
+        <div class="w-full h-full flex items-center justify-center"><Dropdown id="select-palette" options={ palettes } /></div>
+        <div class="w-full h-full flex flex-col items-center justify-center space-y-2">
+            <Button id="01" name=".   .   .   .   .   .   .   .   .   .   .   .   "/>
+            <Button id="01" name=".   .   .   .   .   .   .   .   .   .   .   .   "/>
+            <Button id="01" name=".   .   .   .   .   .   .   .   .   .   .   .   "/>
+        </div>
+        <Button id="02" name=".   .   ."/>
+        <div class="w-full h-full p-16 flex items-center justify-center">
+            <div class="ds-background ds-border ds-rounded-full ds-hover ds-high h-full aspect-square transition-transform transition-discrete duration-500"></div>
+        </div>
+        <Toggle
+            buttonId="toggle-theme-button-02"
+            knobId="toggle-theme-knob-02"
+            ariaLabel="Toggle theme"
+            leftIcon="bi bi-theme-low"
+            leftIconSize="text-2xl"
+            rightIcon="bi bi-moon-stars"
+            rightIconSize="font-lg">
+        </Toggle>
     </div>
-
 </BaseLayout>
 
 <script>
-    const select = document.getElementById("theme-select");
-    select?.addEventListener("change", (e: any) => {
-        const value = e.target.value; 
-        if (value) {
-            document.documentElement.dataset.theme = value;
-        }
-    });
+    const root = document.documentElement;
+
+    const colorSelect = document.getElementById("select-color")! as HTMLSelectElement;
+    const styleSelect = document.getElementById("select-style")! as HTMLSelectElement;
+    const paletteSelect = document.getElementById("select-palette")! as HTMLSelectElement;
+
+    function applyTheme() {
+        root.dataset.color = colorSelect.value;
+        root.dataset.style = styleSelect.value;
+        root.dataset.palette = paletteSelect.value;
+    }
+
+    colorSelect.addEventListener("change", applyTheme);
+    styleSelect.addEventListener("change", applyTheme);
+    paletteSelect.addEventListener("change", applyTheme);
+
+    applyTheme();
+</script>
+
+<script>
+  const root = document.documentElement;
+
+  window.addEventListener("mousemove", (e) => {
+    const { innerWidth, innerHeight } = window;
+
+    const x = (e.clientX / innerWidth - 0.5) * 2;
+    const y = (e.clientY / innerHeight - 0.5) * 2;
+
+    const strength = 4;
+
+    root.style.setProperty("--light-x", `${x * strength * -1}px`);
+    root.style.setProperty("--light-y", `${y * strength * -1}px`);
+  });
 </script>
