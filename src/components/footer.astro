@@ -27,10 +27,19 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
             rightIconSize="text-2xl">
         </Toggle>
         <Toggle
+            buttonId="toggle-brightness-button"
+            knobId="toggle-brightness-knob"
+            ariaLabel="Toggle brightness"
+            leftIcon="bi bi-brightness-low"
+            leftIconSize="text-2xl"
+            rightIcon="bi bi-moon-stars"
+            rightIconSize="font-lg">
+        </Toggle>
+        <Toggle
             buttonId="toggle-theme-button"
             knobId="toggle-theme-knob"
             ariaLabel="Toggle theme"
-            leftIcon="bi bi-brightness-low"
+            leftIcon="bi bi-theme-low"
             leftIconSize="text-2xl"
             rightIcon="bi bi-moon-stars"
             rightIconSize="font-lg">
@@ -50,6 +59,9 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
 
 <script>
     const root = document.documentElement;  
+    const toggleBrightnessButton = document.getElementById("toggle-brightness-button");
+    const toggleBrightnessKnob = document.getElementById("toggle-brightness-knob");
+
     const toggleThemeButton = document.getElementById("toggle-theme-button");
     const toggleThemeKnob = document.getElementById("toggle-theme-knob");
 
@@ -58,27 +70,36 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
 
     const toggleLanguageButton = document.getElementById("toggle-language-button");
 
-    let darkThemeEnabled = localStorage.darkTheme === "true" || (!("darkTheme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    let brightnessEnabled = localStorage.brightness === "true" || (!("brightness" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    let themeEnabled = localStorage.theme === "true" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
     let audioEnabled = localStorage.audio === "true" || (!("audio" in localStorage) && !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
-    moveKnob(darkThemeEnabled, toggleThemeKnob!);
+    moveKnob(brightnessEnabled, toggleBrightnessKnob!);
     moveKnob(!audioEnabled, toggleAudioKnob!);
-    assignTheme(darkThemeEnabled);
+    assignBrightness(brightnessEnabled);
 
     const enableSFX = new Audio("/sfx/Minimalist1.mp3");
     const disableSFX = new Audio("/sfx/Minimalist2.mp3");
     enableSFX.preload = "auto";
     disableSFX.preload = "auto";
 
-    toggleThemeButton?.addEventListener("click", () => {
-        darkThemeEnabled = !darkThemeEnabled;
+    toggleBrightnessButton?.addEventListener("click", () => {
+        brightnessEnabled = !brightnessEnabled;
 
-        moveKnob(darkThemeEnabled, toggleThemeKnob!);
-        saveState(darkThemeEnabled, "darkTheme");
-        assignTheme(darkThemeEnabled);
+        moveKnob(brightnessEnabled, toggleBrightnessKnob!);
+        saveState(brightnessEnabled, "brightness");
+        assignBrightness(brightnessEnabled);
 
         const event = new Event("toggleLight");
         window.dispatchEvent(event);
+    });
+
+    toggleThemeButton?.addEventListener("click", () => {
+        themeEnabled = !themeEnabled;
+
+        moveKnob(themeEnabled, toggleThemeKnob!);
+        saveState(themeEnabled, "theme");
+        assignTheme(themeEnabled);
     });
 
     toggleAudioButton?.addEventListener("click", () => {
@@ -99,9 +120,24 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
         localStorage[store] = String(state);
     }
 
+    function assignBrightness(state: boolean) {
+        const current = root.dataset.theme ?? "";
+        const parts = current.split(" ").filter(Boolean);
+
+        parts[0] = state ? "dark" : "light";
+
+        root.dataset.theme = parts.join(" ");
+    }
+
+
     function assignTheme(state: boolean) {
-        state ? root.classList.add("dark") : root.classList.remove("dark");
-        root.dataset.theme = state ? "dark" : "";
+        const current = root.dataset.theme ?? "";
+
+        const parts = current.split(" ").filter(Boolean);
+
+        parts[1] = state ? "skeuomorphic" : "flat";
+
+        root.dataset.theme = parts.join(" ");
     }
 
     function moveKnob(state: boolean, element: HTMLElement) {

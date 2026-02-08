@@ -9,6 +9,7 @@
     @apply hover:text-zinc-900;
 }
 
+
 @layer components {
     .ds-main-text {
         @apply font-light text-zinc-500;
@@ -26,13 +27,13 @@
         @apply text-zinc-200;
     }
 
-    .ds-background {
+    /* .ds-background {
         @apply bg-zinc-100;
     }
 
     html[data-theme="dark"] .ds-background {
         @apply bg-zinc-900;
-    }
+    } */
 
     .ds-hover {
         @apply hover:bg-zinc-50;
@@ -93,10 +94,10 @@
     .ds-margin {
         @apply m-2
     }
-
+/* 
     .ds-rounded {
         @apply rounded-full;
-    }
+    } */
 
     .ds-shadow {
         @apply drop-shadow-sm;
@@ -113,4 +114,70 @@
     .ds-vertical-centralized {
         @apply flex flex-col items-center justify-center;
     }
+}
+
+[data-theme="dark"] {
+    --background-color-primary: #222222;
+    --background-color-secondary: #222222;
+    --text-color-primary: #fefefe;
+
+    --border-width: 1px;
+    --border-color: #fefefe;
+    --border-radius: 8px;
+}
+
+[data-theme="light"] {
+    --background-color-primary: #fefefe;
+    --background-color-secondary: #fefefe;
+    --text-color-primary: #222222;
+
+    --border-width: 1px;
+    --border-color: #222222;
+    --border-radius: 8px;
+}
+
+[data-theme="cyberpunk"] {
+    --background-color-primary: #222222;
+    --background-color-secondary: #222222;
+    --text-color-primary: #ffff00;
+
+    --border-width: 1px;
+    --border-color: #ffff00;
+    --border-radius: 0px;
+}
+
+[data-theme="skeuomorphic"] {
+    --border-radius: 64px;
+}
+
+[data-theme="cute"] {
+    --background-color-primary: #fefefe;
+    --background-color-secondary: #fefefe;
+    --text-color-primary: #ff00ff;
+
+    --border-width: 1px;
+    --border-color: #ff00ff;
+    --border-radius: 32px;
+}
+
+.ds-base {
+    background-color: var(--background-color-primary);
+    color: var(--text-color-primary);
+}
+
+.ds-button {
+    margin-top: 4px;
+    margin-right: 8px;
+    cursor: pointer;
+    background-color: var(--background-color-primary);
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.ds-dropdown-option {
+    margin-top: 4px;
+    margin-right: 8px;
+    cursor: pointer;
 }

@@ -13,8 +13,6 @@ export class Entry {
             [AudioAPI.HOVER_LEAVE_01, "/sfx/Minimalist4.mp3"],
         ]);
         this.audioSystem.load(sounds);
-        this.audioSystem.get(AudioAPI.HOVER_ENTER_01)!.volume = 0.5;
-        this.audioSystem.get(AudioAPI.HOVER_LEAVE_01)!.volume = 0.5;
     }
 
     public static initialize(): void {

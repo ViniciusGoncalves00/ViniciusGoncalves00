@@ -1,0 +1,12 @@
+---
+const { id } = Astro.props;
+const { options } = Astro.props;
+---
+
+<select id={ id } class="ds-button">
+  {options.map((option: any) => (
+    <option value={option.value} class="ds-dropdown-option">
+      {option.label}
+    </option>
+  ))}
+</select>

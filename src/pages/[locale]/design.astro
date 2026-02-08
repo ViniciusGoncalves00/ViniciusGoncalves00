@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Dropdown from '../../components/dropdown.astro';
+
+export async function getStaticPaths() {
+  return [
+    { params: { locale: 'pt-br' } },
+    { params: { locale: 'en-us' } },
+  ];
+}
+
+const themes = [
+    { label: "Light", value: "light" },
+    { label: "Dark", value: "dark" },
+    { label: "Cyberpunk", value: "cyberpunk" },
+    { label: "Cute", value: "cute" },
+    { label: "Skeuomorphic", value: "skeuomorphic" },
+]
+
+---
+<BaseLayout pageName="Portfolio | Contact">
+    <div slot="main" class="w-full h-full grid grid-cols-2 grid-rows-2">
+        <div class="w-full h-full flex items-center justify-center"><Dropdown id="theme-select" options={ themes }></div>
+        <div class="w-full h-full flex items-center justify-center"><Dropdown id="theme-select" options={ themes }></Dropdown></div>
+        <div class="w-full h-full flex items-center justify-center"><Dropdown id="theme-select" options={ themes }></Dropdown></div>
+    </div>
+
+</BaseLayout>
+
+<script>
+    const select = document.getElementById("theme-select");
+    select?.addEventListener("change", (e: any) => {
+        const value = e.target.value; 
+        if (value) {
+            document.documentElement.dataset.theme = value;
+        }
+    });
+</script>
