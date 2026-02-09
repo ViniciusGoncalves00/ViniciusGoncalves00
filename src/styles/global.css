@@ -118,7 +118,7 @@
 
 :root {
     --bg-primary: #f0f0f0;
-    --bg-secondary: #f4f4f4;
+    --bg-secondary: #ffffff;
     --text-primary: #222222;
 
     --border-color: #222222;
@@ -142,14 +142,7 @@
     --shadow-low-shadow: rgba(0,0,0,0.10);
 }
 
-[data-color="light"] {
-    --background-color-primary: #f0f0f0;
-    --background-color-primary-hover: #ffffff;
-    --text-color-primary: #222222;
-    --border-color: #222222;
-}
-
-[data-color="dark"] {
+[data-dark="true"] {
     --background-color-primary: #222222;
     --background-color-primary-hover: #333333;
     --text-color-primary: #fafafa;
@@ -157,8 +150,8 @@
 }
 
 [data-palette="cyberpunk"] {
-    --text-color-primary: #ffff00;
-    --border-color: #ffff00;
+    --text-color-primary: #aaaa00;
+    --border-color: #aaaa00;
 
     --shadow-high-light: rgba(255,255,0,0.25);
     --shadow-low-light: rgba(255,255,0,0.10);
@@ -167,13 +160,23 @@
 }
 
 [data-palette="cute"] {
-    --text-color-primary: #ff00ff;
-    --border-color: #ff00ff;
+    --text-color-primary: #ff99ff;
+    --border-color: #ff99ff;
 
     --shadow-high-light: rgba(255,0,255,0.25);
     --shadow-low-light: rgba(255,0,255,0.10);
     --shadow-high-shadow: rgba(50,0,50,0.25);
     --shadow-low-shadow: rgba(50,0,50,0.10);
+}
+
+[data-palette="synthwave"] {
+    --text-color-primary: #00aaaa;
+    --border-color: #00aaaa;
+
+    --shadow-high-light: rgba(0,255,255,0.25);
+    --shadow-low-light: rgba(255,255,0,0.10);
+    --shadow-high-shadow: rgba(255,0,255,0.25);
+    --shadow-low-shadow: rgba(255,255,0,0.10);
 }
 
 [data-style="flat"] {
@@ -184,12 +187,13 @@
 [data-style="neumorphic"] {
     --border-radius: 8px;
     --border-color: rgba(0,0,0,0.5);
+    --border-radius: calc(1px/0);
     --border-radius-full: calc(1px/0);
 
     --depth-low-outer: 0px -2px 4px rgba(0,0,0,0.25);
     --depth-low-inner: 0px 2px 8px rgba(0,0,0,0.75);
     --depth-high:
-        inset calc(var(--light-x) * 0.5) calc(var(--light-y) * 0.5) 1px 0px var(--shadow-high-light), /* high light */
+        inset calc(var(--light-x) * 0.25) calc(var(--light-y) * 0.25) 1px 0px var(--shadow-high-light), /* high light */
         var(--light-x) var(--light-y) 4px 0px var(--shadow-high-shadow), /* high shadow */
 
         calc(var(--light-x) * -0.25) calc(var(--light-y) * -0.25) 4px 0px var(--shadow-low-shadow), /* low shadow */

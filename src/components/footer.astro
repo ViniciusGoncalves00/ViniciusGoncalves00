@@ -18,129 +18,59 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
     </div>
     <div class="w-2/4 h-8 flex items-center justify-center space-x-8">
         <Toggle
-            buttonId="toggle-audio-button"
-            knobId="toggle-audio-knob"
+            id="toggle-audio-button"
             ariaLabel="Toggle audio"
             leftIcon="bi bi-volume-up"
             leftIconSize="text-2xl"
             rightIcon="bi bi-volume-mute"
-            rightIconSize="text-2xl">
+            rightIconSize="text-2xl"
+            storageKey="audio">
         </Toggle>
         <Toggle
-            buttonId="toggle-brightness-button"
-            knobId="toggle-brightness-knob"
+            id="toggle-brightness-button"
             ariaLabel="Toggle brightness"
             leftIcon="bi bi-brightness-low"
             leftIconSize="text-2xl"
             rightIcon="bi bi-moon-stars"
-            rightIconSize="font-lg">
+            rightIconSize="font-lg"
+            storageKey="dark">
         </Toggle>
         <Toggle
-            buttonId="toggle-theme-button"
-            knobId="toggle-theme-knob"
-            ariaLabel="Toggle theme"
-            leftIcon="bi bi-theme-low"
+            id="toggle-light-direction-button"
+            ariaLabel="Toggle light direction"
+            leftIcon="bi bi-brightness-low"
             leftIconSize="text-2xl"
             rightIcon="bi bi-moon-stars"
-            rightIconSize="font-lg">
+            rightIconSize="font-lg"
+            storageKey="lightDirection">
         </Toggle>
         <div class="h-full flex items-center justify-between space-x-1">
             <div class="h-full aspect-square p-1">BR</div>
-            <a id="toggle-language-button" href={nextLocaleHref} aria-label="Toggle Language" class="ds-background ds-lower-depth ds-rounded h-full w-14 p-1 cursor-pointer flex items-center">
-                <div id="toggle-language-knob" class=`ds-background ds-high-depth ds-rounded ds-hover ${toggleLanguageKnobTranslation} h-full aspect-square transition-all transition-discrete duration-500`></div>
+            <a id="toggle-language-button" href={nextLocaleHref} aria-label="Toggle Language" class="ds-background ds-border ds-rounded ds-hover ds-low h-8 w-14 p-1 cursor-pointer flex items-center">
+                <div id="toggle-language-knob" class=`ds-background ds-border ds-rounded ds-hover ds-high h-6 aspect-square transition-transform duration-500`></div>
             </a>
             <div class="h-full aspect-square p-1">EN</div>
         </div>
     </div>
-    <nav aria-label="social networks" class="w-1/4 h-8 flex items-center justify-center space-x-2">
-        <!-- <LanguagePicker /> -->
-    </nav>
+    <div class="w-1/4 h-full flex items-center justify-center">
+    </div>
 </div>
 
 <script>
     const root = document.documentElement;  
-    const toggleBrightnessButton = document.getElementById("toggle-brightness-button");
-    const toggleBrightnessKnob = document.getElementById("toggle-brightness-knob");
 
-    const toggleThemeButton = document.getElementById("toggle-theme-button");
-    const toggleThemeKnob = document.getElementById("toggle-theme-knob");
-
-    const toggleAudioButton = document.getElementById("toggle-audio-button");
-    const toggleAudioKnob = document.getElementById("toggle-audio-knob");
-
-    const toggleLanguageButton = document.getElementById("toggle-language-button");
+    const toggleLanguageButton = document.getElementById("toggle-language-button") as HTMLButtonElement;
 
     let brightnessEnabled = localStorage.brightness === "true" || (!("brightness" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
     let themeEnabled = localStorage.theme === "true" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
     let audioEnabled = localStorage.audio === "true" || (!("audio" in localStorage) && !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
-    moveKnob(brightnessEnabled, toggleBrightnessKnob!);
-    moveKnob(!audioEnabled, toggleAudioKnob!);
-    assignBrightness(brightnessEnabled);
+    // toggleBrightnessButton?.addEventListener("click", () => {
+    //     const state = toggleBrightnessButton.value;
+    //     root.dataset.brightness = state;
+    //     localStorage["brightness"] = state;
 
-    const enableSFX = new Audio("/sfx/Minimalist1.mp3");
-    const disableSFX = new Audio("/sfx/Minimalist2.mp3");
-    enableSFX.preload = "auto";
-    disableSFX.preload = "auto";
-
-    toggleBrightnessButton?.addEventListener("click", () => {
-        brightnessEnabled = !brightnessEnabled;
-
-        moveKnob(brightnessEnabled, toggleBrightnessKnob!);
-        saveState(brightnessEnabled, "brightness");
-        assignBrightness(brightnessEnabled);
-
-        const event = new Event("toggleLight");
-        window.dispatchEvent(event);
-    });
-
-    toggleThemeButton?.addEventListener("click", () => {
-        themeEnabled = !themeEnabled;
-
-        moveKnob(themeEnabled, toggleThemeKnob!);
-        saveState(themeEnabled, "theme");
-        assignTheme(themeEnabled);
-    });
-
-    toggleAudioButton?.addEventListener("click", () => {
-        audioEnabled = !audioEnabled;
-
-        moveKnob(!audioEnabled, toggleAudioKnob!);
-        saveState(audioEnabled, "audio");
-    });
-
-    toggleLanguageButton?.addEventListener("pointerdown", () => {
-        const language = window.location.pathname.split("/").at(1);
-        const isPortuguese = language === "pt-br";
-
-        // if (audioEnabled) playAudio(isPortuguese);
-    });
-
-    function saveState(state: boolean, store: string) {
-        localStorage[store] = String(state);
-    }
-
-    function assignBrightness(state: boolean) {
-        const current = root.dataset.theme ?? "";
-        const parts = current.split(" ").filter(Boolean);
-
-        parts[0] = state ? "dark" : "light";
-
-        root.dataset.theme = parts.join(" ");
-    }
-
-
-    function assignTheme(state: boolean) {
-        const current = root.dataset.theme ?? "";
-
-        const parts = current.split(" ").filter(Boolean);
-
-        parts[1] = state ? "neumorphic" : "flat";
-
-        root.dataset.theme = parts.join(" ");
-    }
-
-    function moveKnob(state: boolean, element: HTMLElement) {
-        state ? element.classList.add("translate-x-[calc(100%)]") : element.classList.remove("translate-x-[calc(100%)]");
-    }
+    //     const event = new Event("toggleLight");
+    //     window.dispatchEvent(event);
+    // });
 </script>
