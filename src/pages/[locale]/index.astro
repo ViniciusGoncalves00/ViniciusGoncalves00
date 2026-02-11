@@ -14,84 +14,66 @@ export async function getStaticPaths() {
 
 <script>
     import * as THREE from 'three';
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+    import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+    import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+    import { Main } from '../../common/scene/main';
+    import { Wall } from '../../common/scene/wall';
+    import { degToRad } from 'three/src/math/MathUtils.js';
 
-const canvas = document.getElementById("canvas")!;
-const width = canvas.clientWidth, height = canvas.clientHeight;
+    const main = new Main();
 
-const camera = new THREE.PerspectiveCamera( 45, width / height, 0.01, 10 );
-camera.position.set(2, 2, 2);
-camera.lookAt(0, 0, 0);
+    const materialLoader = new MTLLoader();
+    const materials = await materialLoader.loadAsync('/model/obj/model.mtl');
+    const loader = new OBJLoader();
+    loader.setMaterials(materials);
+    const group = await loader.loadAsync('/model/obj/model.obj');
+    main.scene.add(group);
 
-const scene = new THREE.Scene();
+    group.scale.set(0.01, 0.01, 0.01);
+    group.updateWorldMatrix(true, true);
+    group.children.forEach((child) => {
+        child.castShadow = true;
+        child.receiveShadow = true;
+    })
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshPhongMaterial();
+    const box = new THREE.Box3().setFromObject(group);
 
-const floor = new THREE.Mesh( geometry, material );
-floor.position.set(0.0, -0.5, .0);
-floor.scale.set(1, 0.05, 1);
-scene.add( floor );
+    const size = new THREE.Vector3();
+    box.getSize(size);
 
-const wall1 = new THREE.Mesh( geometry, material );
-wall1.position.set(0.0, 0.0, -0.5);
-wall1.scale.set(1, 0.05, 1);
-wall1.rotateX(THREE.MathUtils.degToRad(90));
-scene.add( wall1 );
+    const center = new THREE.Vector3();
+    box.getCenter(center);
 
-const wall2 = new THREE.Mesh( geometry, material );
-wall2.position.set(-0.5, 0.0, 0.0);
-wall2.scale.set(1, 0.05, 1);
-wall2.rotateZ(THREE.MathUtils.degToRad(90));
-scene.add( wall2 );
+    group.position.sub(center);
+    box.setFromObject(group);
+    box.getCenter(center)
 
-const light = new THREE.SpotLight();
-light.position.set(1, 1, 1);
-const ambientLight = new THREE.AmbientLight();
+    const walls = [
+        new Wall(size.x, size.z, new THREE.Vector3(0,  1, 0), new THREE.Vector3(0, box.min.y, 0), new THREE.Vector3(0.2, 0.2, 0.2)),
+        new Wall(size.x, size.z, new THREE.Vector3(0, -1, 0), new THREE.Vector3(0, box.max.y, 0), new THREE.Vector3(0.2, 0.2, 0.2)),
 
-scene.add(light);
-scene.add(ambientLight);
+        new Wall(size.z, size.y, new THREE.Vector3( 1, 0, 0), new THREE.Vector3(box.min.x, 0, 0), new THREE.Vector3(0.075, 0.075, 0.075)),
+        new Wall(size.z, size.y, new THREE.Vector3(-1, 0, 0), new THREE.Vector3(box.max.x, 0, 0), new THREE.Vector3(0.95, 0.95, 0.95)),
 
-const renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true, canvas: canvas } );
-renderer.setSize( width, height );
-renderer.setAnimationLoop( animate );
+        new Wall(size.x, size.y, new THREE.Vector3(0, 0,  1), new THREE.Vector3(0, 0, box.min.z), new THREE.Vector3(0.95, 0.95, 0.95)),
+        new Wall(size.x, size.y, new THREE.Vector3(0, 0, -1), new THREE.Vector3(0, 0, box.max.z), new THREE.Vector3(0.95, 0.95, 0.95)),
+    ];
 
-const controls = new OrbitControls( camera, canvas );
-controls.enablePan = false;
-controls.update();
-controls.minDistance = 1;
-controls.maxDistance = 5;
+    walls.forEach((wall: Wall) => {
+        wall.mesh.position.sub(center);
+        main.scene.add(wall.mesh);
+    });
 
-function animate(time: any ) {
-	renderer.render( scene, camera );
-}
+    main.light.position.y = box.max.y;
 
-let darkThemeEnabled = localStorage.darkTheme === "true" || (!("darkTheme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
-const ambientDay = new THREE.Color(0.9, 0.9, 1.0);
-const spotDay = new THREE.Color(0.9, 0.5, 0.2);
+    window.addEventListener("mousemove", () => {
+        const direction = new THREE.Vector3();
+        main.camera.getWorldDirection(direction);
 
-const ambientNight = new THREE.Color(0.1, 0.1, 0.8);
-const spotNight = new THREE.Color(0.8, 0.8, 1.0);
-
-light.color = darkThemeEnabled ? spotNight : spotDay;
-light.intensity = darkThemeEnabled ? 0.1 : 1.0;
-ambientLight.color = darkThemeEnabled ? ambientNight : ambientDay;
-ambientLight.intensity = darkThemeEnabled ? 0.05 : 0.2;
-
-window.addEventListener("toggleLight", (event) => {
-    darkThemeEnabled = !darkThemeEnabled;
-    light.color = darkThemeEnabled ? spotNight : spotDay;
-    light.intensity = darkThemeEnabled ? 0.1 : 1.0;
-    ambientLight.color = darkThemeEnabled ? ambientNight : ambientDay;
-    ambientLight.intensity = darkThemeEnabled ? 0.05 : 0.2;
-})
-
-window.addEventListener("resize", () => {
-  const w = canvas.clientWidth;
-  const h = canvas.clientHeight;
-  camera.aspect = w / h;
-  camera.updateProjectionMatrix();
-  renderer.setSize(w, h);
-});
-
+        walls.forEach((wall: Wall) => {
+            const sameOrientation = wall.normal.dot(direction) > 0.25;
+            wall.mesh.visible = sameOrientation ? false : true;
+        });
+    })
 </script>
