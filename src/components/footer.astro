@@ -3,6 +3,8 @@ import { LocaleOption } from '../i18n/translations.';
 import { Translations } from '../i18n/translations.';
 import { URLHelper } from '../common/URLhelper';
 import Toggle from './toggle.astro';
+import { Palette } from '../common/style/style-API';
+import Dropdown from './dropdown.astro';
 
 const locale = URLHelper.getLocaleFromURL(Astro.url);
 const info = Translations.getLocaleInfo(locale);
@@ -44,6 +46,13 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
             rightIconSize="font-lg"
             storageKey="lightDirection">
         </Toggle>
+        <Dropdown
+            id="select-palettes"
+            defaultLabel="palettes"
+            datasetKey="palette"
+            storageKey="palette"
+            options={Object.values(Palette)}
+        />
         <div class="h-full flex items-center justify-between space-x-1">
             <div class="h-full aspect-square p-1">BR</div>
             <a id="toggle-language-button" href={nextLocaleHref} aria-label="Toggle Language" class="ds-background ds-border ds-rounded ds-hover ds-low h-8 w-14 p-1 cursor-pointer flex items-center">
@@ -55,22 +64,3 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
     <div class="w-1/4 h-full flex items-center justify-center">
     </div>
 </div>
-
-<script>
-    const root = document.documentElement;  
-
-    const toggleLanguageButton = document.getElementById("toggle-language-button") as HTMLButtonElement;
-
-    let brightnessEnabled = localStorage.brightness === "true" || (!("brightness" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
-    let themeEnabled = localStorage.theme === "true" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
-    let audioEnabled = localStorage.audio === "true" || (!("audio" in localStorage) && !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-
-    // toggleBrightnessButton?.addEventListener("click", () => {
-    //     const state = toggleBrightnessButton.value;
-    //     root.dataset.brightness = state;
-    //     localStorage["brightness"] = state;
-
-    //     const event = new Event("toggleLight");
-    //     window.dispatchEvent(event);
-    // });
-</script>

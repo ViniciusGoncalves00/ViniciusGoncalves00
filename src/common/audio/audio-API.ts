@@ -1,3 +1,5 @@
+import { AudioSystem } from "./audio-system";
+
 export enum AudioAPI {
     TOGGLE_ENABLE_01="toggle_enable_01",
     TOGGLE_DISABLE_01="toggle_disable_01",

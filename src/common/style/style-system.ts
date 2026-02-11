@@ -1,23 +1,68 @@
-// export class StyleSystem {
-//     private darkMode: boolean = false;
-//     private currentPallete:  = false;
+import { Palette, Shape, StorageKeys } from "./style-API";
 
-//     public load(source: Map<AudioAPI, string>): AudioSystem {
-//         const audios = this.storage.load(source);
-//         for (const kvp of audios) {
-//             const audio = kvp[1];
-//             audio.preload = "auto";
-//         }
+export class StyleSystem {
+    private darkMode: boolean = false;
+    private palette: Palette = Palette.DEFAULT;
+    private shape: Shape = Shape.FLAT;
 
-//         document.addEventListener("audio:play", (e: any) => {
-//             if (!this.enabled) return;
+    public load(): StyleSystem {
+        const darkMode = localStorage.getItem(StorageKeys.DARK_MODE);
+        const palette = localStorage.getItem(StorageKeys.PALETTE);
+        const shape = localStorage.getItem(StorageKeys.SHAPE);
+        
+        this.setDarkMode(darkMode === "true");
+        this.setPalette((palette ?? Palette.DEFAULT) as Palette);
+        this.setShape((shape ?? Shape.FLAT) as Shape);
+        
+        return this;
+    }
 
-//             const audio = this.storage.get(e.detail.audio);
-//             if (!audio) return;
+    public setDarkMode(state: boolean): StyleSystem {
+        this.darkMode = state;
 
-//             audio.currentTime = 0;
-//             audio.play();
-//         });
-//         return this;
-//     }
-// }
+        this.assign(StorageKeys.DARK_MODE, state);
+        this.save(StorageKeys.DARK_MODE, state);
+
+        return this;
+    }
+
+    public getDarkMode(): boolean {
+        return this.darkMode;
+    }
+
+    public setPalette(palette: Palette): StyleSystem {
+        this.palette = palette;
+
+        this.assign(StorageKeys.PALETTE, palette);
+        this.save(StorageKeys.PALETTE, palette);
+
+        return this;
+    }
+
+    public getPalette(): Palette {
+        return this.palette;
+    }
+
+    public setShape(shape: Shape): StyleSystem {
+        this.shape = shape;
+
+        this.assign(StorageKeys.SHAPE, shape);
+        this.save(StorageKeys.SHAPE, shape);
+
+        return this;
+    }
+
+    public getShape(): Shape {
+        return this.shape;
+    }
+
+    private assign(key: StorageKeys, value: string | boolean): StyleSystem {
+        document.documentElement.dataset[key] = String(value);
+        return this;
+    }
+
+    private save(key: StorageKeys, value: string | boolean): StyleSystem { 
+        localStorage.setItem(key, String(value));
+        return this;
+    }
+}
