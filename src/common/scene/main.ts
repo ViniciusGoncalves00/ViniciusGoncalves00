@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 export class Main {
     public readonly scene: THREE.Scene;
     public readonly camera: THREE.PerspectiveCamera;
+    public readonly controls: OrbitControls;
     public readonly light: THREE.Light;
 
     public constructor() {
@@ -17,7 +18,7 @@ export class Main {
         this.scene = new THREE.Scene();
         this.scene.add(this.camera);
 
-        this.light = new THREE.SpotLight();
+        this.light = new THREE.SpotLight(new THREE.Color("white"), 10, 1000, 15);
         this.light.lookAt(0, -1, 0);
         this.light.castShadow = true;
 
@@ -36,11 +37,11 @@ export class Main {
         renderer.setSize( width, height );
         renderer.setAnimationLoop( animate );
 
-        const controls = new OrbitControls( this.camera, canvas );
-        controls.enablePan = false;
-        controls.update();
-        controls.minDistance = 1;
-        controls.maxDistance = 10;
+        this.controls = new OrbitControls( this.camera, canvas );
+        this.controls.enablePan = false;
+        this.controls.update();
+        this.controls.minDistance = 1;
+        this.controls.maxDistance = 10;
 
 
         // let darkThemeEnabled = localStorage.darkTheme === "true" || (!("darkTheme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);

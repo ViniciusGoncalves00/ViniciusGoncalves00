@@ -23,56 +23,93 @@ export async function getStaticPaths() {
 
     const main = new Main();
 
-    const materialLoader = new MTLLoader();
-    const materials = await materialLoader.loadAsync('/model/obj/model.mtl');
+    // const materialLoader = new MTLLoader();
+    // const materials = await materialLoader.loadAsync('/model/obj/model.mtl');
     const loader = new OBJLoader();
-    loader.setMaterials(materials);
-    const group = await loader.loadAsync('/model/obj/model.obj');
-    main.scene.add(group);
+    // loader.setMaterials(materials);
 
-    group.scale.set(0.01, 0.01, 0.01);
-    group.updateWorldMatrix(true, true);
-    group.children.forEach((child) => {
-        child.castShadow = true;
-        child.receiveShadow = true;
-    })
+    const furniture = [
+        "table",
+        "sofa",
+    ]
 
-    const box = new THREE.Box3().setFromObject(group);
+    for (const model of furniture) {
+        const group = await loader.loadAsync(`/model/obj/${model}.obj`);
 
-    const size = new THREE.Vector3();
-    box.getSize(size);
+        group.children.forEach((child) => {
+            child.castShadow = true;
+            child.receiveShadow = true;
+        })
 
-    const center = new THREE.Vector3();
-    box.getCenter(center);
-
-    group.position.sub(center);
-    box.setFromObject(group);
-    box.getCenter(center)
+        main.scene.add(group);
+    }
 
     const walls = [
-        new Wall(size.x, size.z, new THREE.Vector3(0,  1, 0), new THREE.Vector3(0, box.min.y, 0), new THREE.Vector3(0.2, 0.2, 0.2)),
-        new Wall(size.x, size.z, new THREE.Vector3(0, -1, 0), new THREE.Vector3(0, box.max.y, 0), new THREE.Vector3(0.2, 0.2, 0.2)),
+        {name:  "wall_a", normal: new THREE.Vector3( 1,  0,  0)},
+        {name:  "wall_b", normal: new THREE.Vector3( 0,  0,  1)},
+        {name:  "wall_c", normal: new THREE.Vector3(-1,  0,  0)},
+        {name:  "wall_d", normal: new THREE.Vector3( 0,  0, -1)},
+        {name:   "floor", normal: new THREE.Vector3( 0,  1,  0)},
+        {name: "ceiling", normal: new THREE.Vector3( 0, -1,  0)},
+    ]
 
-        new Wall(size.z, size.y, new THREE.Vector3( 1, 0, 0), new THREE.Vector3(box.min.x, 0, 0), new THREE.Vector3(0.075, 0.075, 0.075)),
-        new Wall(size.z, size.y, new THREE.Vector3(-1, 0, 0), new THREE.Vector3(box.max.x, 0, 0), new THREE.Vector3(0.95, 0.95, 0.95)),
+    const hideable: Wall[] = [];
+    for (const model of walls) {
+        const group = await loader.loadAsync(`/model/obj/${model.name}.obj`);
 
-        new Wall(size.x, size.y, new THREE.Vector3(0, 0,  1), new THREE.Vector3(0, 0, box.min.z), new THREE.Vector3(0.95, 0.95, 0.95)),
-        new Wall(size.x, size.y, new THREE.Vector3(0, 0, -1), new THREE.Vector3(0, 0, box.max.z), new THREE.Vector3(0.95, 0.95, 0.95)),
-    ];
+        group.castShadow = true;
+        group.receiveShadow = true;
+        hideable.push(new Wall(model.normal, group.children[0] as THREE.Mesh));
 
-    walls.forEach((wall: Wall) => {
-        wall.mesh.position.sub(center);
-        main.scene.add(wall.mesh);
-    });
+        main.scene.add(group);
+    }
 
-    main.light.position.y = box.max.y;
+    // group.scale.set(0.01, 0.01, 0.01);
+    // group.updateWorldMatrix(true, true);
+    // group.children.forEach((child) => {
+    //     child.castShadow = true;
+    //     child.receiveShadow = true;
+    // })
+
+    // const box = new THREE.Box3().setFromObject(group);
+
+    // const size = new THREE.Vector3();
+    // box.getSize(size);
+
+    // const center = new THREE.Vector3();
+    // box.getCenter(center);
+
+    // group.position.sub(center);
+    // box.setFromObject(group);
+    // box.getCenter(center)
+
+    // const walls = [
+    //     new Wall(size.x, size.z, new THREE.Vector3(0,  1, 0), new THREE.Vector3(0, box.min.y, 0), new THREE.Vector3(0.2, 0.2, 0.2)),
+    //     new Wall(size.x, size.z, new THREE.Vector3(0, -1, 0), new THREE.Vector3(0, box.max.y, 0), new THREE.Vector3(0.2, 0.2, 0.2)),
+
+    //     new Wall(size.z, size.y, new THREE.Vector3( 1, 0, 0), new THREE.Vector3(box.min.x, 0, 0), new THREE.Vector3(0.075, 0.075, 0.075)),
+    //     new Wall(size.z, size.y, new THREE.Vector3(-1, 0, 0), new THREE.Vector3(box.max.x, 0, 0), new THREE.Vector3(0.95, 0.95, 0.95)),
+
+    //     new Wall(size.x, size.y, new THREE.Vector3(0, 0,  1), new THREE.Vector3(0, 0, box.min.z), new THREE.Vector3(0.95, 0.95, 0.95)),
+    //     new Wall(size.x, size.y, new THREE.Vector3(0, 0, -1), new THREE.Vector3(0, 0, box.max.z), new THREE.Vector3(0.95, 0.95, 0.95)),
+    // ];
+
+    // walls.forEach((wall: Wall) => {
+    //     wall.mesh.position.sub(center);
+    //     main.scene.add(wall.mesh);
+    // });
+
+    main.light.position.z = -3.0;
+    main.light.position.y = 2;
+    main.light.lookAt(0, 0, 0);
+    main.controls.target.y = 1.25;
 
     window.addEventListener("mousemove", () => {
         const direction = new THREE.Vector3();
         main.camera.getWorldDirection(direction);
 
-        walls.forEach((wall: Wall) => {
-            const sameOrientation = wall.normal.dot(direction) > 0.25;
+        hideable.forEach((wall: Wall) => {
+            const sameOrientation = wall.normal.dot(direction) > 0.5;
             wall.mesh.visible = sameOrientation ? false : true;
         });
     })
