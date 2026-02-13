@@ -6,9 +6,6 @@ lastUpdate: 30/01/2026
 tags: 
     - internet
     - web
-    - sockets
-relatedPosts:
-- test
 ---
 
 # Introdução
