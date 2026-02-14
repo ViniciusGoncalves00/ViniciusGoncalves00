@@ -13,104 +13,163 @@ export async function getStaticPaths() {
 </BaseLayout>
 
 <script>
-    import * as THREE from 'three';
-    import { STLLoader } from 'three/addons/loaders/STLLoader.js';
-    import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
-    import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
-    import { Main } from '../../common/scene/main';
-    import { Wall } from '../../common/scene/wall';
-    import { degToRad } from 'three/src/math/MathUtils.js';
+import * as THREE from 'three';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { Main } from '../../common/scene/main';
+import { Wall } from '../../common/scene/wall';
+import { AnimationSystem } from '../../common/animation/animation-system';
+import * as Tasks from '../../common/animation/animation-tasks';
+import { AudioAPI } from '../../common/audio/audio-API';
+import { AnimationAPI } from '../../common/animation/animation-API';
 
-    const main = new Main();
+const main = new Main();
+const loader = new OBJLoader();
 
-    // const materialLoader = new MTLLoader();
-    // const materials = await materialLoader.loadAsync('/model/obj/model.mtl');
-    const loader = new OBJLoader();
-    // loader.setMaterials(materials);
+/* =========================
+   GRUPOS SEMÂNTICOS
+========================= */
+const groups = {
+    furnitures: [] as THREE.Group[],
+    walls: [] as THREE.Group[],
+    floor: [] as THREE.Group[],
+    ceiling: [] as THREE.Group[],
+};
 
-    const furniture = [
-        "table",
-        "sofa",
-    ]
+const hideable: Wall[] = [];
 
-    for (const model of furniture) {
-        const group = await loader.loadAsync(`/model/obj/${model}.obj`);
+/* =========================
+   CARREGAMENTO
+========================= */
+const furnitureModels = ['table', 'sofa'];
 
-        group.children.forEach((child) => {
-            child.castShadow = true;
-            child.receiveShadow = true;
+for (const model of furnitureModels) {
+    const group = await loader.loadAsync(`/model/obj/${model}.obj`);
+    group.children.forEach(c => {
+        c.castShadow = true;
+        c.receiveShadow = true;
+    });
+    main.scene.add(group);
+    groups.furnitures.push(group);
+}
+
+const wallModels = [
+    { name: 'floor',   normal: new THREE.Vector3( 0,  1,  0) },
+    { name: 'wall_a',  normal: new THREE.Vector3( 1,  0,  0) },
+    { name: 'wall_b',  normal: new THREE.Vector3( 0,  0,  1) },
+    { name: 'wall_c',  normal: new THREE.Vector3(-1,  0,  0) },
+    { name: 'wall_d',  normal: new THREE.Vector3( 0,  0, -1) },
+    { name: 'ceiling', normal: new THREE.Vector3( 0, -1,  0) },
+];
+
+for (const model of wallModels) {
+    const group = await loader.loadAsync(`/model/obj/${model.name}.obj`);
+    main.scene.add(group);
+
+    if (model.name === 'floor') {
+        groups.floor.push(group);
+    } else if (model.name === 'ceiling') {
+        groups.ceiling.push(group);
+    } else {
+        groups.walls.push(group);
+    }
+
+    hideable.push(new Wall(model.normal, group.children[0] as THREE.Mesh));
+}
+
+/* =========================
+   CÂMERA / LUZ
+========================= */
+main.light.position.set(0, 2, -3);
+main.light.lookAt(0, 0, 0);
+
+main.camera.position.set(5, 5, 5);
+main.camera.lookAt(0, 1.25, 0);
+main.controls.target.y = 1.25;
+
+/* =========================
+   ESTADO INICIAL
+========================= */
+const start = new THREE.Vector3(0, 3, 0);
+const target = new THREE.Vector3(0, 0, 0);
+
+Object.values(groups).flat().forEach(object => {
+    object.visible = false;
+    object.position.copy(start);
+    object.children.forEach(child => {
+        const mat = (child as THREE.Mesh).material as THREE.Material;
+        mat.transparent = true;
+        mat.opacity = 0;
+    });
+});
+
+/* =========================
+   UTILITÁRIOS
+========================= */
+const delay = (ms: number) => new Promise(r => setTimeout(r, ms));
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+
+window.addEventListener(AnimationAPI.FINISH, () => {
+    window.dispatchEvent(
+        new CustomEvent("audio:play", {
+            detail: { audio: AudioAPI.PLACED }
         })
+    );
+})
+async function animateGroup(
+    objects: THREE.Group[],
+    duration: number,
+    itemDelay: number = 0
+) {
+    await Promise.all(
+        objects.map(async (object, index) => {
+            if (itemDelay > 0) {
+                await delay(index * itemDelay);
+            }
 
-        main.scene.add(group);
-    }
+            object.visible = true;
 
-    const walls = [
-        {name:  "wall_a", normal: new THREE.Vector3( 1,  0,  0)},
-        {name:  "wall_b", normal: new THREE.Vector3( 0,  0,  1)},
-        {name:  "wall_c", normal: new THREE.Vector3(-1,  0,  0)},
-        {name:  "wall_d", normal: new THREE.Vector3( 0,  0, -1)},
-        {name:   "floor", normal: new THREE.Vector3( 0,  1,  0)},
-        {name: "ceiling", normal: new THREE.Vector3( 0, -1,  0)},
-    ]
+            const move = new Tasks.MoveTask(
+                object,
+                start,
+                target,
+                duration,
+                easeOut
+            );
 
-    const hideable: Wall[] = [];
-    for (const model of walls) {
-        const group = await loader.loadAsync(`/model/obj/${model.name}.obj`);
+            const fade = new Tasks.FadeTask(
+                object,
+                0,
+                1,
+                duration,
+                easeOut
+            );
 
-        group.castShadow = true;
-        group.receiveShadow = true;
-        hideable.push(new Wall(model.normal, group.children[0] as THREE.Mesh));
+            return AnimationSystem.run(
+                new Tasks.ParallelTask([move, fade])
+            )
+        })
+    );
+}
 
-        main.scene.add(group);
-    }
+/* =========================
+   SEQUÊNCIA DE ANIMAÇÃO
+========================= */
+await delay(500);
 
-    // group.scale.set(0.01, 0.01, 0.01);
-    // group.updateWorldMatrix(true, true);
-    // group.children.forEach((child) => {
-    //     child.castShadow = true;
-    //     child.receiveShadow = true;
-    // })
+await animateGroup(groups.floor, 600, 0)
+await animateGroup(groups.furnitures, 1200, 150);
+await animateGroup(groups.walls, 800, 500);
+await animateGroup(groups.ceiling, 1000, 500);
 
-    // const box = new THREE.Box3().setFromObject(group);
+/* =========================
+   WALL CULLING DINÂMICO
+========================= */
+window.addEventListener('mousemove', () => {
+    const direction = new THREE.Vector3();
+    main.camera.getWorldDirection(direction);
 
-    // const size = new THREE.Vector3();
-    // box.getSize(size);
-
-    // const center = new THREE.Vector3();
-    // box.getCenter(center);
-
-    // group.position.sub(center);
-    // box.setFromObject(group);
-    // box.getCenter(center)
-
-    // const walls = [
-    //     new Wall(size.x, size.z, new THREE.Vector3(0,  1, 0), new THREE.Vector3(0, box.min.y, 0), new THREE.Vector3(0.2, 0.2, 0.2)),
-    //     new Wall(size.x, size.z, new THREE.Vector3(0, -1, 0), new THREE.Vector3(0, box.max.y, 0), new THREE.Vector3(0.2, 0.2, 0.2)),
-
-    //     new Wall(size.z, size.y, new THREE.Vector3( 1, 0, 0), new THREE.Vector3(box.min.x, 0, 0), new THREE.Vector3(0.075, 0.075, 0.075)),
-    //     new Wall(size.z, size.y, new THREE.Vector3(-1, 0, 0), new THREE.Vector3(box.max.x, 0, 0), new THREE.Vector3(0.95, 0.95, 0.95)),
-
-    //     new Wall(size.x, size.y, new THREE.Vector3(0, 0,  1), new THREE.Vector3(0, 0, box.min.z), new THREE.Vector3(0.95, 0.95, 0.95)),
-    //     new Wall(size.x, size.y, new THREE.Vector3(0, 0, -1), new THREE.Vector3(0, 0, box.max.z), new THREE.Vector3(0.95, 0.95, 0.95)),
-    // ];
-
-    // walls.forEach((wall: Wall) => {
-    //     wall.mesh.position.sub(center);
-    //     main.scene.add(wall.mesh);
-    // });
-
-    main.light.position.z = -3.0;
-    main.light.position.y = 2;
-    main.light.lookAt(0, 0, 0);
-    main.controls.target.y = 1.25;
-
-    window.addEventListener("mousemove", () => {
-        const direction = new THREE.Vector3();
-        main.camera.getWorldDirection(direction);
-
-        hideable.forEach((wall: Wall) => {
-            const sameOrientation = wall.normal.dot(direction) > 0.5;
-            wall.mesh.visible = sameOrientation ? false : true;
-        });
-    })
+    hideable.forEach(wall => {
+        wall.mesh.visible = wall.normal.dot(direction) <= 0.5;
+    });
+});
 </script>

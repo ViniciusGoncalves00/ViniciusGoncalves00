@@ -16,7 +16,7 @@ export class AudioSystem {
             audio.preload = "auto";
         }
 
-        document.addEventListener("audio:play", (e: any) => {
+        window.addEventListener("audio:play", (e: any) => {
             if (!this.enabled) return;
 
             const audio = this.storage.get(e.detail.audio);
