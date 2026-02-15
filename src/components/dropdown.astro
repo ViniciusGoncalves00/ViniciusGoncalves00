@@ -18,11 +18,7 @@ const {
     storageKey: '${storageKey}',
     options: JSON.parse('${JSON.stringify(options)}'),
     isOpen: false,
-    label: (() => {
-        const saved = localStorage.getItem('${storageKey}')
-        document.documentElement.dataset['${storageKey}'] = saved ? saved : 'Choose an option'
-        return saved ? saved : 'Choose an option'
-    })(),
+    label: 'Choose an option',
     open() {
         this.isOpen = true
     },
@@ -32,25 +28,15 @@ const {
     toggle() {
       this.isOpen ? this.close() : this.open()
     },
-    select(label, value) {
-        document.documentElement.dataset[this.datasetKey] = value
-        localStorage.setItem(this.storageKey, value)
-        this.label = label || 'Choose an option';
-        this.close()
-    }
 }`}
     @click.outside="close()"
 >
-  <!-- <Button
-    name={label}
-    callback="toggle()"
-  /> -->
   <button @click="toggle()" x-text="label" class="w-full flex items-center justify-center cursor-pointer"></button>
   <ul x-show="isOpen" x-transition class="w-full flex flex-col">
     <template x-for="option in options">
         <button
             class="cursor-pointer"
-            @click="select(option.label, option.value)"
+            @click="$dispatch(option.value)"
             x-text="option.label"
         ></button>
     </template>

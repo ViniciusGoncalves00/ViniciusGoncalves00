@@ -7,8 +7,9 @@ const { leftIcon } = Astro.props;
 const { leftIconSize } = Astro.props;
 const { rightIcon } = Astro.props;
 const { rightIconSize } = Astro.props;
-const { storageKey } = Astro.props;
 const { defaultState = false } = Astro.props;
+const { enableEvent } = Astro.props;
+const { disableEvent } = Astro.props;
 
 const enable = AudioAPI.TOGGLE_ENABLE_01;
 const disable = AudioAPI.TOGGLE_DISABLE_01;
@@ -20,28 +21,18 @@ const leave = AudioAPI.HOVER_LEAVE_01;
   <i class={`${leftIcon} aspect-square flex items-center justify-center ${leftIconSize}`}></i>
   <button
     x-data={`{
-        key: '${storageKey}',
-        state: (() => {
-            const saved = localStorage.getItem('${storageKey}')
-            document.documentElement.dataset['${storageKey}'] = saved !== null ? saved === 'true' : ${defaultState}
-            return saved !== null ? saved === 'true' : ${defaultState}
-        })(),
+        state: '${defaultState}',
         enable: '${enable}',
         disable: '${disable}',
         enter: '${enter}',
         leave: '${leave}',
         toggle() {
             this.state = !this.state
-            this.apply()
             this.$dispatch('audio:play', {
                 audio: this.state ? this.enable : this.disable
             })
+            this.state ? this.$dispatch('${enableEvent}') : this.$dispatch('${disableEvent}')
         },
-
-        apply() {
-          document.documentElement.dataset[this.key] = this.state
-          localStorage.setItem(this.key, this.state)
-        }
     }`}
     @mouseenter="$dispatch('audio:play', { audio: enter })"
     @mouseleave="$dispatch('audio:play', { audio: leave })"

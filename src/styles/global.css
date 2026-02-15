@@ -142,7 +142,7 @@
     --shadow-low-shadow: rgba(0,0,0,0.10);
 }
 
-[data-dark="true"] {
+[data-darkmode="true"] {
     --background-color-primary: #222222;
     --background-color-primary-hover: #333333;
     --text-color-primary: #fafafa;

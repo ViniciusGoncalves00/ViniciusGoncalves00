@@ -5,6 +5,7 @@ import { URLHelper } from '../common/URLhelper';
 import Toggle from './toggle.astro';
 import { Palette } from '../common/style/style-API';
 import Dropdown from './dropdown.astro';
+import { API } from '../common/API/api';
 
 const locale = URLHelper.getLocaleFromURL(Astro.url);
 const info = Translations.getLocaleInfo(locale);
@@ -26,7 +27,9 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
             leftIconSize="text-2xl"
             rightIcon="bi bi-volume-mute"
             rightIconSize="text-2xl"
-            storageKey="audio">
+            enableEvent={API.AUDIO_ENABLE}
+            disableEvent={API.AUDIO_DISABLE}
+            >
         </Toggle>
         <Toggle
             id="toggle-brightness-button"
@@ -35,9 +38,11 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
             leftIconSize="text-2xl"
             rightIcon="bi bi-moon-stars"
             rightIconSize="font-lg"
-            storageKey="dark">
+            enableEvent={API.STYLE_DARKMODE_ENABLE}
+            disableEvent={API.STYLE_DARKMODE_DISABLE}
+            >
         </Toggle>
-        <Toggle
+        <!-- <Toggle
             id="toggle-light-direction-button"
             ariaLabel="Toggle light direction"
             leftIcon="bi bi-brightness-low"
@@ -45,14 +50,14 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage
             rightIcon="bi bi-moon-stars"
             rightIconSize="font-lg"
             storageKey="lightDirection">
-        </Toggle>
-        <Dropdown
+        </Toggle> -->
+        <!-- <Dropdown
             id="select-palettes"
             defaultLabel="palettes"
             datasetKey="palette"
             storageKey="palette"
             options={Object.values(Palette)}
-        />
+        /> -->
         <div class="h-full flex items-center justify-between space-x-1">
             <div class="h-full aspect-square p-1">BR</div>
             <a id="toggle-language-button" href={nextLocaleHref} aria-label="Toggle Language" class="ds-background ds-border ds-rounded ds-hover ds-low h-8 w-14 p-1 cursor-pointer flex items-center">
