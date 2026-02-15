@@ -21,6 +21,8 @@ import { AnimationSystem } from '../../common/animation/animation-system';
 import * as Tasks from '../../common/animation/animation-tasks';
 import { AudioAPI } from '../../common/audio/audio-API';
 import { AnimationAPI } from '../../common/animation/animation-API';
+import { AnimationEasingFunctions } from '../../common/animation/animation-easing-functions';
+import { runAnimationGroup, type AnimationGroupConfig } from '../../common/animation/animation-tasks';
 
 const main = new Main();
 const loader = new OBJLoader();
@@ -105,61 +107,58 @@ Object.values(groups).flat().forEach(object => {
 /* =========================
    UTILITÁRIOS
 ========================= */
-const delay = (ms: number) => new Promise(r => setTimeout(r, ms));
-const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+const animationGroups: AnimationGroupConfig[] = [
+    {
+        name: "floor",
+        objects: groups.floor,
+        duration: 600,
+        itemDelay: 600,
+        tasks: (object) => [
+            new Tasks.MoveTask(object, start, target, 600, AnimationEasingFunctions.easeOutQuad),
+            new Tasks.FadeTask(object, 0, 1, 600, AnimationEasingFunctions.easeOutQuad)
+        ],
+        onStartSound: AudioAPI.PLACE_STARTED,
+    },
+    {
+        name: "furnitures",
+        objects: groups.furnitures,
+        duration: 1000,
+        itemDelay: 1200,
+        tasks: (object) => [
+            new Tasks.MoveTask(object, start, target, 1000, AnimationEasingFunctions.easeOutQuad),
+            new Tasks.FadeTask(object, 0, 1, 1000, AnimationEasingFunctions.easeOutQuad)
+        ],
+        onStartSound: AudioAPI.PLACE_STARTED
+    },
+    {
+        name: "walls",
+        objects: groups.walls,
+        duration: 1000,
+        itemDelay: 250,
+        tasks: (object) => [
+            new Tasks.MoveTask(object, start, target, 1000, AnimationEasingFunctions.easeOutQuad),
+            new Tasks.FadeTask(object, 0, 1, 1000, AnimationEasingFunctions.easeOutQuad)
+        ],
+        onStartSound: AudioAPI.PLACE_STARTED,
+    },
+    {
+        name: "ceiling",
+        objects: groups.ceiling,
+        duration: 1000,
+        itemDelay: 500,
+        tasks: (object) => [
+            new Tasks.MoveTask(object, start, target, 1000, AnimationEasingFunctions.easeOutQuad),
+            new Tasks.FadeTask(object, 0, 1, 1000, AnimationEasingFunctions.easeOutQuad)
+        ],
+        onStartSound: AudioAPI.PLACE_STARTED,
+        onFinishSound: AudioAPI.BELL
+    }
+];
 
-window.addEventListener(AnimationAPI.FINISH, () => {
-    window.dispatchEvent(
-        new CustomEvent("audio:play", {
-            detail: { audio: AudioAPI.PLACED }
-        })
-    );
-})
-async function animateGroup(
-    objects: THREE.Group[],
-    duration: number,
-    itemDelay: number = 0
-) {
-    await Promise.all(
-        objects.map(async (object, index) => {
-            if (itemDelay > 0) {
-                await delay(index * itemDelay);
-            }
-
-            object.visible = true;
-
-            const move = new Tasks.MoveTask(
-                object,
-                start,
-                target,
-                duration,
-                easeOut
-            );
-
-            const fade = new Tasks.FadeTask(
-                object,
-                0,
-                1,
-                duration,
-                easeOut
-            );
-
-            return AnimationSystem.run(
-                new Tasks.ParallelTask([move, fade])
-            )
-        })
-    );
+for (const group of animationGroups) {
+    await runAnimationGroup(group);
 }
 
-/* =========================
-   SEQUÊNCIA DE ANIMAÇÃO
-========================= */
-await delay(500);
-
-await animateGroup(groups.floor, 600, 0)
-await animateGroup(groups.furnitures, 1200, 150);
-await animateGroup(groups.walls, 800, 500);
-await animateGroup(groups.ceiling, 1000, 500);
 
 /* =========================
    WALL CULLING DINÂMICO

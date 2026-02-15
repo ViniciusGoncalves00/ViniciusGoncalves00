@@ -1,5 +1,55 @@
 import * as THREE from 'three';
 import { AnimationSystem } from './animation-system';
+import { AudioAPI } from '../audio/audio-API';
+import { AnimationAPI } from './animation-API';
+import { API } from '../API/api';
+
+export interface AnimationGroupConfig {
+    name: string;
+    objects: THREE.Group[];
+
+    duration: number;
+    itemDelay?: number;
+
+    tasks: (object: THREE.Group) => AnimationTask[];
+
+    onStartSound?: AudioAPI;
+    onFinishSound?: AudioAPI;
+}
+
+export async function runAnimationGroup(config: AnimationGroupConfig) {
+    const delay = (ms: number) => new Promise(r => setTimeout(r, ms));
+
+    await Promise.all(
+        config.objects.map(async (object, index) => {
+            if (config.itemDelay) {
+                await delay(index * config.itemDelay);
+            }
+
+            object.visible = true;
+
+            const tasks = config.tasks(object);
+
+            if (config.onStartSound) {
+                window.dispatchEvent( new CustomEvent(API.AUDIO_PLAY, {
+                    detail: { audio: config.onStartSound }
+                }))
+            }
+
+            await AnimationSystem.run(
+                new ParallelTask(tasks)
+            );
+
+            if (config.onFinishSound) {
+                window.dispatchEvent( new CustomEvent(API.AUDIO_PLAY, {
+                    detail: { audio: config.onFinishSound }
+                }))
+            }
+        })
+    );
+}
+
+
 
 /**
  * Base interface for any animation unit.

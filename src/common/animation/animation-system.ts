@@ -20,7 +20,7 @@ export class AnimationSystem {
      * @param task The animation task to execute
      * @returns A Promise that resolves when the animation finishes
      */
-    static run(task: AnimationTask): Promise<void> {
+    public static run(task: AnimationTask): Promise<void> {
         window.dispatchEvent(
             new CustomEvent(AnimationAPI.START, {
                 detail: { task }

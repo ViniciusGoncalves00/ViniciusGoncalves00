@@ -1,6 +1,7 @@
 import { AudioSystem } from "./audio/audio-system";
 import { StyleSystem } from "./style/style-system";
 import { sounds } from "./audio/audio-list";
+import { API } from "./API/api";
 
 export class Entry {
     private static _instance: Entry | null = null;

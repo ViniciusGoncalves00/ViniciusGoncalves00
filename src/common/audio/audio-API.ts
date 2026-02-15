@@ -3,5 +3,8 @@ export enum AudioAPI {
     TOGGLE_DISABLE_01="toggle_disable_01",
     HOVER_ENTER_01="hover_enter_01",
     HOVER_LEAVE_01="hover_leave_01",
-    PLACED="placed",
+    PLACE_STARTED="place_started",
+    PLACE_FINISHED="place_finished",
+    POP="pop",
+    BELL="bell",
 }

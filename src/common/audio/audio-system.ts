@@ -1,34 +1,73 @@
 import type { AudioAPI } from "./audio-API";
-import { AudioStorage } from "./audio-storage";
+import { Storage } from "../storage/storage";
+import { Pool } from "../others/pool";
+import { AudioSource } from "./audio-source";
+import { API } from "../API/api";
 
 export class AudioSystem {
-    private readonly storage: AudioStorage = new AudioStorage();
-    private enabled: boolean = true;
+    private readonly storage = new Storage("audio");
+    private readonly pools = new Map<AudioAPI, Pool<AudioSource>>();
 
-    public setEnabled(state: boolean) {
-        this.enabled = state;
+    public constructor() {
+        window.addEventListener(API.AUDIO_ENABLE, () => {
+            this.setEnabled(true);
+        })
+        window.addEventListener(API.AUDIO_DISABLE, () => {
+            this.setEnabled(false);
+        })
+        window.addEventListener(API.AUDIO_PLAY, (e: any) => {
+            const audio = e.detail.audio;
+            if (!audio) return;
+            this.play(audio);
+        })
     }
 
-    public load(source: Map<AudioAPI, string>): AudioSystem {
-        const audios = this.storage.load(source);
-        for (const kvp of audios) {
-            const audio = kvp[1];
-            audio.preload = "auto";
+    public setEnabled(state: boolean): void {
+        this.storage.save("enabled", String(state));
+    }
+
+    public isEnabled(): boolean {
+        return this.storage.get("enabled") !== "false";
+    }
+
+    /**
+     * Loads audio sources and creates a pool per AudioAPI key.
+     */
+    public load(
+        sources: Map<AudioAPI, string[]>,
+        voices: number = 4
+    ): AudioSystem {
+        for (const [key, srcList] of sources) {
+            const pool = new Pool<AudioSource>(() => {
+                return new AudioSource(srcList, {
+                    preload: true
+                });
+            });
+
+            for (let i = 0; i < voices; i++) {
+                pool.release(pool.acquire());
+            }
+
+            this.pools.set(key, pool);
         }
 
-        window.addEventListener("audio:play", (e: any) => {
-            if (!this.enabled) return;
-
-            const audio = this.storage.get(e.detail.audio);
-            if (!audio) return;
-
-            audio.currentTime = 0;
-            audio.play();
-        });
         return this;
     }
 
-    public get(key: AudioAPI): HTMLAudioElement | undefined {
-        return this.storage.get(key);
+    /**
+     * Plays a sound using its pool.
+     */
+    public play(key: AudioAPI): void {
+        if (!this.isEnabled()) return;
+
+        const pool = this.pools.get(key);
+        if (!pool) return;
+
+        const source = pool.acquire();
+        source.playRandom();
+
+        setTimeout(() => {
+            pool.release(source);
+        }, 1000);
     }
 }

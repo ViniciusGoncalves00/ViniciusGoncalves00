@@ -1,68 +1,81 @@
 import { Palette, Shape, StorageKeys } from "./style-API";
+import { Storage } from "../storage/storage"
+import { API } from "../API/api";
 
 export class StyleSystem {
-    private darkMode: boolean = false;
-    private palette: Palette = Palette.DEFAULT;
-    private shape: Shape = Shape.FLAT;
+    private readonly storage: Storage = new Storage("style");
+
+    public constructor() {
+        window.addEventListener(API.STYLE_DARKMODE_ENABLE, () => {
+            this.setDarkMode(true);
+        })
+        window.addEventListener(API.STYLE_DARKMODE_DISABLE, () => {
+            this.setDarkMode(false);
+        })
+        
+        window.addEventListener(API.STYLE_PALETTE_DEFAULT, () => {
+            this.setPalette(Palette.DEFAULT);
+        })
+        window.addEventListener(API.STYLE_PALETTE_CYBERPUNK, () => {
+            this.setPalette(Palette.CYBERPUNK);
+        })
+        window.addEventListener(API.STYLE_PALETTE_CUTE, () => {
+            this.setPalette(Palette.CUTE);
+        })
+         window.addEventListener(API.STYLE_PALETTE_SYNTHWAVE, () => {
+            this.setPalette(Palette.SYNTHWAVE);
+        })
+
+        window.addEventListener(API.STYLE_SHAPE_FLAT, () => {
+            this.setShape(Shape.FLAT);
+        })
+        window.addEventListener(API.STYLE_SHAPE_NEUMORPHIC, () => {
+            this.setShape(Shape.NEUMORPHIC);
+        })
+    }
 
     public load(): StyleSystem {
-        const darkMode = localStorage.getItem(StorageKeys.DARK_MODE);
-        const palette = localStorage.getItem(StorageKeys.PALETTE);
-        const shape = localStorage.getItem(StorageKeys.SHAPE);
+        const darkMode = this.storage.get(StorageKeys.DARK_MODE) || false;
+        const palette = this.storage.get(StorageKeys.PALETTE) || Palette.DEFAULT;
+        const shape = this.storage.get(StorageKeys.SHAPE) || Shape.FLAT;
         
-        this.setDarkMode(darkMode === "true");
-        this.setPalette((palette ?? Palette.DEFAULT) as Palette);
-        this.setShape((shape ?? Shape.FLAT) as Shape);
+        this.setDarkMode(darkMode as boolean);
+        this.setPalette(palette as Palette);
+        this.setShape(shape as Shape);
         
         return this;
     }
 
     public setDarkMode(state: boolean): StyleSystem {
-        this.darkMode = state;
-
         this.assign(StorageKeys.DARK_MODE, state);
-        this.save(StorageKeys.DARK_MODE, state);
-
         return this;
     }
 
-    public getDarkMode(): boolean {
-        return this.darkMode;
+    public isDarkMode(): boolean {
+        return Boolean(this.storage.get(StorageKeys.DARK_MODE));
     }
 
     public setPalette(palette: Palette): StyleSystem {
-        this.palette = palette;
-
         this.assign(StorageKeys.PALETTE, palette);
-        this.save(StorageKeys.PALETTE, palette);
-
         return this;
     }
 
     public getPalette(): Palette {
-        return this.palette;
+        return this.storage.get(StorageKeys.PALETTE) as Palette;
     }
 
     public setShape(shape: Shape): StyleSystem {
-        this.shape = shape;
-
         this.assign(StorageKeys.SHAPE, shape);
-        this.save(StorageKeys.SHAPE, shape);
-
         return this;
     }
 
     public getShape(): Shape {
-        return this.shape;
+        return this.storage.get(StorageKeys.SHAPE) as Shape;
     }
 
     private assign(key: StorageKeys, value: string | boolean): StyleSystem {
+        this.storage.save(key, String(value));
         document.documentElement.dataset[key] = String(value);
-        return this;
-    }
-
-    private save(key: StorageKeys, value: string | boolean): StyleSystem { 
-        localStorage.setItem(key, String(value));
         return this;
     }
 }

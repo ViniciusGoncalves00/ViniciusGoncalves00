@@ -1,7 +1,5 @@
-import { StyleSystem } from "./style-system";
-
 export enum StorageKeys {
-    DARK_MODE="dark",
+    DARK_MODE="darkmode",
     PALETTE="palette",
     SHAPE="style",
 }
