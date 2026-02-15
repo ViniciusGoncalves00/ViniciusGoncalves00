@@ -4,7 +4,7 @@ import { AudioAPI } from '../audio/audio-API';
 import { AnimationAPI } from './animation-API';
 import { API } from '../API/api';
 
-export interface AnimationGroupConfig {
+export type AnimationGroupConfig = {
     name: string;
     objects: THREE.Group[];
 
@@ -198,7 +198,7 @@ export class ParallelTask implements AnimationTask {
      *
      * @param t Normalized time value in the range [0, 1]
      */
-    update(t: number): void {
+    public update(t: number): void {
         this.tasks.forEach(task => {
             const localT = Math.min((t * this.duration) / task.duration, 1);
             task.update(localT);

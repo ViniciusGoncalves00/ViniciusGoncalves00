@@ -21,6 +21,9 @@ export class Main {
         this.light = new THREE.SpotLight(new THREE.Color("white"), 10, 1000, 15);
         this.light.lookAt(0, -1, 0);
         this.light.castShadow = true;
+        this.light.shadow!.mapSize.set(2048, 2048);
+        this.light.shadow!.bias = -0.0005;
+        this.light.shadow!.normalBias = 0.02;
 
         const ambientLight = new THREE.AmbientLight();
 
@@ -34,6 +37,7 @@ export class Main {
         const renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true, canvas: canvas } );
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        
         renderer.setSize( width, height );
         renderer.setAnimationLoop( animate );
 

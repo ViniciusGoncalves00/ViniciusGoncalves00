@@ -42,7 +42,7 @@ const hideable: Wall[] = [];
 /* =========================
    CARREGAMENTO
 ========================= */
-const furnitureModels = ['table', 'sofa'];
+const furnitureModels = ['table', 'sofa', 'monitor'];
 
 for (const model of furnitureModels) {
     const group = await loader.loadAsync(`/model/obj/${model}.obj`);
@@ -91,7 +91,7 @@ main.controls.target.y = 1.25;
 /* =========================
    ESTADO INICIAL
 ========================= */
-const start = new THREE.Vector3(0, 3, 0);
+const start = new THREE.Vector3(0, 2, 0);
 const target = new THREE.Vector3(0, 0, 0);
 
 Object.values(groups).flat().forEach(object => {
@@ -114,8 +114,8 @@ const animationGroups: AnimationGroupConfig[] = [
         duration: 600,
         itemDelay: 600,
         tasks: (object) => [
-            new Tasks.MoveTask(object, start, target, 600, AnimationEasingFunctions.easeOutQuad),
-            new Tasks.FadeTask(object, 0, 1, 600, AnimationEasingFunctions.easeOutQuad)
+            new Tasks.MoveTask(object, start, target, 500, AnimationEasingFunctions.easeOutBounce),
+            new Tasks.FadeTask(object, 0, 1, 1000, AnimationEasingFunctions.easeOutQuad)
         ],
         onStartSound: AudioAPI.PLACE_STARTED,
     },
@@ -125,7 +125,7 @@ const animationGroups: AnimationGroupConfig[] = [
         duration: 1000,
         itemDelay: 1200,
         tasks: (object) => [
-            new Tasks.MoveTask(object, start, target, 1000, AnimationEasingFunctions.easeOutQuad),
+            new Tasks.MoveTask(object, start, target, 1000, AnimationEasingFunctions.easeOutBounce),
             new Tasks.FadeTask(object, 0, 1, 1000, AnimationEasingFunctions.easeOutQuad)
         ],
         onStartSound: AudioAPI.PLACE_STARTED
@@ -136,7 +136,7 @@ const animationGroups: AnimationGroupConfig[] = [
         duration: 1000,
         itemDelay: 250,
         tasks: (object) => [
-            new Tasks.MoveTask(object, start, target, 1000, AnimationEasingFunctions.easeOutQuad),
+            new Tasks.MoveTask(object, start, target, 1000, AnimationEasingFunctions.easeOutBounce),
             new Tasks.FadeTask(object, 0, 1, 1000, AnimationEasingFunctions.easeOutQuad)
         ],
         onStartSound: AudioAPI.PLACE_STARTED,
@@ -147,11 +147,10 @@ const animationGroups: AnimationGroupConfig[] = [
         duration: 1000,
         itemDelay: 500,
         tasks: (object) => [
-            new Tasks.MoveTask(object, start, target, 1000, AnimationEasingFunctions.easeOutQuad),
+            new Tasks.MoveTask(object, start, target, 1000, AnimationEasingFunctions.easeOutBounce),
             new Tasks.FadeTask(object, 0, 1, 1000, AnimationEasingFunctions.easeOutQuad)
         ],
         onStartSound: AudioAPI.PLACE_STARTED,
-        onFinishSound: AudioAPI.BELL
     }
 ];
 
@@ -168,7 +167,8 @@ window.addEventListener('mousemove', () => {
     main.camera.getWorldDirection(direction);
 
     hideable.forEach(wall => {
-        wall.mesh.visible = wall.normal.dot(direction) <= 0.5;
+        const material = (wall.mesh.material as THREE.Material);
+        wall.normal.dot(direction) <= 0.5 ? material.opacity = 1.0 : material.opacity = 0.0;
     });
 });
 </script>

@@ -14,8 +14,8 @@ export class Wall {
         // const material = new THREE.MeshPhongMaterial({ color: new THREE.Color().setFromVector3(color)});
         // this.mesh = new THREE.Mesh(geometry, material);
 
-        // this.mesh.castShadow = true;
-        // this.mesh.receiveShadow = true;
+        this.mesh.castShadow = true;
+        this.mesh.receiveShadow = true;
 
         // this.mesh.lookAt(normal);
         // this.mesh.position.copy(position);
