@@ -1,0 +1,124 @@
+---
+import { LocaleOption, Translations } from '../../../i18n/translations.';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection, getEntry } from 'astro:content';
+import { URLHelper } from '../../../common/URLhelper';
+
+const locale = URLHelper.getLocaleFromURL(Astro.url);
+const t = Translations.getTranslation(locale);
+
+export async function getStaticPaths() {
+    return [
+        { params: { locale: 'pt-br' } },
+        { params: { locale: 'en-us' } },
+    ];
+}
+
+const posts = (await getCollection('blog')).filter(post => post.id.startsWith(`${locale}/`));
+
+---
+<BaseLayout  pageName="Portfolio | Blog">
+    <div
+  slot="main"
+  class="w-full h-full flex flex-col items-center justify-start space-y-16"
+  x-data={`{
+    search: '',
+    tagFilter: '',
+    locale: "${locale}",
+    posts: ${JSON.stringify(posts)},
+
+    allTags() {
+      return [...new Set(
+        this.posts.flatMap(p => p.data.tags || [])
+      )];
+    },
+
+    filteredPosts() {
+      return this.posts.filter(post => {
+        const title = post.data.title?.toLowerCase() || '';
+        const searchMatch = title.includes(this.search.toLowerCase());
+
+        const tagMatch = this.tagFilter
+          ? post.data.tags?.includes(this.tagFilter)
+          : true;
+
+        return searchMatch && tagMatch;
+      });
+    }
+  }`}
+>
+
+  <div class="w-3xl flex flex-col items-center justify-start text-center space-y-4">
+    <p>
+        {t.blog.disclaimer}
+    </p>
+    <p>
+        <i>{t.blog.essay}</i>
+    </p>
+  </div>
+
+  
+  <div class="w-full flex flex-col items-center space-y-2">
+    <!-- Filters -->
+    <div class="w-3xl flex space-x-2 items-center">
+        <input type="text" placeholder={t.blog.filter.search} x-model="search" class="ds-border ds-rounded ds-hover ds-focus h-8 flex-1 px-4 py-1"/>
+
+        <select x-model="tagFilter" class="ds-border ds-rounded ds-hover ds-focus h-8 px-4 py-1">
+            <option value="">{t.blog.filter.tags}</option>
+            <template x-for="tag in allTags()" :key="tag">
+                <option x-text="tag"></option>
+            </template>
+        </select>
+    </div>
+
+  <!-- Header -->
+    <div class="w-3xl px-2 py-1 text-sm font-semibold uppercase opacity-70">
+        <div class="w-full flex items-center space-x-4">
+            <span class="w-full">{t.blog.list.title}</span>
+            <span class="w-48 text-center flex-none">{t.blog.list.tags}</span>
+            <span class="w-20 text-center flex-none">{t.blog.list.createdAt}</span>
+            <span class="w-20 text-center flex-none">{t.blog.list.lastUpdate}</span>
+        </div>
+    </div>
+
+  <!-- List -->
+    <ol class="w-3xl flex flex-col">
+        <template x-for="post in filteredPosts()" :key="post.id">
+            <li class="ds-hover px-2 py-1 cursor-pointer">
+                <a :href="`/${locale}/blog/${post.id.split('/')[1]}`" class="w-full h-8 flex items-center space-x-4">
+                    <!-- Title -->
+                    <span class="w-full truncate" x-text="post.data.title"></span>
+
+                    <!-- Tags -->
+                    <ul class="w-48 flex-none flex items-center justify-center space-x-1 truncate">
+                      <template x-for="tag in post.data.tags || []" :key="tag">
+                        <li x-text="tag" class="ds-border ds-rounded ds-hover ds-focus px-2 text-xs font-medium"></li>
+                      </template>
+                    </ul>
+
+                    <!-- Created At -->
+                    <span
+                      class="w-20 flex-none text-center truncate"
+                      x-text="post.data.createdAt || '01/01/1970'"
+                    ></span>
+
+                    <!-- Last Updated -->
+                    <span
+                      class="w-20 flex-none text-center truncate"
+                      x-text="post.data.lastUpdate || '01/01/1970'"
+                    ></span>
+                </a>
+            </li>
+        </template>
+        <!-- Not found -->
+        <li
+          x-show="filteredPosts().length === 0"
+          class="text-center opacity-60 py-4"
+        >
+          Nenhum resultado encontrado
+        </li>
+    </ol>
+  </div>
+</div>
+
+</BaseLayout>

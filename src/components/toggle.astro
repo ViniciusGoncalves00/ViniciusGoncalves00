@@ -1,0 +1,50 @@
+---
+import { AudioAPI } from "../common/audio/audio-API";
+
+const { id } = Astro.props;
+const { ariaLabel } = Astro.props;
+const { leftIcon } = Astro.props;
+const { leftIconSize } = Astro.props;
+const { rightIcon } = Astro.props;
+const { rightIconSize } = Astro.props;
+const { defaultState = false } = Astro.props;
+const { enableEvent } = Astro.props;
+const { disableEvent } = Astro.props;
+
+const enable = AudioAPI.TOGGLE_ENABLE_01;
+const disable = AudioAPI.TOGGLE_DISABLE_01;
+const enter = AudioAPI.HOVER_ENTER_01;
+const leave = AudioAPI.HOVER_LEAVE_01;
+---
+
+<div class="flex items-center justify-between space-x-2">
+  <i class={`${leftIcon} aspect-square flex items-center justify-center ${leftIconSize}`}></i>
+  <button
+    x-data={`{
+        state: '${defaultState}',
+        enable: '${enable}',
+        disable: '${disable}',
+        enter: '${enter}',
+        leave: '${leave}',
+        toggle() {
+            this.state = !this.state
+            this.$dispatch('audio:play', {
+                audio: this.state ? this.enable : this.disable
+            })
+            this.state ? this.$dispatch('${enableEvent}') : this.$dispatch('${disableEvent}')
+        },
+    }`}
+    @mouseenter="$dispatch('audio:play', { audio: enter })"
+    @mouseleave="$dispatch('audio:play', { audio: leave })"
+    @click="toggle()"
+    id={id}
+    aria-label={ariaLabel}
+    class="ds-background ds-border ds-rounded ds-hover ds-low h-8 w-14 p-1 cursor-pointer flex items-center">
+    <div
+      class="ds-background ds-border ds-rounded ds-hover ds-high h-6 aspect-square transition-transform duration-500"
+      :class="state ? 'translate-x-full' : 'translate-x-0'"
+    ></div>
+  </button>
+
+  <i class={`${rightIcon} aspect-square flex items-center justify-center ${rightIconSize}`}></i>
+</div>

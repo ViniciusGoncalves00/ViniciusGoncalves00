@@ -1,0 +1,251 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* @utility ds-main-text {
+    @apply font-light text-zinc-500;
+}
+
+@utility ds-text-hover {
+    @apply hover:text-zinc-900;
+}
+
+
+@layer components {
+    .ds-main-text {
+        @apply font-light text-zinc-500;
+    }
+
+    html[data-theme="dark"] .ds-main-text {
+        @apply text-zinc-300;
+    }
+
+    .ds-secondary-text {
+        @apply font-light text-zinc-700;
+    }
+
+    html[data-theme="dark"] .ds-secondary-text {
+        @apply text-zinc-200;
+    }
+
+    .ds-background {
+        @apply bg-zinc-100;
+    }
+
+    html[data-theme="dark"] .ds-background {
+        @apply bg-zinc-900;
+    }
+
+    .ds-hover {
+        @apply hover:bg-zinc-50;
+    }
+
+    html[data-theme="dark"] .ds-hover {
+        @apply hover:bg-zinc-700;
+    }
+
+    .ds-text-hover {
+        @apply hover:text-zinc-900;
+    }
+
+    html[data-theme="dark"] .ds-text-hover {
+        @apply hover:text-zinc-100;
+    }
+
+    .ds-lower-depth {
+        @apply border-b-2 border-white inset-shadow-[0px_2px_8px_rgba(0,0,0,0.75)] shadow-[0px_-2px_4px_rgba(0,0,0,0.25)];
+    }
+
+    html[data-theme="dark"] .ds-lower-depth {
+        @apply border-b-2 border-zinc-500 inset-shadow-[0px_2px_8px_rgba(0,0,0,0.75)] shadow-[0px_-2px_4px_rgba(0,0,0,0.25)];
+    }
+
+    .ds-high-depth {
+        @apply border-t-2 border-zinc-50 shadow-[0px_2px_4px_rgba(0,0,0,1.0)];
+    }
+
+    html[data-theme="dark"] .ds-high-depth {
+        @apply border-t-2 border-zinc-500 shadow-[0px_2px_4px_rgba(0,0,0,1.0)];
+    }
+
+    .ds-gradient-hover {
+        @apply hover:bg-zinc-900;
+    }
+
+    .ds-border {
+        @apply border border-zinc-400;
+    }
+
+    html[data-theme="dark"] .ds-border {
+        @apply border border-zinc-700;
+    }
+
+    .ds-focus {
+        @apply focus:border-zinc-600;
+    }
+
+    html[data-theme="dark"] .ds-focus {
+        @apply focus:border-zinc-500;
+    }
+
+    .ds-padding {
+        @apply px-2 py-1
+    }
+
+    .ds-margin {
+        @apply m-2
+    }
+
+    .ds-rounded {
+        @apply rounded-full;
+    }
+
+    .ds-shadow {
+        @apply drop-shadow-sm;
+    }
+
+    .ds-horizontal-centralized {
+        @apply flex items-center justify-center;
+    }
+
+    .ds-horizontal-start {
+        @apply flex items-center justify-start;
+    }
+
+    .ds-vertical-centralized {
+        @apply flex flex-col items-center justify-center;
+    }
+} */
+
+:root {
+    --bg-primary: #f0f0f0;
+    --bg-secondary: #ffffff;
+    --text-primary: #222222;
+
+    --border-color: #222222;
+    --border-width: 1px;
+    --radius: 8px;
+
+    --shadow: none;
+
+    --accent: #6366f1;
+
+    --depth-low-inner: 0px 0px 0px rgba(0,0,0,0.0);
+    --depth-low-outer: 0px 0px 0px rgba(0,0,0,0.0);
+    --depth-high: 0px 0px 0px rgba(0,0,0,0.0);
+
+    --light-x: 2px;
+    --light-y: 4px;
+
+    --shadow-high-light: rgba(255,255,255,0.25);
+    --shadow-low-light: rgba(255,255,255,0.10);
+    --shadow-high-shadow: rgba(0,0,0,0.25);
+    --shadow-low-shadow: rgba(0,0,0,0.10);
+}
+
+[data-darkmode="true"] {
+    --background-color-primary: #222222;
+    --background-color-primary-hover: #333333;
+    --text-color-primary: #fafafa;
+    --border-color: #fafafa;
+}
+
+[data-palette="cyberpunk"] {
+    --text-color-primary: #aaaa00;
+    --border-color: #aaaa00;
+
+    --shadow-high-light: rgba(255,255,0,0.25);
+    --shadow-low-light: rgba(255,255,0,0.10);
+    --shadow-high-shadow: rgba(50,50,0,0.25);
+    --shadow-low-shadow: rgba(50,50,0,0.10);
+}
+
+[data-palette="cute"] {
+    --text-color-primary: #ff99ff;
+    --border-color: #ff99ff;
+
+    --shadow-high-light: rgba(255,0,255,0.25);
+    --shadow-low-light: rgba(255,0,255,0.10);
+    --shadow-high-shadow: rgba(50,0,50,0.25);
+    --shadow-low-shadow: rgba(50,0,50,0.10);
+}
+
+[data-palette="synthwave"] {
+    --text-color-primary: #00aaaa;
+    --border-color: #00aaaa;
+
+    --shadow-high-light: rgba(0,255,255,0.25);
+    --shadow-low-light: rgba(255,255,0,0.10);
+    --shadow-high-shadow: rgba(255,0,255,0.25);
+    --shadow-low-shadow: rgba(255,255,0,0.10);
+}
+
+[data-style="flat"] {
+    --border-radius: 8px;
+    --box-shadow: none;
+}
+
+[data-style="neumorphic"] {
+    --border-radius: 8px;
+    --border-color: rgba(0,0,0,0.5);
+    --border-radius: calc(1px/0);
+    --border-radius-full: calc(1px/0);
+
+    --depth-low-outer: 0px -2px 4px rgba(0,0,0,0.25);
+    --depth-low-inner: 0px 2px 8px rgba(0,0,0,0.75);
+    --depth-high:
+        inset calc(var(--light-x) * 0.25) calc(var(--light-y) * 0.25) 1px 0px var(--shadow-high-light), /* high light */
+        var(--light-x) var(--light-y) 4px 0px var(--shadow-high-shadow), /* high shadow */
+
+        calc(var(--light-x) * -0.25) calc(var(--light-y) * -0.25) 4px 0px var(--shadow-low-shadow), /* low shadow */
+        var(--light-x) var(--light-y) 4px 0px var(--shadow-low-light); /* low light */
+}
+
+.ds-base {
+    background-color: var(--background-color-primary);
+    color: var(--text-color-primary);
+}
+
+.ds-background {
+    background-color: var(--background-color-primary);
+    box-shadow: var(--box-shadow);
+}
+
+.ds-hover:hover {
+    background-color: var(--background-color-primary-hover);
+}
+
+.ds-border {
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+}
+
+.ds-padding {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-right: 8px;
+    padding-left: 8px;
+}
+
+.ds-rounded {
+    border-radius: var(--border-radius);
+}
+
+.ds-rounded-full {
+    border-radius: var(--border-radius-full);
+}
+
+.ds-shadow {
+    box-shadow: var(--box-shadow);
+}
+
+[data-style="neumorphic"] .ds-low {
+    border: none;
+    box-shadow:
+        inset var(--depth-low-inner),
+              var(--depth-low-outer)
+}
+
+[data-style="neumorphic"] .ds-high {
+    border: none;
+    box-shadow: var(--depth-high)
+}

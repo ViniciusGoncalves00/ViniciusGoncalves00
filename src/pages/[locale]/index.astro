@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  return [
+    { params: { locale: 'pt-br' } },
+    { params: { locale: 'en-us' } },
+  ];
+}
+---
+<BaseLayout pageName="Portfolio">
+    <canvas slot="main" id="canvas" class="w-full h-full"></canvas>
+</BaseLayout>
+
+<script>
+import * as THREE from 'three';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { Main } from '../../common/scene/main';
+import { Wall } from '../../common/scene/wall';
+import { AnimationSystem } from '../../common/animation/animation-system';
+import * as Tasks from '../../common/animation/animation-tasks';
+import { AudioAPI } from '../../common/audio/audio-API';
+import { AnimationAPI } from '../../common/animation/animation-API';
+import { AnimationEasingFunctions } from '../../common/animation/animation-easing-functions';
+import { runAnimationGroup, type AnimationGroupConfig } from '../../common/animation/animation-tasks';
+
+const main = new Main();
+const loader = new OBJLoader();
+
+/* =========================
+   GRUPOS SEMÂNTICOS
+========================= */
+const groups = {
+    furnitures: [] as THREE.Group[],
+    walls: [] as THREE.Group[],
+    floor: [] as THREE.Group[],
+    ceiling: [] as THREE.Group[],
+};
+
+const hideable: Wall[] = [];
+
+/* =========================
+   CARREGAMENTO
+========================= */
+const furnitureModels = ['table', 'sofa', 'monitor'];
+
+for (const model of furnitureModels) {
+    const group = await loader.loadAsync(`/model/obj/${model}.obj`);
+    group.children.forEach(c => {
+        c.castShadow = true;
+        c.receiveShadow = true;
+    });
+    main.scene.add(group);
+    groups.furnitures.push(group);
+}
+
+const wallModels = [
+    { name: 'floor',   normal: new THREE.Vector3( 0,  1,  0) },
+    { name: 'wall_a',  normal: new THREE.Vector3( 1,  0,  0) },
+    { name: 'wall_b',  normal: new THREE.Vector3( 0,  0,  1) },
+    { name: 'wall_c',  normal: new THREE.Vector3(-1,  0,  0) },
+    { name: 'wall_d',  normal: new THREE.Vector3( 0,  0, -1) },
+    { name: 'ceiling', normal: new THREE.Vector3( 0, -1,  0) },
+];
+
+for (const model of wallModels) {
+    const group = await loader.loadAsync(`/model/obj/${model.name}.obj`);
+    main.scene.add(group);
+
+    if (model.name === 'floor') {
+        groups.floor.push(group);
+    } else if (model.name === 'ceiling') {
+        groups.ceiling.push(group);
+    } else {
+        groups.walls.push(group);
+    }
+
+    hideable.push(new Wall(model.normal, group.children[0] as THREE.Mesh));
+}
+
+/* =========================
+   CÂMERA / LUZ
+========================= */
+main.light.position.set(0, 2, -3);
+main.light.lookAt(0, 0, 0);
+
+main.camera.position.set(5, 6, 5);
+main.camera.lookAt(0, 1.25, 0);
+main.controls.target.y = 1.25;
+
+/* =========================
+   ESTADO INICIAL
+========================= */
+const start = new THREE.Vector3(0, 2, 0);
+const target = new THREE.Vector3(0, 0, 0);
+
+Object.values(groups).flat().forEach(object => {
+    object.visible = false;
+    object.position.copy(start);
+    object.children.forEach(child => {
+        (child as THREE.Mesh).material = new THREE.MeshStandardMaterial({ color: new THREE.Color("white")})
+        const mat = (child as THREE.Mesh).material as THREE.Material;
+        mat.transparent = true;
+        mat.opacity = 0;
+    });
+});
+
+/* =========================
+   UTILITÁRIOS
+========================= */
+const animationGroups: AnimationGroupConfig[] = [
+    {
+        name: "floor",
+        objects: groups.floor,
+        duration: 600,
+        itemDelay: 600,
+        tasks: (object) => [
+            new Tasks.MoveTask(object, start, target, 500, AnimationEasingFunctions.easeOutBounce),
+            new Tasks.FadeTask(object, 0, 1, 1000, AnimationEasingFunctions.easeOutQuad)
+        ],
+        onStartSound: AudioAPI.PLACE_STARTED,
+    },
+    {
+        name: "furnitures",
+        objects: groups.furnitures,
+        duration: 1000,
+        itemDelay: 250,
+        tasks: (object) => [
+            new Tasks.MoveTask(object, start, target, 1500, AnimationEasingFunctions.easeOutBounce),
+            new Tasks.FadeTask(object, 0, 1, 1000, AnimationEasingFunctions.easeOutQuad)
+        ],
+        onStartSound: AudioAPI.PLACE_STARTED
+    },
+    {
+        name: "walls",
+        objects: groups.walls,
+        duration: 1000,
+        itemDelay: 750,
+        tasks: (object) => [
+            new Tasks.MoveTask(object, start, target, 1500, AnimationEasingFunctions.easeOutBounce),
+            new Tasks.FadeTask(object, 0, 1, 1000, AnimationEasingFunctions.easeOutQuad)
+        ],
+        onStartSound: AudioAPI.PLACE_STARTED,
+    },
+    {
+        name: "ceiling",
+        objects: groups.ceiling,
+        duration: 1000,
+        itemDelay: 500,
+        tasks: (object) => [
+            new Tasks.MoveTask(object, start, target, 1000, AnimationEasingFunctions.easeOutBounce),
+            new Tasks.FadeTask(object, 0, 1, 1000, AnimationEasingFunctions.easeOutQuad)
+        ],
+        onStartSound: AudioAPI.PLACE_STARTED,
+    }
+];
+
+for (const group of animationGroups) {
+    await runAnimationGroup(group);
+}
+
+
+/* =========================
+   WALL CULLING DINÂMICO
+========================= */
+const direction = new THREE.Vector3();
+main.camera.getWorldDirection(direction);
+
+hideable.forEach(wall => {
+    const material = (wall.mesh.material as THREE.Material);
+    wall.normal.dot(direction) <= 0.5 ? material.opacity = 1.0 : material.opacity = 0.0;
+});
+
+window.addEventListener('mousemove', () => {
+    const direction = new THREE.Vector3();
+    main.camera.getWorldDirection(direction);
+
+    hideable.forEach(wall => {
+        const material = (wall.mesh.material as THREE.Material);
+        wall.normal.dot(direction) <= 0.5 ? material.opacity = 1.0 : material.opacity = 0.0;
+    });
+});
+</script>

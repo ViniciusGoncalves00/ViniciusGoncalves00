@@ -1,0 +1,71 @@
+---
+import { LocaleOption } from '../i18n/translations.';
+import { Translations } from '../i18n/translations.';
+import { URLHelper } from '../common/URLhelper';
+import Toggle from './toggle.astro';
+import { Palette } from '../common/style/style-API';
+import Dropdown from './dropdown.astro';
+import { API } from '../common/API/api';
+
+const locale = URLHelper.getLocaleFromURL(Astro.url);
+const info = Translations.getLocaleInfo(locale);
+
+const nextLanguage = info.englishAbbreviation === LocaleOption.EN_US ? LocaleOption.PT_BR : LocaleOption.EN_US;
+
+const toggleLanguageKnobTranslation = info.englishAbbreviation === LocaleOption.PT_BR ? "" : "translate-x-[calc(120%)]";
+const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage);
+---
+
+<div class="border-t border-black/20 opacity-50 hover:transition-opacity hover:opacity-100 duration-200 w-full h-16 flex-none flex items-center justify-between">
+    <div class="w-1/4 h-full flex items-center justify-center">
+    </div>
+    <div class="w-2/4 h-8 flex items-center justify-center space-x-8">
+        <Toggle
+            id="toggle-audio-button"
+            ariaLabel="Toggle audio"
+            leftIcon="bi bi-volume-up"
+            leftIconSize="text-2xl"
+            rightIcon="bi bi-volume-mute"
+            rightIconSize="text-2xl"
+            enableEvent={API.AUDIO_ENABLE}
+            disableEvent={API.AUDIO_DISABLE}
+            >
+        </Toggle>
+        <Toggle
+            id="toggle-brightness-button"
+            ariaLabel="Toggle brightness"
+            leftIcon="bi bi-brightness-low"
+            leftIconSize="text-2xl"
+            rightIcon="bi bi-moon-stars"
+            rightIconSize="font-lg"
+            enableEvent={API.STYLE_DARKMODE_ENABLE}
+            disableEvent={API.STYLE_DARKMODE_DISABLE}
+            >
+        </Toggle>
+        <!-- <Toggle
+            id="toggle-light-direction-button"
+            ariaLabel="Toggle light direction"
+            leftIcon="bi bi-brightness-low"
+            leftIconSize="text-2xl"
+            rightIcon="bi bi-moon-stars"
+            rightIconSize="font-lg"
+            storageKey="lightDirection">
+        </Toggle> -->
+        <!-- <Dropdown
+            id="select-palettes"
+            defaultLabel="palettes"
+            datasetKey="palette"
+            storageKey="palette"
+            options={Object.values(Palette)}
+        /> -->
+        <div class="h-full flex items-center justify-between space-x-1">
+            <div class="h-full aspect-square p-1">BR</div>
+            <a id="toggle-language-button" href={nextLocaleHref} aria-label="Toggle Language" class="ds-background ds-border ds-rounded ds-hover ds-low h-8 w-14 p-1 cursor-pointer flex items-center">
+                <div id="toggle-language-knob" class=`ds-background ds-border ds-rounded ds-hover ds-high h-6 aspect-square transition-transform duration-500`></div>
+            </a>
+            <div class="h-full aspect-square p-1">EN</div>
+        </div>
+    </div>
+    <div class="w-1/4 h-full flex items-center justify-center">
+    </div>
+</div>

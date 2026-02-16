@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  return [
+    { params: { locale: 'pt-br' } },
+    { params: { locale: 'en-us' } },
+  ];
+}
+---
+<BaseLayout pageName="Portfolio | Contact">
+    <p>My contact page, wrapped in a layout!</p>
+</BaseLayout>

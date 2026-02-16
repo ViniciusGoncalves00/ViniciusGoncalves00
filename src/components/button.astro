@@ -1,0 +1,13 @@
+---
+const { id } = Astro.props;
+const { name } = Astro.props;
+const { callback } = Astro.props;
+---
+<button
+    id={ id }
+    @click={ callback }
+    class="
+        ds-background ds-border ds-rounded ds-padding ds-hover ds-high
+        flex items-center justify-center">
+        { name }
+</button>

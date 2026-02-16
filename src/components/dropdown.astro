@@ -1,0 +1,44 @@
+---
+import Button from "./button.astro";
+
+const {
+  id,
+  defaultLabel,
+  datasetKey,
+  storageKey,
+  options = [],
+} = Astro.props;
+---
+
+<div
+  id={id}
+  class="ds-border ds-rounded ds-padding ds-high w-64 flex flex-col"
+  x-data={`{
+    datasetKey: '${datasetKey}',
+    storageKey: '${storageKey}',
+    options: JSON.parse('${JSON.stringify(options)}'),
+    isOpen: false,
+    label: 'Choose an option',
+    open() {
+        this.isOpen = true
+    },
+    close() {
+      this.isOpen = false
+    },
+    toggle() {
+      this.isOpen ? this.close() : this.open()
+    },
+}`}
+    @click.outside="close()"
+>
+  <button @click="toggle()" x-text="label" class="w-full flex items-center justify-center cursor-pointer"></button>
+  <ul x-show="isOpen" x-transition class="w-full flex flex-col">
+    <template x-for="option in options">
+        <button
+            class="cursor-pointer"
+            @click="$dispatch(option.value)"
+            x-text="option.label"
+        ></button>
+    </template>
+  </ul>
+</div>

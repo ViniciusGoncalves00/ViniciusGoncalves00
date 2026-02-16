@@ -1,0 +1,45 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { Icon } from 'astro-icon/components'
+import { URLHelper } from '../common/URLhelper';
+import { Translations } from '../i18n/translations.';
+
+const locale = URLHelper.getLocaleFromURL(Astro.url);
+const translation = Translations.getTranslation(locale);
+---
+
+<div class="ds-main-text border-b border-black/20 opacity-50 hover:transition-opacity hover:opacity-100 w-full h-16 flex-none flex items-center justify-between py-2">
+    <nav aria-label="site navigation" class="w-1/4 flex items-center justify-center">
+        <ul class="flex">
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.home)}>{translation.header.home}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.projects)}>{translation.header.projects}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.blog)}>{translation.header.blog}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.contact)}>{translation.header.contact}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.notFound)}>{translation.header.notFound}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.design)}>Design</a></li>
+        </ul>
+    </nav>
+    <div class="w-2/4 flex items-center justify-center">
+        <p class="text-3xl font-normal"><strong>portfolio</strong> vinicius gonçalves</p>
+    </div>
+    <nav aria-label="social networks" class="w-1/4 flex items-center justify-center">
+        <ul class="flex">
+            <li class="ds-text-hover px-4 my-4 flex items-center justify-center space-x-2 cursor-pointer">
+                <Icon name="mdi:github" />
+                <a target="_blank" href="https://github.com/ViniciusGoncalves00" rel="me">GitHub</a>
+                <i class="bi bi-box-arrow-up-right text-xs flex items-center justify-center"></i>
+            </li>
+            <li class="ds-text-hover px-4 my-4 flex items-center justify-center space-x-2 cursor-pointer">
+                <Icon name="mdi:linkedin" />
+                <a target="_blank" href="https://www.linkedin.com/in/viniciusgonçalves00/" rel="me">LinkedIn</a>
+                <i class="bi bi-box-arrow-up-right text-xs flex items-center justify-center"></i>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<style>
+[data-icon] {
+    font-size: 24px;
+}
+</style>
