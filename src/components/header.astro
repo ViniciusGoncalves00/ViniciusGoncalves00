@@ -8,10 +8,11 @@ const locale = URLHelper.getLocaleFromURL(Astro.url);
 const translation = Translations.getTranslation(locale);
 ---
 
-<div class="ds-main-text opacity-50 hover:transition-opacity hover:opacity-100 w-full h-16 flex-none flex items-center justify-between py-2">
+<div class="ds-main-text border-b border-black/20 opacity-50 hover:transition-opacity hover:opacity-100 w-full h-16 flex-none flex items-center justify-between py-2">
     <nav aria-label="site navigation" class="w-1/4 flex items-center justify-center">
         <ul class="flex">
             <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.home)}>{translation.header.home}</a></li>
+            <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.projects)}>{translation.header.projects}</a></li>
             <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.blog)}>{translation.header.blog}</a></li>
             <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.contact)}>{translation.header.contact}</a></li>
             <li class="ds-text-hover px-4 my-2 flex items-center justify-center cursor-pointer"><a href={URLHelper.buildFullPathFromPath(Astro.url, URLHelper.pages.notFound)}>{translation.header.notFound}</a></li>

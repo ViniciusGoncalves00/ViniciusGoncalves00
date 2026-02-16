@@ -3,6 +3,7 @@ import { LocaleOption, Translations } from "../i18n/translations.";
 export class URLHelper {
     public static readonly pages = {
         home: "",
+        projects: "projects",
         blog: "blog",
         contact: "contact",
         notFound: "404",

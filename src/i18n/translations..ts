@@ -1,6 +1,7 @@
 export type Translation = {
     header: {
         home: string;
+        projects: string;
         blog: string;
         contact: string;
         notFound: string;
@@ -27,6 +28,7 @@ export type Translation = {
 const brazilian: Translation = {
     header: {
         home: 'Início',
+        projects: 'Projetos',
         blog: 'Blog',
         contact: 'Contato',
         notFound: '404',
@@ -52,6 +54,7 @@ const brazilian: Translation = {
 const englishAmerican: Translation = {
     header: {
         home: 'Home',
+        projects: 'Projects',
         blog: 'Blog',
         contact: 'Contact',
         notFound: '404',
