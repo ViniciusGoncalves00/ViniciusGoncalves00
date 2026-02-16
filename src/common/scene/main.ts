@@ -18,16 +18,25 @@ export class Main {
         this.scene = new THREE.Scene();
         this.scene.add(this.camera);
 
-        this.light = new THREE.SpotLight(new THREE.Color("white"), 10, 1000, 15);
+        this.light = new THREE.DirectionalLight(new THREE.Color("#ddddff"), 1);
         this.light.lookAt(0, -1, 0);
         this.light.castShadow = true;
         this.light.shadow!.mapSize.set(2048, 2048);
-        this.light.shadow!.bias = -0.0005;
-        this.light.shadow!.normalBias = 0.02;
+        this.light.shadow!.bias = 0.0001;
+        this.light.shadow!.normalBias = 0.01;
+
+        const spotLight = new THREE.SpotLight(new THREE.Color("#ffddbb"), 3, 3.0, Math.PI / 3, 0.2, 1);
+        spotLight.position.set(0, 2.5, 0);
+        spotLight.lookAt(0, -1, 0);
+        spotLight.castShadow = true;
+        spotLight.shadow!.mapSize.set(2048, 2048);
+        spotLight.shadow!.bias = 0.0001;
+        spotLight.shadow!.normalBias = 0.01;
 
         const ambientLight = new THREE.AmbientLight();
 
         this.scene.add(this.light);
+        this.scene.add(spotLight);
         this.scene.add(ambientLight);
 
         const animate = (time: number) => {
