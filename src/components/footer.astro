@@ -1,19 +1,9 @@
 ---
-import { LocaleOption } from '../i18n/translations.';
-import { Translations } from '../i18n/translations.';
 import { URLHelper } from '../common/URLhelper';
-import Toggle from './toggle.astro';
-import { Palette } from '../common/style/style-API';
-import Dropdown from './dropdown.astro';
 import { API } from '../common/API/api';
+import Toggle from './toggle.astro';
 
-const locale = URLHelper.getLocaleFromURL(Astro.url);
-const info = Translations.getLocaleInfo(locale);
-
-const nextLanguage = info.englishAbbreviation === LocaleOption.EN_US ? LocaleOption.PT_BR : LocaleOption.EN_US;
-
-const toggleLanguageKnobTranslation = info.englishAbbreviation === LocaleOption.PT_BR ? "" : "translate-x-[calc(120%)]";
-const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, nextLanguage);
+const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, URLHelper.getNextLanguage(Astro.url));
 ---
 
 <div class="border-t border-black/20 opacity-50 hover:transition-opacity hover:opacity-100 duration-200 w-full h-16 flex-none flex items-center justify-between">

@@ -6,8 +6,8 @@ export class URLHelper {
         projects: "projects",
         blog: "blog",
         contact: "contact",
-        notFound: "404",
         design: "design",
+        notFound: "404",
     }
     private static readonly locales = Object.values(LocaleOption);
 
@@ -50,11 +50,26 @@ export class URLHelper {
         return segments.slice(0, localeIndex).join('/');
     }
 
+    public static getNextLanguage(url: URL): LocaleOption {
+        const locale = this.getLocaleFromURL(url);
+        const info = Translations.getLocaleInfo(locale);
+        return info.englishAbbreviation === LocaleOption.EN_US ? LocaleOption.PT_BR : LocaleOption.EN_US;
+    }
+
+    public static buildStaticFullPath(locale: LocaleOption, params: string[]): string {
+        let path = `${import.meta.env.BASE_URL}${locale}`;
+        params.forEach(param => {
+            path = path.concat(`/${param}`)
+        });
+        console.log(path)
+        return path;
+    }
+
     public static buildFullPathFromLocale(url: URL, locale: LocaleOption): string {
-        return `${this.getBasePath(url)}/${locale}/${this.getPathAfterLocale(url)}`
+        return `/${this.getBasePath(url)}/${locale}/${this.getPathAfterLocale(url)}`
     }
 
     public static buildFullPathFromPath(url: URL, path: string): string {
-        return `${this.getBasePath(url)}/${this.getLocaleFromURL(url)}/${path}`
+        return `/${this.getBasePath(url)}/${this.getLocaleFromURL(url)}/${path}`
     }
 }

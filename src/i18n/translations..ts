@@ -4,6 +4,7 @@ export type Translation = {
         projects: string;
         blog: string;
         contact: string;
+        design: string;
         notFound: string;
     },
     footer: {
@@ -31,6 +32,7 @@ const brazilian: Translation = {
         projects: 'Projetos',
         blog: 'Blog',
         contact: 'Contato',
+        design: 'Design',
         notFound: '404',
     },
     footer: {
@@ -57,6 +59,7 @@ const englishAmerican: Translation = {
         projects: 'Projects',
         blog: 'Blog',
         contact: 'Contact',
+        design: 'Design',
         notFound: '404',
     },
     footer: {

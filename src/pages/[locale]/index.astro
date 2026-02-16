@@ -45,7 +45,7 @@ const hideable: Wall[] = [];
 const furnitureModels = ['table', 'sofa', 'monitor'];
 
 for (const model of furnitureModels) {
-    const group = await loader.loadAsync(`/model/obj/${model}.obj`);
+    const group = await loader.loadAsync(`${import.meta.env.BASE_URL}/model/obj/${model}.obj`);
     group.children.forEach(c => {
         c.castShadow = true;
         c.receiveShadow = true;
@@ -64,7 +64,7 @@ const wallModels = [
 ];
 
 for (const model of wallModels) {
-    const group = await loader.loadAsync(`/model/obj/${model.name}.obj`);
+    const group = await loader.loadAsync(`${import.meta.env.BASE_URL}/model/obj/${model.name}.obj`);
     main.scene.add(group);
 
     if (model.name === 'floor') {
