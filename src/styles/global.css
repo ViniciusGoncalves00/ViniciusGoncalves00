@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@custom-variant dark (&:where([data-darkmode="true"] *));
 
 /* @utility ds-main-text {
     @apply font-light text-zinc-500;
@@ -117,11 +118,12 @@
 } */
 
 :root {
-    --bg-primary: #f0f0f0;
-    --bg-secondary: #ffffff;
-    --text-primary: #222222;
+    --background-color-primary: #f0f0f0;
+    --background-color-primary-hover: #f0f0f0;
+    --background-color-secondary: #ffffff;
+    --text-color-primary: rgba(102, 102, 102);
 
-    --border-color: #222222;
+    --border-color: rgba(0, 0, 0, 0.2);
     --border-width: 1px;
     --radius: 8px;
 
@@ -145,8 +147,8 @@
 [data-darkmode="true"] {
     --background-color-primary: #222222;
     --background-color-primary-hover: #333333;
-    --text-color-primary: #fafafa;
-    --border-color: #fafafa;
+    --text-color-primary: #eee;
+    --border-color: #eee;
 }
 
 [data-palette="cyberpunk"] {
@@ -161,7 +163,7 @@
 
 [data-palette="cute"] {
     --text-color-primary: #ff99ff;
-    --border-color: #ff99ff;
+    --border-color: rgb(255, 153, 255);
 
     --shadow-high-light: rgba(255,0,255,0.25);
     --shadow-low-light: rgba(255,0,255,0.10);
@@ -186,7 +188,7 @@
 
 [data-style="neumorphic"] {
     --border-radius: 8px;
-    --border-color: rgba(0,0,0,0.5);
+    --border-color: rgba(0,0,0,0.2);
     --border-radius: calc(1px/0);
     --border-radius-full: calc(1px/0);
 
@@ -216,6 +218,26 @@
 
 .ds-border {
     border-width: var(--border-width);
+    border-color: var(--border-color);
+}
+
+.ds-border-t {
+    border-width: var(--border-width) 0 0 0;
+    border-color: var(--border-color);
+}
+
+.ds-border-r {
+    border-width: 0 var(--border-width) 0 0;
+    border-color: var(--border-color);
+}
+
+.ds-border-b {
+    border-width: 0 0 var(--border-width) 0;
+    border-color: var(--border-color);
+}
+
+.ds-border-l {
+    border-width: 0 0 0 0 var(--border-width);
     border-color: var(--border-color);
 }
 

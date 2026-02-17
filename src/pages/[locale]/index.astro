@@ -1,4 +1,6 @@
 ---
+import { API } from '../../common/API/api';
+import Toggle from '../../components/toggle.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
@@ -9,7 +11,16 @@ export async function getStaticPaths() {
 }
 ---
 <BaseLayout pageName="Portfolio">
-    <canvas slot="main" id="canvas" class="w-full h-full"></canvas>
+    <div slot="main" class="relative w-full h-full flex-none flex flex-col">
+        <canvas id="canvas" class="w-full h-full"></canvas>
+        <div class="absolute w-full h-16 top-[calc(100%-64px)] flex-none flex items-center justify-between">
+            <div class="w-1/4 h-full flex items-center justify-center"></div>
+            <div class="w-2/4 h-8 flex items-center justify-center space-x-8">
+
+            </div>
+            <div class="w-1/4 h-full flex items-center justify-center"></div>
+        </div>
+    </div>
 </BaseLayout>
 
 <script>

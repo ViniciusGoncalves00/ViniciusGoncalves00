@@ -1,37 +1,10 @@
 ---
-import { URLHelper } from '../common/URLhelper';
-import { API } from '../common/API/api';
-import Toggle from './toggle.astro';
-
-const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, URLHelper.getNextLanguage(Astro.url));
+import { Icon } from 'astro-icon/components'
 ---
 
-<div class="border-t border-black/20 opacity-50 hover:transition-opacity hover:opacity-100 duration-200 w-full h-16 flex-none flex items-center justify-between">
-    <div class="w-1/4 h-full flex items-center justify-center">
-    </div>
-    <div class="w-2/4 h-8 flex items-center justify-center space-x-8">
-        <Toggle
-            id="toggle-audio-button"
-            ariaLabel="Toggle audio"
-            leftIcon="bi bi-volume-up"
-            leftIconSize="text-2xl"
-            rightIcon="bi bi-volume-mute"
-            rightIconSize="text-2xl"
-            enableEvent={API.AUDIO_ENABLE}
-            disableEvent={API.AUDIO_DISABLE}
-            >
-        </Toggle>
-        <Toggle
-            id="toggle-brightness-button"
-            ariaLabel="Toggle brightness"
-            leftIcon="bi bi-brightness-low"
-            leftIconSize="text-2xl"
-            rightIcon="bi bi-moon-stars"
-            rightIconSize="font-lg"
-            enableEvent={API.STYLE_DARKMODE_ENABLE}
-            disableEvent={API.STYLE_DARKMODE_DISABLE}
-            >
-        </Toggle>
+<div class="border-t border-black/20 w-full h-8 flex-none flex items-center justify-between px-4">
+    <div class="w-1/4 h-full flex items-center justify-start">© {new Date().getFullYear()} Vinicius Gonçalves</div>
+    <div class="w-2/4 flex items-center justify-center space-x-8">
         <!-- <Toggle
             id="toggle-light-direction-button"
             ariaLabel="Toggle light direction"
@@ -48,14 +21,19 @@ const nextLocaleHref = URLHelper.buildFullPathFromLocale(Astro.url, URLHelper.ge
             storageKey="palette"
             options={Object.values(Palette)}
         /> -->
-        <div class="h-full flex items-center justify-between space-x-1">
-            <div class="h-full aspect-square p-1">BR</div>
-            <a id="toggle-language-button" href={nextLocaleHref} aria-label="Toggle Language" class="ds-background ds-border ds-rounded ds-hover ds-low h-8 w-14 p-1 cursor-pointer flex items-center">
-                <div id="toggle-language-knob" class=`ds-background ds-border ds-rounded ds-hover ds-high h-6 aspect-square transition-transform duration-500`></div>
-            </a>
-            <div class="h-full aspect-square p-1">EN</div>
-        </div>
     </div>
-    <div class="w-1/4 h-full flex items-center justify-center">
-    </div>
+    <nav aria-label="social networks" class="w-1/4 flex items-center justify-end">
+        <ul class="space-x-8 flex">
+            <li class="ds-text-hover ds-space-x flex items-center justify-center space-x-2 cursor-pointer">
+                <Icon name="mdi:github" />
+                <a target="_blank" href="https://github.com/ViniciusGoncalves00" rel="me">GitHub</a>
+                <i class="bi bi-box-arrow-up-right text-xs flex items-center justify-center"></i>
+            </li>
+            <li class="ds-text-hover ds-space-x flex items-center justify-center space-x-2 cursor-pointer">
+                <Icon name="mdi:linkedin" />
+                <a target="_blank" href="https://www.linkedin.com/in/viniciusgonçalves00/" rel="me">LinkedIn</a>
+                <i class="bi bi-box-arrow-up-right text-xs flex items-center justify-center"></i>
+            </li>
+        </ul>
+    </nav>
 </div>
