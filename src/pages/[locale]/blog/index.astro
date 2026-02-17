@@ -3,6 +3,7 @@ import { LocaleOption, Translations } from '../../../i18n/translations.';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection, getEntry } from 'astro:content';
 import { URLHelper } from '../../../common/URLhelper';
+import { PageName } from '../../../common/others/pageName';
 
 const locale = URLHelper.getLocaleFromURL(Astro.url);
 const t = Translations.getTranslation(locale);
@@ -20,7 +21,7 @@ const allTags = [
 ];
 
 ---
-<BaseLayout  pageName="Portfolio | Blog">
+<BaseLayout pageName=`${PageName.buildName([t.header.blog])}`>
 <div
   slot="main"
   class="w-full h-full flex flex-col items-center justify-start space-y-16"

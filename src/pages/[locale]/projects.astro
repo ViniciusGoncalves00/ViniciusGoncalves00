@@ -3,6 +3,7 @@ import { getCollection, getEntry } from 'astro:content';
 import { URLHelper } from '../../common/URLhelper';
 import { Translations } from '../../i18n/translations.';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { PageName } from '../../common/others/pageName';
 
 const locale = URLHelper.getLocaleFromURL(Astro.url);
 const t = Translations.getTranslation(locale);
@@ -14,14 +15,14 @@ export async function getStaticPaths() {
     ];
 }
 
+
 const posts = (await getCollection('blog')).filter(post => post.id.startsWith(`${locale}/`));
 
 ---
-<BaseLayout  pageName="Portfolio | Blog">
+<BaseLayout pageName=`${PageName.buildName([t.header.projects])}`>
 <div slot="main" class="w-full h-full flex flex-col items-center justify-center space-y-16">
     <a target="_blank" href="https://viniciusgoncalves00.github.io/open-3D/hub.html">OPEN-3D</a>
     <a target="_blank" href="https://viniciusgoncalves00.github.io/sandbox/">Sandbox</a>
     <a target="_blank" href="https://viniciusgoncalves00.github.io/boids-threejs/project/templates/index.html">Boids</a>
 </div>
-
 </BaseLayout>

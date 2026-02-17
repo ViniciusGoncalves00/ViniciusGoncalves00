@@ -1,5 +1,6 @@
 ---
 import { API } from '../../common/API/api';
+import { PageName } from '../../common/others/pageName';
 import Toggle from '../../components/toggle.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
@@ -10,7 +11,7 @@ export async function getStaticPaths() {
   ];
 }
 ---
-<BaseLayout pageName="Portfolio">
+<BaseLayout pageName=`${PageName.buildName()}`>
     <div slot="main" class="relative w-full h-full flex-none flex flex-col">
         <canvas id="canvas" class="w-full h-full"></canvas>
         <div class="absolute w-full h-16 top-[calc(100%-64px)] flex-none flex items-center justify-between">

@@ -1,4 +1,7 @@
 ---
+import { PageName } from '../../common/others/pageName';
+import { URLHelper } from '../../common/URLhelper';
+import { Translations } from '../../i18n/translations.';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
@@ -7,7 +10,12 @@ export async function getStaticPaths() {
     { params: { locale: 'en-us' } },
   ];
 }
+
+const locale = URLHelper.getLocaleFromURL(Astro.url);
+const t = Translations.getTranslation(locale);
 ---
-<BaseLayout pageName="Portfolio | Contact">
-    <p>My contact page, wrapped in a layout!</p>
+<BaseLayout pageName=`${PageName.buildName([t.header.contact])}`>
+    <div slot="main" class="w-full h-full flex flex-col items-center justify-center space-y-16">
+        <p>My contact page, wrapped in a layout!</p>
+    </div>
 </BaseLayout>

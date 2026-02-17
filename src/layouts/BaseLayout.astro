@@ -9,7 +9,6 @@ import { URLHelper } from "../common/URLhelper";
 const { pageName } = Astro.props;
 
 const locale = URLHelper.getLocaleFromURL(Astro.url);
-const t = Translations.getTranslation(locale);
 ---
 
 <html lang={locale}>
@@ -18,7 +17,7 @@ const t = Translations.getTranslation(locale);
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css"/>
-		<link rel="icon" id="favicon" href="/favicon.png" />
+		<link rel="icon" id="favicon" href=`${URLHelper.buildPublicPath(["favicon.png"])}` />
 		<title>{pageName}</title>
 	</head>
 	<body class="ds-base w-full h-screen max-h-screen flex-none flex flex-col items-center justify-between">
