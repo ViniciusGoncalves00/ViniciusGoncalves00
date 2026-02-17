@@ -147,8 +147,8 @@
 [data-darkmode="true"] {
     --background-color-primary: #222222;
     --background-color-primary-hover: #333333;
-    --text-color-primary: #eee;
-    --border-color: #eee;
+    --text-color-primary: #cccccc;
+    --border-color: rgb(255, 255, 255, 0.2);
 }
 
 [data-palette="cyberpunk"] {
