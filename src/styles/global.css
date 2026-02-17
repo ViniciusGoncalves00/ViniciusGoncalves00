@@ -188,7 +188,7 @@
 
 [data-style="neumorphic"] {
     --border-radius: 8px;
-    --border-color: rgba(0,0,0,0.2);
+    /* --border-color: rgba(0,0,0,0.2); */
     --border-radius: calc(1px/0);
     --border-radius-full: calc(1px/0);
 
