@@ -82,6 +82,14 @@ export interface AnimationTask {
     update(t: number): void;
 }
 
+export interface ForceableAnimationTask {
+    /**
+     * Forces the target state to happen.
+     */
+    force: boolean;
+    forceState(): void;
+}
+
 /**
  * Animation task responsible for interpolating the position
  * of a THREE.Object3D between two points in space.
@@ -89,7 +97,7 @@ export interface AnimationTask {
  * The interpolation is linear (lerp) and can be shaped
  * using an easing function.
  */
-export class MoveTask implements AnimationTask {
+export class MoveTask implements AnimationTask, ForceableAnimationTask {
 
     /**
      * Creates a new position animation task.
@@ -99,13 +107,15 @@ export class MoveTask implements AnimationTask {
      * @param target   Target position
      * @param duration Animation duration in milliseconds
      * @param easing   Optional easing function (default: linear)
+     * @param force Forces the target state to happen
      */
     public constructor(
         private object: THREE.Object3D,
         private start: THREE.Vector3,
         private target: THREE.Vector3,
         public duration: number,
-        private easing: (t: number) => number = t => t
+        private easing: (t: number) => number = t => t,
+        public force: boolean = true,
     ) {}
 
     /**
@@ -116,6 +126,10 @@ export class MoveTask implements AnimationTask {
     public update(t: number): void {
         const eased = this.easing(t);
         this.object.position.lerpVectors(this.start, this.target, eased);
+    }
+
+    public forceState(): void {
+        this.object.position.copy(this.target);
     }
 }
 
@@ -131,7 +145,7 @@ export class MoveTask implements AnimationTask {
  * - Assumes child objects are THREE.Mesh instances
  * - Forces materials to be transparent
  */
-export class FadeTask implements AnimationTask {
+export class FadeTask implements AnimationTask, ForceableAnimationTask {
 
     /**
      * Creates a new opacity animation task.
@@ -140,6 +154,7 @@ export class FadeTask implements AnimationTask {
      * @param from     Initial opacity value
      * @param to       Final opacity value
      * @param duration Animation duration in milliseconds
+     * @param force Forces the target state to happen
      * @param easing   Optional easing function (default: linear)
      */
     public constructor(
@@ -147,7 +162,8 @@ export class FadeTask implements AnimationTask {
         private from: number,
         private to: number,
         public duration: number,
-        private easing: (t: number) => number = t => t
+        private easing: (t: number) => number = t => t,
+        public force: boolean = true,
     ) {}
 
     /**
@@ -163,6 +179,13 @@ export class FadeTask implements AnimationTask {
             const material = (child as THREE.Mesh).material as THREE.Material;
             material.transparent = true;
             material.opacity = value;
+        });
+    }
+
+    public forceState(): void {
+        this.object.children.forEach(child => {
+            const material = (child as THREE.Mesh).material as THREE.Material;
+            material.opacity = this.to;
         });
     }
 }
@@ -189,7 +212,7 @@ export class ParallelTask implements AnimationTask {
      *
      * @param tasks The animation tasks to run in parallel
      */
-    public constructor(private tasks: AnimationTask[]) {
+    public constructor(public readonly tasks: AnimationTask[]) {
         this.duration = Math.max(...tasks.map(t => t.duration));
     }
 
@@ -229,4 +252,24 @@ export class SequenceTask {
             await AnimationSystem.run(task);
         }
     }
+}
+
+export function isForceable(task: unknown): task is ForceableAnimationTask {
+    return (
+        typeof task === "object" &&
+        task !== null &&
+        "force" in task &&
+        typeof (task as any).force === "boolean" &&
+        "forceState" in task &&
+        typeof (task as any).forceState === "function"
+    );
+}
+
+export function isParallelTask(task: unknown): task is ParallelTask {
+    return (
+        typeof task === "object" &&
+        task !== null &&
+        "tasks" in task &&
+        Array.isArray((task as any).tasks)
+    );
 }

@@ -1,5 +1,5 @@
 import { AnimationAPI } from "./animation-API";
-import type { AnimationTask } from "./animation-tasks";
+import { isForceable, isParallelTask, type AnimationTask, type ForceableAnimationTask, type ParallelTask } from "./animation-tasks";
 
 /**
  * Executes a single AnimationTask over time.
@@ -39,6 +39,18 @@ export class AnimationSystem {
                 if (t < 1) {
                     requestAnimationFrame(loop);
                 } else {
+                    if (isForceable(task) && task.force) {
+                        task.forceState();
+                    }
+                
+                    if (isParallelTask(task)) {
+                        for (const subTask of task.tasks) {
+                            if (isForceable(subTask) && subTask.force) {
+                                subTask.forceState();
+                            }
+                        }
+                    }
+
                     window.dispatchEvent(
                         new CustomEvent(AnimationAPI.FINISH, {
                             detail: { task }
