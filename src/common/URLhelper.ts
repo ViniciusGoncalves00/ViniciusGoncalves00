@@ -56,12 +56,19 @@ export class URLHelper {
         return info.englishAbbreviation === LocaleOption.EN_US ? LocaleOption.PT_BR : LocaleOption.EN_US;
     }
 
+    public static buildPublicPath(params: string[]): string {
+        let path = `${import.meta.env.BASE_URL}`;
+        params.forEach(param => {
+            path = path.concat(`/${param}`)
+        });
+        return path;
+    }
+
     public static buildStaticFullPath(locale: LocaleOption, params: string[]): string {
         let path = `${import.meta.env.BASE_URL}${locale}`;
         params.forEach(param => {
             path = path.concat(`/${param}`)
         });
-        console.log(path)
         return path;
     }
 

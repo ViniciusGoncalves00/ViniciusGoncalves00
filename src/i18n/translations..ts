@@ -24,6 +24,9 @@ export type Translation = {
             lastUpdate: string,
         }
     },
+    notFound: {
+        notFound: string,
+    }
 }
 
 const brazilian: Translation = {
@@ -35,8 +38,7 @@ const brazilian: Translation = {
         design: 'Design',
         notFound: '404',
     },
-    footer: {
-    },
+    footer: {},
     blog: {
         disclaimer: "Os textos a seguir são apenas uma exposição pública de meus estudos, reflexões e ideias. Considere-os ensaios.",
         essay: "Ensaio é um gênero literário (ou não) caracterizado pela exposição reflexiva, opinativa e subjetiva do autor sobre determinado tema.",
@@ -50,6 +52,9 @@ const brazilian: Translation = {
             createdAt: "Criado em",
             lastUpdate: "Última atualização",
         }
+    },
+    notFound: {
+        notFound: "Página não encontrada!"
     }
 }
 
@@ -62,8 +67,7 @@ const englishAmerican: Translation = {
         design: 'Design',
         notFound: '404',
     },
-    footer: {
-    },
+    footer: {},
     blog: {
         disclaimer: "The following texts are merely a public exposition of my studies, reflections, and ideas. Consider them essays.",
         essay: "An essay is a literary (or non-literary) genre characterized by the author's reflective, opinionated, and subjective exposition on a given topic.",
@@ -77,6 +81,9 @@ const englishAmerican: Translation = {
             createdAt: "Created at",
             lastUpdate: "Last update",
         }
+    },
+    notFound: {
+        notFound: "Page not found!"
     }
 }
 
