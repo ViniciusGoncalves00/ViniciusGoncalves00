@@ -118,8 +118,8 @@
 } */
 
 :root {
-    --background-color-primary: #f0f0f0;
-    --background-color-primary-hover: #f0f0f0;
+    --background-color-primary: #fafafa;
+    --background-color-primary-hover: #ffffff;
     --background-color-secondary: #ffffff;
     --text-color-primary: rgba(102, 102, 102);
 
