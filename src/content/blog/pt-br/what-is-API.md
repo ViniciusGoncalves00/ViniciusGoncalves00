@@ -1,10 +1,11 @@
 ---
 title: O que é API?
 author: Vinicius Gonçalves
-createdAt: 17/01/2026
-lastUpdate: 17/01/2026
+createdAt: 17/12/2026
+lastUpdate: 18/02/2026
 tags: 
     - API
+    - Redes
 ---
 
 # API - Interface de Programação de Aplicações
@@ -13,11 +14,13 @@ Para dois interlocutores manterem uma comunicação, é necessário que haja um 
 
 # Como funciona
 
-Tal qual interlocutores em um diálogo, os atores que interagem através de uma API devem ser capazes de enviar e/ou receber as mensagens. A objetividade da ideia, ao passo em que é simples de se compreender, abrange diversas áreas da programação, de maneira que uma API pode descrever um conceito generalista de comunicação ou consumir estas ideias e possuir sua próprias especificidades.
+Tal qual interlocutores em um diálogo, os atores que interagem através de uma API devem ser capazes de enviar e/ou receber as mensagens.
+O mais comum é que, nesta relação, haja uma parte que está oferecendo algo, e outra parte que deseja fazer consumo deste algo. Normalmente, esta que oferece, estará o fazendo para diversas outras partes que estarão consumindo. Desta maneira, o que acontece — e é mais conveniente — é que esta parte que está oferecendo estabeleça como deve acontecer a comunicação.
 
 Alguns exemplos de maneiras de estruturar uma API:
 - APIs SOAP
 - APIs RPC
+- [APIs WebHook](../blog/what-is-webhook)
 - [APIs WebSocket](../blog/what-is-websocket)
 - APIs REST
 
