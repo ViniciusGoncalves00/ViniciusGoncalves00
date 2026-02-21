@@ -1,0 +1,51 @@
+---
+import { Icon } from "astro-icon/components";
+
+const {
+  id,
+  name,
+  description,
+  createdAt,
+  lastUpdate,
+  media,
+  mediaType,
+  scale = 1,
+} = Astro.props;
+
+const src = media
+  ? `${import.meta.env.BASE_URL}/images/${media}`
+  : `${import.meta.env.BASE_URL}/images/placeholder.png`;
+
+const isVideo = mediaType === "video";
+
+---
+<div id={id} class="ds-rounded ds-border ds-high w-96 max-w-96 h-192 max-h-192 flex-none flex flex-col items-center">
+    <div class="ds-rounded-t relative w-full h-full flex items-center justify-center">
+        <h1 class="absolute top-4 left-4 font-medium">{ name || "Card Title" }</h1>
+        {isVideo ? (
+            <video
+              src={src}
+              class="absolute h-full w-full object-cover object-center"
+              autoplay
+              muted
+              loop
+              playsinline
+            />
+            ) : (
+            <img
+              src={src}
+              alt={name ?? "Placeholder Image"}
+              class="absolute h-full w-full object-cover object-center"
+            />
+        )}
+    </div>
+    <div class="w-full ds-border-b"></div>
+    <div class="ds-rounded-b ds-padding w-full h-24 flex-none flex flex-col overflow-y-hidden">
+        <h1 class="">{ name || "Card Title" }</h1>
+        <p class="h-full overflow-y-hidden text-justify">{ description || "This is a description of the card. It provides additional information about the content." }</p>
+        <div class="w-full flex items-center justify-between">
+            <p>Created At: { createdAt || "01/01/1970" }</p>
+            <p>Last Update: { lastUpdate || "01/01/1970" }</p>
+        </div>
+    </div>
+</div>
