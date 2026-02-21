@@ -252,6 +252,22 @@
     border-radius: var(--border-radius);
 }
 
+.ds-rounded-t {
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.ds-rounded-r {
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.ds-rounded-b {
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+.ds-rounded-l {
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+
 .ds-rounded-full {
     border-radius: var(--border-radius-full);
 }
