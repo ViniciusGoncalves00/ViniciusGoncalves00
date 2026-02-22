@@ -7,8 +7,17 @@ export type Translation = {
         design: string;
         notFound: string;
     },
-    footer: {
-        
+    footer: {},
+    projects: {
+        open3D: {
+            description: string
+        },
+        sandbox: {
+            description: string
+        },
+        boids: {
+            description: string
+        },
     },
     blog: {
         disclaimer: string;
@@ -39,6 +48,17 @@ const brazilian: Translation = {
         notFound: '404',
     },
     footer: {},
+    projects: {
+        open3D: {
+            description: "Open-3D é um projeto de 3D engine web. O objetivo é criar um ambiente de desenvolvimento 3D completo, com suporte a gráficos avançados, física realista e ferramentas de criação de conteúdo.",
+        },
+        sandbox: {
+            description: "Um ambiente para experimentação e prototipagem de ideias.",
+        },
+        boids: {
+            description: "Boids é um algoritmo de simulação de comportamento coletivo, desenvolvido por Craig Reynolds, onde cada 'boid' segue regras simples para criar um comportamento complexo de grupo.",
+        },
+    },
     blog: {
         disclaimer: "Os textos a seguir são apenas uma exposição pública de meus estudos, reflexões e ideias. Considere-os ensaios.",
         essay: "Ensaio é um gênero literário (ou não) caracterizado pela exposição reflexiva, opinativa e subjetiva do autor sobre determinado tema.",
@@ -68,6 +88,17 @@ const englishAmerican: Translation = {
         notFound: '404',
     },
     footer: {},
+    projects: {
+        open3D: {
+            description: "Open-3D is a web 3D engine project. The goal is to create a complete 3D development environment, with support for advanced graphics, realistic physics, and content creation tools.",
+        },
+        sandbox: {
+            description: "An environment for experimentation and prototyping of ideas.",
+        },
+        boids: {
+            description: "Boids is a collective behavior simulation algorithm developed by Craig Reynolds, where each 'boid' follows simple rules to create complex group behavior.",
+        },
+    },
     blog: {
         disclaimer: "The following texts are merely a public exposition of my studies, reflections, and ideas. Consider them essays.",
         essay: "An essay is a literary (or non-literary) genre characterized by the author's reflective, opinionated, and subjective exposition on a given topic.",

@@ -22,9 +22,9 @@ const posts = (await getCollection('blog')).filter(post => post.id.startsWith(`$
 ---
 <BaseLayout pageName=`${PageName.buildName([t.header.projects])}`>
 <div slot="main" class="w-full h-full flex items-center justify-center space-x-4">
-    <VerticalCard id="open-3d" name="OPEN-3D" media="Open3D.png" mediaType="image" createdAt="05/2025" lastUpdate="11/2025" description="A 3D open-world sandbox game. " />
-    <VerticalCard id="sandbox" name="Sandbox" media="Sandbox.mp4" mediaType="video" createdAt="11/2025" lastUpdate="02/2026" description="A flexible sandbox environment." />
-    <VerticalCard id="boids" name="Boids" media="Boids.mp4" mediaType="video" createdAt="12/2024" lastUpdate="03/2025" description="A simulation of flocking behavior." />
+    <VerticalCard id="open-3D" name="OPEN-3D" media="Open3D.png" mediaType="image" createdAt="05/2025" lastUpdate="11/2025" description={t.projects.open3D.description} />
+    <VerticalCard id="sandbox" name="Sandbox" media="Sandbox.mp4" mediaType="video" createdAt="11/2025" lastUpdate="02/2026" description={t.projects.sandbox.description} />
+    <VerticalCard id="boids" name="Boids" media="Boids.mp4" mediaType="video" createdAt="12/2024" lastUpdate="03/2025" description={t.projects.boids.description} />
     <VerticalCard id="Default"/>
 
     <!-- <a target="_blank" href="https://viniciusgoncalves00.github.io/open-3D/hub.html">OPEN-3D</a>
