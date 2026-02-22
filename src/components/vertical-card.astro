@@ -19,13 +19,14 @@ const src = media
 const isVideo = mediaType === "video";
 
 ---
-<div id={id} class="ds-rounded ds-border ds-high w-96 max-w-96 h-192 max-h-192 flex-none flex flex-col items-center">
-    <div class="ds-rounded-t relative w-full h-full flex items-center justify-center">
-        <h1 class="absolute top-4 left-4 font-medium">{ name || "Card Title" }</h1>
+<div id={id} class="ds-rounded ds-high w-96 max-w-96 h-192 max-h-192 flex-none flex flex-col items-center">
+    <div class="relative w-full h-full flex items-center justify-center">
+        <h1 class="z-10 absolute top-2 left-4 font-medium">{ name || "Card Title" }</h1>
+        <p class="z-10 absolute top-2 right-4 font-medium">{ `${createdAt} - ${lastUpdate}` || "01/01/1970" }</p>
         {isVideo ? (
             <video
               src={src}
-              class="absolute h-full w-full object-cover object-center"
+              class="ds-rounded-t ds-border-superior z-0 absolute h-full w-full object-cover object-center"
               autoplay
               muted
               loop
@@ -35,17 +36,12 @@ const isVideo = mediaType === "video";
             <img
               src={src}
               alt={name ?? "Placeholder Image"}
-              class="absolute h-full w-full object-cover object-center"
+              class="ds-rounded-t ds-border-superior z-0 absolute h-full w-full object-cover object-center"
             />
         )}
     </div>
-    <div class="w-full ds-border-b"></div>
-    <div class="ds-rounded-b ds-padding w-full h-24 flex-none flex flex-col overflow-y-hidden">
+    <div class="ds-rounded-b ds-border ds-padding w-full h-24 flex-none flex flex-col overflow-y-hidden">
         <h1 class="">{ name || "Card Title" }</h1>
         <p class="h-full overflow-y-hidden text-justify">{ description || "This is a description of the card. It provides additional information about the content." }</p>
-        <div class="w-full flex items-center justify-between">
-            <p>Created At: { createdAt || "01/01/1970" }</p>
-            <p>Last Update: { lastUpdate || "01/01/1970" }</p>
-        </div>
     </div>
 </div>

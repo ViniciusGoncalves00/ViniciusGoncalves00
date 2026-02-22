@@ -237,7 +237,27 @@
 }
 
 .ds-border-l {
-    border-width: 0 0 0 0 var(--border-width);
+    border-width: 0 0 0 var(--border-width);
+    border-color: var(--border-color);
+}
+
+.ds-border-x {
+    border-width: 0 var(--border-width) 0 var(--border-width);
+    border-color: var(--border-color);
+}
+
+.ds-border-y {
+    border-width: var(--border-width) 0 var(--border-width) 0;
+    border-color: var(--border-color);
+}
+
+.ds-border-superior {
+    border-width: var(--border-width) var(--border-width) 0 var(--border-width);
+    border-color: var(--border-color);
+}
+
+.ds-border-inferior {
+    border-width: 0 var(--border-width) var(--border-width) var(--border-width);
     border-color: var(--border-color);
 }
 
