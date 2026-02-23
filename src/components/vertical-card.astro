@@ -1,6 +1,4 @@
 ---
-import { Icon } from "astro-icon/components";
-
 const {
   id,
   name,
@@ -9,7 +7,7 @@ const {
   lastUpdate,
   media,
   mediaType,
-  scale = 1,
+  href,
 } = Astro.props;
 
 const src = media
@@ -20,15 +18,15 @@ const isVideo = mediaType === "video";
 const date = createdAt && lastUpdate ? `${createdAt} - ${lastUpdate}` : "01/1970 - 01/1970";
 
 ---
-<div id={id} class="ds-rounded ds-high w-96 max-w-96 h-180 max-h-180 flex-none flex flex-col items-center group">
+<a href={href} target="_blank" id={id} class="ds-rounded ds-high w-96 max-w-96 h-180 max-h-180 flex-none flex flex-col items-center grayscale-100 blur-[1px] hover:grayscale-0 hover:blur-[0px]">
     <div class="relative w-full h-full flex items-center justify-center">
         <h1 class="z-10 absolute top-2 left-4 font-medium">{ name || "Card Title" }</h1>
         <p class="z-10 absolute top-2 right-4 font-medium">{ date }</p>
-        <div class="ds-rounded-t ds-border-superior h-full w-full overflow-hidden absolute z-0 ">
+        <div class="ds-rounded-t ds-border-superior h-full w-full overflow-hidden absolute z-0">
             {isVideo ? (
                 <video
                   src={src}
-                  class="h-full w-full object-cover object-center grayscale-100 blur-[1px] dark:invert group-hover:grayscale-0 group-hover:blur-[0px]"
+                  class="h-full w-full object-cover object-center dark:invert"
                   autoplay
                   muted
                   loop
@@ -38,7 +36,7 @@ const date = createdAt && lastUpdate ? `${createdAt} - ${lastUpdate}` : "01/1970
                 <img
                   src={src}
                   alt={name ?? "Placeholder Image"}
-                  class="h-full w-full object-cover object-center grayscale-100 blur-[1px] dark:invert group-hover:grayscale-0 group-hover:blur-[0px]"
+                  class="h-full w-full object-cover object-center dark:invert"
                 />
             )}
         </div>
@@ -46,4 +44,4 @@ const date = createdAt && lastUpdate ? `${createdAt} - ${lastUpdate}` : "01/1970
     <div class="ds-rounded-b ds-border ds-padding w-full h-32 flex-none flex flex-col overflow-y-hidden">
         { description || "This is a description of the card. It provides additional information about the content." }
     </div>
-</div>
+</a>
