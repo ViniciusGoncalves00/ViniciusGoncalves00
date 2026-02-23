@@ -20,7 +20,7 @@ const isVideo = mediaType === "video";
 const date = createdAt && lastUpdate ? `${createdAt} - ${lastUpdate}` : "01/1970 - 01/1970";
 
 ---
-<div id={id} class="ds-rounded ds-high w-96 max-w-96 h-192 max-h-192 flex-none flex flex-col items-center group">
+<div id={id} class="ds-rounded ds-high w-96 max-w-96 h-180 max-h-180 flex-none flex flex-col items-center group">
     <div class="relative w-full h-full flex items-center justify-center">
         <h1 class="z-10 absolute top-2 left-4 font-medium">{ name || "Card Title" }</h1>
         <p class="z-10 absolute top-2 right-4 font-medium">{ date }</p>
