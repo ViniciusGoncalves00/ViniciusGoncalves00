@@ -1,4 +1,6 @@
 ---
+import { AudioAPI } from "../common/audio/audio-API";
+
 const {
   id,
   name,
@@ -10,6 +12,9 @@ const {
   href,
 } = Astro.props;
 
+const enter = AudioAPI.HOVER_ENTER_01;
+const leave = AudioAPI.HOVER_LEAVE_01;
+
 const src = media
   ? `${import.meta.env.BASE_URL}/images/${media}`
   : `${import.meta.env.BASE_URL}/images/placeholder.png`;
@@ -18,7 +23,15 @@ const isVideo = mediaType === "video";
 const date = createdAt && lastUpdate ? `${createdAt} - ${lastUpdate}` : "01/1970 - 01/1970";
 
 ---
-<a href={href} target="_blank" id={id} class="ds-rounded ds-high w-96 max-w-96 h-180 max-h-180 flex-none flex flex-col items-center grayscale-100 blur-[1px] hover:grayscale-0 hover:blur-[0px]">
+<a href={href}
+    target="_blank" id={id}
+    x-data={`{
+        enter: '${enter}',
+        leave: '${leave}',
+    }`}
+    @mouseenter="$dispatch('audio:play', { audio: enter })"
+    @mouseleave="$dispatch('audio:play', { audio: leave })"
+    class="ds-rounded ds-high w-96 max-w-96 h-180 max-h-180 flex-none flex flex-col items-center grayscale-100 blur-[1px] hover:grayscale-0 hover:blur-[0px]">
     <div class="relative w-full h-full flex items-center justify-center">
         <h1 class="z-10 absolute top-2 left-4 font-medium">{ name || "Card Title" }</h1>
         <p class="z-10 absolute top-2 right-4 font-medium">{ date }</p>
