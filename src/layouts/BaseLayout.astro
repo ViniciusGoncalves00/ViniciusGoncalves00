@@ -20,6 +20,13 @@ const locale = URLHelper.getLocaleFromURL(Astro.url);
 		<link rel="icon" id="favicon" href=`${URLHelper.buildPublicPath(["favicon.png"])}` />
 		<title>{pageName}</title>
 	</head>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-16RVW2WZP2');
+    </script>
 	<body class="ds-base w-full h-screen max-h-screen flex-none flex flex-col items-center justify-between">
         <Header />
         <slot name="background"/>
